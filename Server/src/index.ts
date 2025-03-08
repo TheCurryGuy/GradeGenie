@@ -1,9 +1,9 @@
 import express from "express"; 
 import jwt from "jsonwebtoken";
-import { UserModel, LinkModel } from "./Schema/db";
+import { UserModel, AssignmentModel, SubmissionModel } from "./Schema/db";
 import { JWT_PASSWORD } from "./Config/config";
 import { userMiddleware } from "./Middleware/middleware";
-// import { randomHash } from "./utils";
+import { randomHash, filterNullValues } from "./Utils/utils";
 import cors from "cors";
 import bcrypt from "bcrypt"
 
@@ -89,6 +89,94 @@ app.post("/api/v1/signin", async (req,res) => {
         })
     }  
 })
+
+app.post("/api/v1/generate", userMiddleware, async (req, res) => {
+    const name = req.body.Name;
+    const grade = req.body.Class;
+    const section = req.body.Section;
+    const rollno = req.body.RollNo;
+    const dept = req.body.Department;
+    const email = req.body.Email;
+    const phonenumber = req.body.PhoneNumber;
+    const hashed = randomHash(8, req.userId); 
+    const questions = req.body.Questions;
+    try{
+        await AssignmentModel.create({
+            Name: name,
+            Class: grade,
+            Section: section,
+            RollNo: rollno,
+            Department: dept,
+            Email: email,
+            PhoneNumber: phonenumber,
+            hash: hashed,
+            Questions: questions,
+            userId: req.userId
+        });
+        res.json({hash:hashed});
+    } catch(e){
+        res.json({
+            message: "Error"
+        })
+    }
+});
+
+app.get("/api/v1/generate/:shareId", async (req,res) => {
+    const hash = req.params.shareId;
+    const data = await AssignmentModel.findOne({
+        hash
+    })
+    if(!data) {
+        res.status(411).json({
+            message: "It Seems like the Submission Deadline Passed away 🫤"
+        })
+    } else{
+        const user = await UserModel.findOne({
+            _id: data.userId
+        })
+        if(!user){
+            res.status(404).json({
+                message: "User Not Found"
+            }) 
+            return;
+        } 
+        res.status(200).json({
+            username: user.firstName,//as user can be null although thats imposible
+            data: data
+        })
+    }
+})
+
+
+app.post("/api/v1/generate/:shareId", async (req, res)=> {
+    const hash = req.params.shareId;
+    const data = req.body;
+    const filteredData = filterNullValues(data);
+    if(!filteredData){
+        res.status(404).json({
+            message: "Data Not Found"
+        })
+    } else{
+        const verify = await AssignmentModel.findOne({
+            hash
+        })
+        if(!verify){
+            res.json({
+                message: "unexpected error occured"
+            })
+        } 
+        try{
+            await SubmissionModel.create(filteredData);
+            res.json({message: "Submitted Successfully"});
+        } catch(e){
+            res.json({
+                message: "Error"
+            })
+        }
+    }
+})
+
+
 
 app.listen(3000, ()=> {
     console.log("Server running on port 3000");
