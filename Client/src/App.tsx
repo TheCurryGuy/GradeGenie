@@ -4,6 +4,7 @@ import ErrorRoute from './Pages/ErrorRoute'
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Login from './Pages/Login'
 import Signup from './Pages/Signup'
+import Dashboard from './Pages/Dashboard'
 
 function App() {
  return <StateProvider>
@@ -14,6 +15,7 @@ function App() {
             <Route path='/signup' element = {<Signup/>}/>
             <Route path='/home' element = {<Dashboard/>}/>
             <Route path='/share/:shareId' element = {<SharedBrain/>}/>*/}
+            <Route path='/home' element = {<Dashboard/>}/>
             <Route path='/signin' element = {<Login/>}/>
             <Route path='/signup' element = {<Signup/>}/>
             <Route path='*' element = {<ErrorRoute/>}/> 
