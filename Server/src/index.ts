@@ -27,7 +27,7 @@ declare global{
 app.get("/", (req, res) => {
 
     res.json({
-        message: "Brainity Server is alive!"
+        message: "GradeGenie Server is alive!"
     })
 })
 
