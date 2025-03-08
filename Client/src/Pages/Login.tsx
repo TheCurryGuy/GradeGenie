@@ -22,6 +22,7 @@ const Login: React.FC = () => {
         password
       });
 
+
       localStorage.setItem("token", response.data.token);
       alert("Signed In");
       navigate("/home");
