@@ -5,16 +5,15 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Login from './Pages/Login'
 import Signup from './Pages/Signup'
 import Dashboard from './Pages/Dashboard'
-
+import LandingPage from './Pages/LandingPage'
 function App() {
  return <StateProvider>
     <BrowserRouter>
         <Routes>
-            {/* <Route path='/' element = {<Landing/>}/>
-            />
-            <Route path='/signup' element = {<Signup/>}/>
+            {/*<Route path='/signup' element = {<Signup/>}/>
             <Route path='/home' element = {<Dashboard/>}/>
             <Route path='/share/:shareId' element = {<SharedBrain/>}/>*/}
+            <Route path='/' element = {<LandingPage/>}/>
             <Route path='/home' element = {<Dashboard/>}/>
             <Route path='/signin' element = {<Login/>}/>
             <Route path='/signup' element = {<Signup/>}/>
