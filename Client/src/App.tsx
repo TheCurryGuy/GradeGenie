@@ -1,6 +1,6 @@
 import './App.css'
 import { StateProvider } from './Context API/StateContext'
-import ErrorRoute from './Components/Pages/ErrorRoute'
+import ErrorRoute from './Pages/ErrorRoute'
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 
