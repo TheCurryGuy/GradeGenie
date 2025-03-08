@@ -10,12 +10,40 @@ const UserSchema = new Schema({
     password: String
 })
 
+const AssignmentSchema = new Schema({
+   Name: Boolean,
+   Class: Boolean,
+   Section: Boolean,
+   RollNo: Boolean,
+   Department: Boolean,
+   Email: Boolean,
+   PhoneNumber: Boolean,
+   hash: String,
+   Questions: String,
+   userId: {type: mongoose.Types.ObjectId, ref: "User", required: true, unique: true}
+})
+
+const SubmissionSchema = new Schema({
+   Name: String,
+   Class: String,
+   Section: String,
+   RollNo: String,
+   Department: String,
+   Email: String,
+   PhoneNumber: Number,
+   hash: String,
+   Questions: String,
+   userId: {type: mongoose.Types.ObjectId, ref: "User", required: true, unique: true}
+})
+
+
 const linkSchema = new Schema({
     hash: String,
     userId: {type: mongoose.Types.ObjectId, ref: "User", required: true, unique: true}
-
 })
 
 export const UserModel = model("User", UserSchema );
 export const LinkModel = model("Link", linkSchema);
+export const AssignmentModel = model("Assignment", AssignmentSchema); 
+export const SubmissionModel = model("Submissions", SubmissionSchema)
   
