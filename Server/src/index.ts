@@ -1,11 +1,11 @@
 import express from "express"; 
 import jwt from "jsonwebtoken";
-import { UserModel, LinkModel, AssignmentModel, SubmissionModel } from "./Schema/db";
+import { UserModel, AssignmentModel, SubmissionModel } from "./Schema/db";
 import { JWT_PASSWORD } from "./Config/config";
 import { userMiddleware } from "./Middleware/middleware";
 import { randomHash, filterNullValues } from "./Utils/utils";
 import cors from "cors";
-import bcrypt, { hash } from "bcrypt"
+import bcrypt from "bcrypt"
 
 
 const app = express();
