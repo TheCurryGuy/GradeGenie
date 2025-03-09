@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StaggeredReveal } from "../utils/utils";
+import { SlideIn, StaggeredReveal } from "../utils/utils";
 
 const LandingPage: React.FC = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -7,7 +7,7 @@ const LandingPage: React.FC = () => {
     return (
         <div className="bg-white">
             {/* Navigation Bar */}
-            <div className='bg-blue-600'>
+            <div className='bg-gradient-to-r from-blue-700 to-purple-700 hover:from-purple-700 hover:to-blue-700 transition-colors delay-50 duration-1200'>
                 <StaggeredReveal>
                     <nav>
                         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -72,7 +72,7 @@ const LandingPage: React.FC = () => {
                 
                     <section className=" py-16 md:py-24">
                         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 md:mb-8">
+                            <h1 className="text-4xl md:text-6xl font-mono font-bold text-white mb-6 md:mb-8">
                                 The AI-Powered Grading Assistant
                             </h1>
                             <p className="text-lg md:text-xl text-white mb-8 md:mb-10 max-w-3xl mx-auto">
@@ -86,6 +86,7 @@ const LandingPage: React.FC = () => {
                 </StaggeredReveal>
             </div>
             {/* Features Section */}
+            <SlideIn direction='bottom'>
             <section className="py-16 text-center md:py-24">
                 <div className="container items-center mx-auto px-4 sm:px-6 lg:px-8">
                     <h2 className="text-3xl md:text-5xl font-bold text-center text-gray-800 mb-12 md:mb-16">
@@ -133,8 +134,10 @@ const LandingPage: React.FC = () => {
                     </div>
                 </div>
             </section>
+            </SlideIn>
 
             {/* How It Works Section */}
+            <SlideIn direction='left'>
             <section className="py-16 md:py-24 bg-gray-50">
                 <div className="container mx-auto px-20 sm:px-6 lg:px-8">
                     <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12 md:mb-16">
@@ -180,8 +183,9 @@ const LandingPage: React.FC = () => {
                     </div>
                 </div>
             </section>
-
+            </SlideIn>
             {/* CTA Section */}
+            <SlideIn direction='right'>
             <section className="bg-blue-600 py-12 md:py-16">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 md:mb-8">
@@ -192,6 +196,7 @@ const LandingPage: React.FC = () => {
                     </button>
                 </div>
             </section>
+            </SlideIn>
         </div>
     );
 };

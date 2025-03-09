@@ -23,7 +23,7 @@ const AssignmentSchema = new Schema({
    Title: String,
    Description: String,
    Deadline: String,
-   userId: {type: mongoose.Types.ObjectId, ref: "User", required: true, unique: true}
+   userId: {type: mongoose.Types.ObjectId, ref: "User", required: true}
 })
 
 const SubmissionSchema = new Schema({
@@ -36,13 +36,13 @@ const SubmissionSchema = new Schema({
    PhoneNumber: Number,
    hash: String,
    Questions: String,
-   userId: {type: mongoose.Types.ObjectId, ref: "User", required: true, unique: true}
+   userId: {type: mongoose.Types.ObjectId, ref: "User", required: true}
 })
 
 
 const linkSchema = new Schema({
     hash: String,
-    userId: {type: mongoose.Types.ObjectId, ref: "User", required: true, unique: true}
+    userId: {type: mongoose.Types.ObjectId, ref: "User", required: true}
 })
 
 export const UserModel = model("User", UserSchema );

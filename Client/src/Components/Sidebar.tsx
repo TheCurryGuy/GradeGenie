@@ -23,18 +23,21 @@ export const Sidebar = () => {
         setHome(true);
         setAssignments(false);
         setSubmissions(false);
+        setIsSidebarOpen(!isSidebarOpen);
     };
 
     const handleAssignmentClick = () => {
         setHome(false);
         setAssignments(true);
         setSubmissions(false);
+        setIsSidebarOpen(!isSidebarOpen);
     };
 
     const handleSubmissionsClick = () => {
         setHome(false);
         setAssignments(false);
         setSubmissions(true);
+        setIsSidebarOpen(!isSidebarOpen);
     };
 
     const handleLogoutClick = () => {
@@ -46,7 +49,7 @@ export const Sidebar = () => {
         <>
             {/* Hamburger menu for mobile */}
             {!isSidebarOpen && (
-                <div className="md:hidden fixed top-4 left-4 z-50">
+                <div className="md:hidden fixed top-4 left-4 z-40">
                     <button onClick={toggleSidebar} className="p-2 bg-gray-100 hover:bg-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                         <RxHamburgerMenu className="w-6 h-6" />
                     </button>
@@ -55,7 +58,7 @@ export const Sidebar = () => {
 
             {/* Sidebar */}
             <div
-                className={`bg-white border-r h-screen w-64 fixed md:relative transform transition-transform duration-300 ease-in-out z-40 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+                className={`bg-white border-r h-screen min-w-80 fixed md:relative transform transition-transform duration-300 ease-in-out z-40 md:z-0 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"
                     } md:translate-x-0`}
             >
                 {/* Sidebar Content */}
@@ -64,7 +67,7 @@ export const Sidebar = () => {
                     <div className="p-4 flex justify-between items-center">
                         <div
                             onClick={() => navigate("/")}
-                            className="text-2xl ml-4 font-semibold flex items-center space-x-2 cursor-pointer text-blue-600"
+                            className="text-3xl ml-2 font-semibold flex items-center space-x-2 cursor-pointer text-blue-600"
                         >
                             GradeGenie
                         </div>

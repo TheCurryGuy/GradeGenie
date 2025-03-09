@@ -14,7 +14,7 @@ function App() {
             {/*<Route path='/signup' element = {<Signup/>}/>
             <Route path='/home' element = {<Dashboard/>}/>
             <Route path='/share/:shareId' element = {<SharedBrain/>}/>*/}
-            <Route path='/' element = {<Home/>}/>
+            <Route path='/' element = {<LandingPage/>}/>
             <Route path='/home' element = {<Home/>}/>
             <Route path='/signin' element = {<Login/>}/>
             <Route path='/signup' element = {<Signup/>}/>
