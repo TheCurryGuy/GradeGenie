@@ -6,6 +6,7 @@ import Login from './Pages/Login'
 import Signup from './Pages/Signup'
 import Home from './Pages/Home'
 import LandingPage from './Pages/LandingPage'
+
 function App() {
  return <StateProvider>
     <BrowserRouter>
@@ -13,7 +14,7 @@ function App() {
             {/*<Route path='/signup' element = {<Signup/>}/>
             <Route path='/home' element = {<Dashboard/>}/>
             <Route path='/share/:shareId' element = {<SharedBrain/>}/>*/}
-            <Route path='/' element = {<LandingPage/>}/>
+            <Route path='/' element = {<Home/>}/>
             <Route path='/home' element = {<Home/>}/>
             <Route path='/signin' element = {<Login/>}/>
             <Route path='/signup' element = {<Signup/>}/>
