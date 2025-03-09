@@ -23,7 +23,6 @@ export const Sidebar = () => {
         setHome(true);
         setAssignments(false);
         setSubmissions(false);
-        toggleSidebar();
     };
 
     const handleAssignmentClick = () => {
@@ -62,13 +61,18 @@ export const Sidebar = () => {
                 {/* Sidebar Content */}
                 <div className="flex flex-col h-full"> {/* Make the flex container take full height */}
                     {/* Top Section (Logo + Menu Toggle) */}
-                    <div className="p-4 flex items-center">
+                    <div className="p-4 flex justify-between items-center">
                         <div
                             onClick={() => navigate("/")}
                             className="text-2xl ml-4 font-semibold flex items-center space-x-2 cursor-pointer text-blue-600"
                         >
                             GradeGenie
                         </div>
+                        {isSidebarOpen && <div className = "md:hidden block">
+                            <button onClick={toggleSidebar} className="p-2 bg-gray-100 hover:bg-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <RxHamburgerMenu className="w-6 h-6" />
+                            </button>
+                        </div>}
                     </div>
                     <div className="flex flex-col flex-grow justify-between"> {/* Use flex-grow to take remaining space */}
                         <nav className="p-4">
