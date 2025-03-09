@@ -1,18 +1,23 @@
 import './App.css'
 import { StateProvider } from './Context API/StateContext'
-import ErrorRoute from './Components/Pages/ErrorRoute'
+import ErrorRoute from './Pages/ErrorRoute'
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-
+import Login from './Pages/Login'
+import Signup from './Pages/Signup'
+import Home from './Pages/Home'
+import LandingPage from './Pages/LandingPage'
 
 function App() {
  return <StateProvider>
     <BrowserRouter>
         <Routes>
-            {/* <Route path='/' element = {<Landing/>}/>
-            <Route path='/signin' element = {<Signin/>}/>
-            <Route path='/signup' element = {<Signup/>}/>
+            {/*<Route path='/signup' element = {<Signup/>}/>
             <Route path='/home' element = {<Dashboard/>}/>
             <Route path='/share/:shareId' element = {<SharedBrain/>}/>*/}
+            <Route path='/' element = {<Home/>}/>
+            <Route path='/home' element = {<Home/>}/>
+            <Route path='/signin' element = {<Login/>}/>
+            <Route path='/signup' element = {<Signup/>}/>
             <Route path='*' element = {<ErrorRoute/>}/> 
         </Routes>
     </BrowserRouter>
