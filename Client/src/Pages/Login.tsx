@@ -37,7 +37,7 @@ const Login: React.FC = () => {
         password: password
       });
 
-      localStorage.setItem("token", response.data.token);
+      localStorage.setItem('token', response.data.token);
       setLoading(false);
       setSuccessMessage("Logged in successfully!"); // Set success message
       setTimeout(() => {

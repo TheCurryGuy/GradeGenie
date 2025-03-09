@@ -3,18 +3,17 @@ import jwt from "jsonwebtoken";
 import { UserModel, AssignmentModel, SubmissionModel } from "./Schema/db";
 import { JWT_PASSWORD } from "./Config/config";
 import { userMiddleware } from "./Middleware/middleware";
-import { randomHash, filterNullValues } from "./Utils/utils";
+import { randomHash, filterNullValues, filterObjectProperties, InnerObjectType } from "./Utils/utils";
 import cors from "cors";
 import bcrypt from "bcrypt"
-
-
 const app = express();
+app.use(express.json()); 
 app.use(cors({
     origin: 'http://localhost:5173'
 }));
 
 app.options('*', cors());
-app.use(express.json());
+
 
 declare global{
     namespace Express{
@@ -91,6 +90,7 @@ app.post("/api/v1/signin", async (req,res) => {
 })
 
 app.post("/api/v1/generate", userMiddleware, async (req, res) => {
+    console.log(req.body)
     const name = req.body.Name;
     const grade = req.body.Class;
     const section = req.body.Section;
@@ -98,12 +98,17 @@ app.post("/api/v1/generate", userMiddleware, async (req, res) => {
     const dept = req.body.Department;
     const email = req.body.Email;
     const phonenumber = req.body.PhoneNumber;
-    const hashed = randomHash(8, req.userId); 
+    const hashed = randomHash(8, req.userId);
     const questions = req.body.Questions;
     const title = req.body.Title;
     const description = req.body.Description;
     const deadline = req.body.Deadline;
-    try{
+
+    // Log the received request body to inspect the data
+    console.log("Request Body received at /api/v1/generate:", req.body);
+    console.log("User ID from middleware:", req.userId); // Log userId to verify middleware
+
+    try {
         await AssignmentModel.create({
             Name: name,
             Class: grade,
@@ -119,11 +124,17 @@ app.post("/api/v1/generate", userMiddleware, async (req, res) => {
             Description: description,
             Deadline: deadline
         });
-        res.json({hash:hashed});
-    } catch(e){
-        res.json({
-            message: "Error"
-        })
+        res.json({ hash: hashed });
+    } catch (e: any) { // Type 'e' as 'any' to access error properties
+        console.error("Error in /api/v1/generate:", e); // Log the full error object to server console
+
+        // Send a more informative error response to the frontend
+        res.status(500).json({ // Use 500 status code for server errors
+            message: "Failed to generate assignment.",
+            error: e.message, // Include the error message for debugging
+            // Optionally, you can include more error details like e.stack if needed for development,
+            // but avoid sending stack traces in production for security reasons.
+        });
     }
 });
 
@@ -182,6 +193,22 @@ app.post("/api/v1/generate/:shareId", async (req, res)=> {
     }
 })
 
+app.get("/api/v1/get/latest/all",userMiddleware, async(req, res)=> {
+    const userId = req.userId;
+    const data:InnerObjectType[] = await AssignmentModel.find({
+        userId
+    })
+    if(!data){
+        res.status(404).json({
+        message: "Data Not Found"
+        })
+    }
+    const filteredData = filterObjectProperties(data);
+
+    res.json({
+        data: filteredData
+    })
+})
 
 
 app.listen(3000, ()=> {

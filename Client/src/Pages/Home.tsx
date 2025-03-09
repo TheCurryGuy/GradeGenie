@@ -49,12 +49,12 @@ const Home: React.FC = () => {
 
     useEffect(() => {
         if (!token) {
-            navigate('/login'); // Redirect without alert
+            navigate('/'); // Redirect without alert
         }
     }, [token, navigate]);
 
     return (
-        <div className="flex h-full">
+        <div className="flex w-full h-full">
             <Sidebar/>
             <div className='w-full h-screen'>
             <ErrorBoundary>
