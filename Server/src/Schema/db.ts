@@ -20,6 +20,9 @@ const AssignmentSchema = new Schema({
    PhoneNumber: Boolean,
    hash: String,
    Questions: String,
+   Title: String,
+   Description: String,
+   Deadline: String,
    userId: {type: mongoose.Types.ObjectId, ref: "User", required: true, unique: true}
 })
 

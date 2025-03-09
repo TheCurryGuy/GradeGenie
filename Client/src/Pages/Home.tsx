@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+// import GeneratorModal from '../Components/GeneratorModal';
 
-export default function Dashboard(){
+export default function Home(){
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
 
@@ -12,6 +13,6 @@ export default function Dashboard(){
         }
     }, [token, navigate]);
     return <div>
-        Hii Guyzzzzzz
+        Hi there
     </div>
 }

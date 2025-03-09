@@ -100,6 +100,9 @@ app.post("/api/v1/generate", userMiddleware, async (req, res) => {
     const phonenumber = req.body.PhoneNumber;
     const hashed = randomHash(8, req.userId); 
     const questions = req.body.Questions;
+    const title = req.body.Title;
+    const description = req.body.Description;
+    const deadline = req.body.Deadline;
     try{
         await AssignmentModel.create({
             Name: name,
@@ -111,7 +114,10 @@ app.post("/api/v1/generate", userMiddleware, async (req, res) => {
             PhoneNumber: phonenumber,
             hash: hashed,
             Questions: questions,
-            userId: req.userId
+            userId: req.userId,
+            Title: title,
+            Description: description,
+            Deadline: deadline
         });
         res.json({hash:hashed});
     } catch(e){
