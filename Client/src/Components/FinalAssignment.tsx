@@ -1,7 +1,10 @@
+import CreateAssignment from "./CreateAssignment";
+
 const FinalAssignment = () => {
     return (
-        <div >
-            <h1>Assignment</h1>
+        <div className="p-12" >
+            <h1 className="text-4xl mb-5 font-bold font-mono">Assignment</h1>
+            <CreateAssignment/>
         </div>
     );
 }
