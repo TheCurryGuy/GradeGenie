@@ -5,6 +5,8 @@ import { motion } from "framer-motion"
 import { SlideIn, StaggeredReveal } from "../utils/utils"
 import { FaTwitter, FaLinkedin, FaFacebook } from "react-icons/fa"
 import { IoStatsChart, IoSchool, IoSpeedometer } from "react-icons/io5"
+import { MdOutlineMessage, MdOutlinePeopleAlt } from "react-icons/md"
+import { BsLightningCharge } from "react-icons/bs"
 
 const LandingPage: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -341,67 +343,230 @@ const LandingPage: React.FC = () => {
             </div>
           </SlideIn>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-12 relative">
-            {/* Connection Lines (Desktop Only) */}
-            <div className="hidden sm:block absolute top-1/4 left-1/3 w-1/3 h-0.5 bg-blue-200"></div>
-            <div className="hidden sm:block absolute top-1/4 right-1/3 w-1/3 h-0.5 bg-blue-200"></div>
+          <div className="max-w-6xl mx-auto relative">
+            {/* Horizontal Line */}
+            <div className="hidden md:block absolute top-32 left-0 w-full h-2 bg-gradient-to-r from-blue-200 via-purple-200 to-blue-200 rounded-full"></div>
 
-            {/* Step 1 */}
-            <SlideIn direction="left">
-              <div className="text-center relative">
-                <motion.div
-                  className="flex justify-center mb-6"
-                  whileHover={{ scale: 1.1 }}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16">
+              {/* Step 1 */}
+              <SlideIn direction="left">
+                <motion.div 
+                  className="relative h-[400px]"
+                  whileHover={{ translateY: -8 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <div className="bg-blue-600 text-white rounded-full w-16 h-16 flex items-center justify-center shadow-md text-xl font-bold">
-                    1
-                  </div>
+                  <motion.div 
+                    className="bg-white rounded-xl shadow-xl overflow-hidden border border-gray-200 h-full"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                  >
+                    {/* macOS window header */}
+                    <div className="bg-[#f6f6f6] px-4 py-3 flex items-center border-b border-gray-200">
+                      <div className="flex space-x-2">
+                        <motion.div 
+                          className="w-3 h-3 rounded-full bg-red-500 cursor-pointer"
+                          whileHover={{ scale: 1.2 }}
+                        ></motion.div>
+                        <motion.div 
+                          className="w-3 h-3 rounded-full bg-yellow-500 cursor-pointer"
+                          whileHover={{ scale: 1.2 }}
+                        ></motion.div>
+                        <motion.div 
+                          className="w-3 h-3 rounded-full bg-green-500 cursor-pointer"
+                          whileHover={{ scale: 1.2 }}
+                        ></motion.div>
+                      </div>
+                      <div className="flex-1 text-center">
+                        <span className="text-gray-600 text-sm font-mono">step_one.js</span>
+                      </div>
+                    </div>
+                    {/* Content */}
+                    <div className="p-8 flex flex-col items-center">
+                      <motion.div
+                        className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center z-10 relative mx-auto mb-8 shadow-lg"
+                        whileHover={{ scale: 1.1, rotate: 5 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <MdOutlineMessage className="w-8 h-8 text-white" />
+                      </motion.div>
+                      <motion.h3 
+                        className="text-lg font-mono text-blue-600 mb-6"
+                        whileHover={{ scale: 1.05 }}
+                      >
+                        STEP_ONE
+                      </motion.h3>
+                      <div className="space-y-3 font-mono text-sm">
+                        <motion.p 
+                          className="text-emerald-600 cursor-pointer"
+                          whileHover={{ x: 10, color: "#059669" }}
+                        >
+                          $a = "Get expert guidance"
+                        </motion.p>
+                        <motion.p 
+                          className="text-emerald-600 cursor-pointer"
+                          whileHover={{ x: 10, color: "#059669" }}
+                        >
+                          $b = "Customer development"
+                        </motion.p>
+                        <motion.p 
+                          className="text-emerald-600 cursor-pointer"
+                          whileHover={{ x: 10, color: "#059669" }}
+                        >
+                          $c = "Message and positioning"
+                        </motion.p>
+                      </div>
+                    </div>
+                  </motion.div>
                 </motion.div>
-                <h3 className="text-xl md:text-2xl font-semibold text-gray-800 mb-3">Create Assignment</h3>
-                <p className="text-gray-600 px-2 sm:px-4">
-                  Build customized assignments with multimedia content and automatic deadlines
-                </p>
-              </div>
-            </SlideIn>
+              </SlideIn>
 
-            {/* Step 2 */}
-            <SlideIn direction="bottom">
-              <div className="text-center relative">
-                <motion.div
-                  className="flex justify-center mb-6"
-                  whileHover={{ scale: 1.1 }}
+              {/* Step 2 */}
+              <SlideIn direction="bottom">
+                <motion.div 
+                  className="relative h-[400px]"
+                  whileHover={{ translateY: -8 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <div className="bg-blue-600 text-white rounded-full w-16 h-16 flex items-center justify-center shadow-md text-xl font-bold">
-                    2
-                  </div>
+                  <motion.div 
+                    className="bg-white rounded-xl shadow-xl overflow-hidden border border-gray-200 h-full"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5, delay: 0.4 }}
+                  >
+                    {/* macOS window header */}
+                    <div className="bg-[#f6f6f6] px-4 py-3 flex items-center border-b border-gray-200">
+                      <div className="flex space-x-2">
+                        <motion.div 
+                          className="w-3 h-3 rounded-full bg-red-500 cursor-pointer"
+                          whileHover={{ scale: 1.2 }}
+                        ></motion.div>
+                        <motion.div 
+                          className="w-3 h-3 rounded-full bg-yellow-500 cursor-pointer"
+                          whileHover={{ scale: 1.2 }}
+                        ></motion.div>
+                        <motion.div 
+                          className="w-3 h-3 rounded-full bg-green-500 cursor-pointer"
+                          whileHover={{ scale: 1.2 }}
+                        ></motion.div>
+                      </div>
+                      <div className="flex-1 text-center">
+                        <span className="text-gray-600 text-sm font-mono">step_two.js</span>
+                      </div>
+                    </div>
+                    {/* Content */}
+                    <div className="p-8 flex flex-col items-center">
+                      <motion.div
+                        className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center z-10 relative mx-auto mb-8 shadow-lg"
+                        whileHover={{ scale: 1.1, rotate: -5 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <MdOutlinePeopleAlt className="w-8 h-8 text-white" />
+                      </motion.div>
+                      <motion.h3 
+                        className="text-lg font-mono text-blue-600 mb-6"
+                        whileHover={{ scale: 1.05 }}
+                      >
+                        STEP_TWO
+                      </motion.h3>
+                      <div className="space-y-3 font-mono text-sm">
+                        <motion.p 
+                          className="text-emerald-600 cursor-pointer"
+                          whileHover={{ x: 10, color: "#059669" }}
+                        >
+                          $a = "Create launch plan & content"
+                        </motion.p>
+                        <motion.p 
+                          className="text-emerald-600 cursor-pointer"
+                          whileHover={{ x: 10, color: "#059669" }}
+                        >
+                          $b = "Prep marketing team"
+                        </motion.p>
+                        <motion.p 
+                          className="text-emerald-600 cursor-pointer"
+                          whileHover={{ x: 10, color: "#059669" }}
+                        >
+                          $c = "Find promoters/affiliates"
+                        </motion.p>
+                      </div>
+                    </div>
+                  </motion.div>
                 </motion.div>
-                <h3 className="text-xl md:text-2xl font-semibold text-gray-800 mb-3">Share Link</h3>
-                <p className="text-gray-600 px-2 sm:px-4">
-                  Distribute unique submission links through your LMS or email
-                </p>
-              </div>
-            </SlideIn>
+              </SlideIn>
 
-            {/* Step 3 */}
-            <SlideIn direction="right">
-              <div className="text-center relative">
-                <motion.div
-                  className="flex justify-center mb-6"
-                  whileHover={{ scale: 1.1 }}
+              {/* Step 3 */}
+              <SlideIn direction="right">
+                <motion.div 
+                  className="relative h-[400px]"
+                  whileHover={{ translateY: -8 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <div className="bg-blue-600 text-white rounded-full w-16 h-16 flex items-center justify-center shadow-md text-xl font-bold">
-                    3
-                  </div>
+                  <motion.div 
+                    className="bg-white rounded-xl shadow-xl overflow-hidden border border-gray-200 h-full"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5, delay: 0.6 }}
+                  >
+                    {/* macOS window header */}
+                    <div className="bg-[#f6f6f6] px-4 py-3 flex items-center border-b border-gray-200">
+                      <div className="flex space-x-2">
+                        <motion.div 
+                          className="w-3 h-3 rounded-full bg-red-500 cursor-pointer"
+                          whileHover={{ scale: 1.2 }}
+                        ></motion.div>
+                        <motion.div 
+                          className="w-3 h-3 rounded-full bg-yellow-500 cursor-pointer"
+                          whileHover={{ scale: 1.2 }}
+                        ></motion.div>
+                        <motion.div 
+                          className="w-3 h-3 rounded-full bg-green-500 cursor-pointer"
+                          whileHover={{ scale: 1.2 }}
+                        ></motion.div>
+                      </div>
+                      <div className="flex-1 text-center">
+                        <span className="text-gray-600 text-sm font-mono">step_three.js</span>
+                      </div>
+                    </div>
+                    {/* Content */}
+                    <div className="p-8 flex flex-col items-center">
+                      <motion.div
+                        className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center z-10 relative mx-auto mb-8 shadow-lg"
+                        whileHover={{ scale: 1.1, rotate: 5 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <BsLightningCharge className="w-8 h-8 text-white" />
+                      </motion.div>
+                      <motion.h3 
+                        className="text-lg font-mono text-blue-600 mb-6"
+                        whileHover={{ scale: 1.05 }}
+                      >
+                        STEP_THREE
+                      </motion.h3>
+                      <div className="space-y-3 font-mono text-sm">
+                        <motion.p 
+                          className="text-emerald-600 cursor-pointer"
+                          whileHover={{ x: 10, color: "#059669" }}
+                        >
+                          $a = "Beta test"
+                        </motion.p>
+                        <motion.p 
+                          className="text-emerald-600 cursor-pointer"
+                          whileHover={{ x: 10, color: "#059669" }}
+                        >
+                          $b = "Start building anticipation"
+                        </motion.p>
+                        <motion.p 
+                          className="text-emerald-600 cursor-pointer"
+                          whileHover={{ x: 10, color: "#059669" }}
+                        >
+                          $c = "Finalize launch content"
+                        </motion.p>
+                      </div>
+                    </div>
+                  </motion.div>
                 </motion.div>
-                <h3 className="text-xl md:text-2xl font-semibold text-gray-800 mb-3">Collect & Grade</h3>
-                <p className="text-gray-600 px-2 sm:px-4">
-                  Review submissions with AI assistance and automated grading tools
-                </p>
-              </div>
-            </SlideIn>
+              </SlideIn>
+            </div>
           </div>
         </div>
       </section>
