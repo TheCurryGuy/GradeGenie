@@ -122,7 +122,7 @@ const Dashboard: React.FC = () => {
         return "bg-green-100 text-green-800";
     };
 
-    // Calendar event styling
+    // Update eventStyleGetter to use Tailwind classes
     const eventStyleGetter = (event: CalendarEvent) => {
         const resource = event.resource as Card;
         const deadline = resource?.Deadline;
@@ -131,30 +131,24 @@ const Dashboard: React.FC = () => {
         const isOverdue = due ? now.getTime() > due.getTime() : false;
         const isUpcoming = due ? due.getTime() - now.getTime() < 1000 * 60 * 60 * 24 * 2 : false;
         
-        let backgroundColor = '#4f46e5'; // default indigo
+        let className = 'px-2 py-1 rounded text-xs font-medium text-white border-0 transition-all duration-200 ease-in-out hover:-translate-y-0.5 hover:shadow-md';
+        
         if (isOverdue) {
-            backgroundColor = '#ef4444'; // red
+            className += ' bg-red-500 hover:bg-red-600';
         } else if (isUpcoming) {
-            backgroundColor = '#f59e0b'; // amber
+            className += ' bg-amber-500 hover:bg-amber-600';
+        } else {
+            className += ' bg-indigo-500 hover:bg-indigo-600';
         }
         
-        return {
-            style: {
-                backgroundColor,
-                borderRadius: '4px',
-                opacity: 0.8,
-                color: 'white',
-                border: '0px',
-                display: 'block'
-            }
-        };
+        return { className };
     };
 
     // Handle calendar event selection
     const handleSelectEvent = (event: CalendarEvent) => {
         const resource = event.resource as Card;
         if (resource?.hash) {
-            navigate(`/assignment/${resource.hash}`);
+            navigate(`/share/${resource.hash}`);
         }
     };
 
@@ -171,7 +165,7 @@ const Dashboard: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            <div className="bg-gradient-to-r from-indigo-500 to-purple-600 m-4 p-6 rounded-xl shadow-lg relative overflow-hidden animate-fadeIn">
+            <div className="bg-gradient-to-r from-indigo-500 to-purple-600 m-4 p-6 rounded-xl shadow-lg relative overflow-hidden transform transition-all duration-500 hover:shadow-xl">
                 <div className="flex flex-col gap-3 justify-center z-10 font-poppins max-w-[60%] text-white">
                     <h1 className="text-4xl font-bold tracking-tight">
                         Welcome, {firstName}
@@ -197,12 +191,112 @@ const Dashboard: React.FC = () => {
                 />
             </div>
 
-            <div className="mx-4 flex flex-col lg:flex-row gap-4">
+            <div className="mx-4 flex flex-col lg:flex-row gap-6">
+                {/* Calendar Section */}
+                <div className="lg:w-1/3 lg:order-2">
+                    <div className="bg-white/80 rounded-3xl shadow-2xl p-8 h-full flex flex-col border border-purple-100/30 backdrop-blur-xl hover:shadow-2xl transition-all duration-500 hover:bg-white">
+                        <div className="flex justify-between items-start mb-8">
+                            <div className="relative">
+                                <span className="absolute -left-6 -top-6 w-24 h-24 bg-purple-200 rounded-full blur-2xl opacity-60"></span>
+                                <span className="absolute right-0 bottom-0 w-20 h-20 bg-indigo-200 rounded-full blur-2xl opacity-60"></span>
+                                <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent mb-2 relative">My Calendar</h2>
+                                <div className="flex items-center gap-3">
+                                    <div className="flex items-center gap-1.5">
+                                        <div className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 animate-pulse"></div>
+                                        <p className="text-sm font-medium bg-gradient-to-r from-purple-500 to-indigo-500 bg-clip-text text-transparent">
+                                            {new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="flex-grow rounded-2xl overflow-hidden bg-gradient-to-br from-purple-50/80 via-white/90 to-indigo-50/80 min-h-[350px] relative group shadow-inner">
+                            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-indigo-400/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <Calendar
+                                localizer={localizer}
+                                events={events}
+                                startAccessor="start"
+                                endAccessor="end"
+                                onSelectEvent={handleSelectEvent}
+                                eventPropGetter={eventStyleGetter}
+                                views={['month']}
+                                defaultView="month"
+                                defaultDate={new Date()}
+                                popup
+                                className="font-poppins h-full 
+                                    [&_.rbc-calendar]:h-full [&_.rbc-calendar]:bg-transparent [&_.rbc-calendar]:border-0 
+                                    [&_.rbc-header]:py-4 [&_.rbc-header]:px-2 [&_.rbc-header]:text-[11px] [&_.rbc-header]:tracking-wider [&_.rbc-header]:font-bold [&_.rbc-header]:uppercase [&_.rbc-header]:bg-gradient-to-r [&_.rbc-header]:from-purple-600 [&_.rbc-header]:to-indigo-600 [&_.rbc-header]:bg-clip-text [&_.rbc-header]:text-transparent [&_.rbc-header]:border-0
+                                    [&_.rbc-month-view]:border-0 [&_.rbc-month-view]:rounded-2xl [&_.rbc-month-view]:shadow-none [&_.rbc-month-view]:overflow-hidden
+                                    [&_.rbc-month-row]:min-h-[65px] [&_.rbc-month-row]:border-0
+                                    [&_.rbc-date-cell]:p-1.5 [&_.rbc-date-cell]:text-sm [&_.rbc-date-cell]:font-medium [&_.rbc-date-cell]:text-gray-600 [&_.rbc-date-cell]:flex [&_.rbc-date-cell]:justify-center [&_.rbc-date-cell]:items-center [&_.rbc-date-cell:hover]:text-purple-700 [&_.rbc-date-cell]:transition-all [&_.rbc-date-cell]:duration-300
+                                    [&_.rbc-today]:bg-transparent 
+                                    [&_.rbc-off-range-bg]:bg-transparent [&_.rbc-off-range]:text-gray-300 
+                                    [&_.rbc-event]:mb-1 [&_.rbc-event]:rounded-lg [&_.rbc-event]:shadow-lg [&_.rbc-event:hover]:shadow-xl [&_.rbc-event:hover]:-translate-y-0.5 [&_.rbc-event]:transition-all [&_.rbc-event]:duration-300
+                                    [&_.rbc-show-more]:bg-transparent [&_.rbc-show-more]:text-xs [&_.rbc-show-more]:text-purple-600 [&_.rbc-show-more:hover]:bg-transparent [&_.rbc-show-more:hover]:text-purple-700 
+                                    [&_.rbc-day-bg]:transition-all [&_.rbc-day-bg:hover]:bg-gradient-to-br [&_.rbc-day-bg:hover]:from-purple-50 [&_.rbc-day-bg:hover]:to-indigo-50 [&_.rbc-day-bg:hover]:duration-300
+                                    [&_.rbc-month-row_+_.rbc-month-row]:border-0
+                                    [&_.rbc-day-bg_+_.rbc-day-bg]:border-0
+                                    [&_.rbc-date-cell.rbc-now]:relative [&_.rbc-date-cell.rbc-now_a]:bg-gradient-to-r [&_.rbc-date-cell.rbc-now_a]:from-purple-500 [&_.rbc-date-cell.rbc-now_a]:to-indigo-500 [&_.rbc-date-cell.rbc-now_a]:text-white [&_.rbc-date-cell.rbc-now_a]:w-8 [&_.rbc-date-cell.rbc-now_a]:h-8 [&_.rbc-date-cell.rbc-now_a]:rounded-xl [&_.rbc-date-cell.rbc-now_a]:flex [&_.rbc-date-cell.rbc-now_a]:items-center [&_.rbc-date-cell.rbc-now_a]:justify-center [&_.rbc-date-cell.rbc-now_a]:shadow-xl [&_.rbc-date-cell.rbc-now_a]:shadow-purple-200/50 [&_.rbc-date-cell.rbc-now_a]:hover:shadow-2xl [&_.rbc-date-cell.rbc-now_a]:transition-all [&_.rbc-date-cell.rbc-now_a]:duration-300 [&_.rbc-date-cell.rbc-now_a]:hover:scale-110 [&_.rbc-date-cell.rbc-now_a]:hover:from-purple-600 [&_.rbc-date-cell.rbc-now_a]:hover:to-indigo-600"
+                                dayPropGetter={(date: Date) => {
+                                    const today = new Date();
+                                    if (
+                                        date.getDate() === today.getDate() &&
+                                        date.getMonth() === today.getMonth() &&
+                                        date.getFullYear() === today.getFullYear()
+                                    ) {
+                                        return {
+                                            className: 'font-bold'
+                                        };
+                                    }
+                                    return {};
+                                }}
+                                components={{
+                                    toolbar: () => null
+                                }}
+                            />
+                        </div>
+
+                        <div className="mt-6 p-5 bg-gradient-to-br from-purple-50/90 to-indigo-50/90 rounded-2xl backdrop-blur-xl relative">
+                            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-indigo-500/5 rounded-2xl"></div>
+                            <div className="relative">
+                                <div className="flex items-center gap-3 mb-5">
+                                    <h3 className="text-base font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">Assignment Status</h3>
+                                    <div className="flex-1 h-px bg-gradient-to-r from-purple-200 via-indigo-200 to-transparent rounded-full"></div>
+                                </div>
+                                <div className="grid grid-cols-3 gap-4">
+                                    <div className="flex items-center gap-2.5 group cursor-default">
+                                        <div className="relative">
+                                            <span className="absolute inset-0 bg-red-500/30 rounded-full blur-lg group-hover:blur-xl transition-all duration-300"></span>
+                                            <span className="relative w-2.5 h-2.5 inline-block rounded-full bg-gradient-to-r from-red-500 to-red-600 group-hover:scale-125 transition-transform duration-300"></span>
+                                        </div>
+                                        <span className="text-sm font-medium text-gray-600 group-hover:text-gray-900 transition-colors duration-300">Overdue</span>
+                                    </div>
+                                    <div className="flex items-center gap-2.5 group cursor-default">
+                                        <div className="relative">
+                                            <span className="absolute inset-0 bg-amber-500/30 rounded-full blur-lg group-hover:blur-xl transition-all duration-300"></span>
+                                            <span className="relative w-2.5 h-2.5 inline-block rounded-full bg-gradient-to-r from-amber-500 to-amber-600 group-hover:scale-125 transition-transform duration-300"></span>
+                                        </div>
+                                        <span className="text-sm font-medium text-gray-600 group-hover:text-gray-900 transition-colors duration-300">Due Soon</span>
+                                    </div>
+                                    <div className="flex items-center gap-2.5 group cursor-default">
+                                        <div className="relative">
+                                            <span className="absolute inset-0 bg-purple-500/30 rounded-full blur-lg group-hover:blur-xl transition-all duration-300"></span>
+                                            <span className="relative w-2.5 h-2.5 inline-block rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 group-hover:scale-125 transition-transform duration-300"></span>
+                                        </div>
+                                        <span className="text-sm font-medium text-gray-600 group-hover:text-gray-900 transition-colors duration-300">Upcoming</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 {/* Assignments Section */}
-                <div className="lg:w-2/3">
+                <div className="lg:w-2/3 lg:order-1">
                     <div className="flex justify-between items-center mb-4">
                         <h2 className="text-3xl pl-2 pt-2 font-bold font-poppins text-gray-900">Active Assignments</h2>
-        </div>
+                    </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                         {cards.length > 0 ? (
@@ -214,7 +308,7 @@ const Dashboard: React.FC = () => {
                                     <div 
                                         key={card._id} 
                                         className="bg-white rounded-xl shadow-md p-5 hover:shadow-lg transition-all duration-300 border border-gray-100 transform hover:-translate-y-1 cursor-pointer"
-                                        onClick={() => navigate(`/assignment/${card.hash}`)}
+                                        onClick={() => navigate(`/share/${card.hash}`)}
                                         style={{ animationDelay: `${index * 0.05}s` }}
                                     >
                                         <div className="flex justify-between items-start mb-3">
@@ -274,227 +368,9 @@ const Dashboard: React.FC = () => {
                         )}
                     </div>
                 </div>
-
-                {/* Calendar Section */}
-                <div className="lg:w-1/3">
-                    <div className="bg-white rounded-xl shadow-md p-5 h-full">
-                        <div className="flex justify-between items-center mb-4">
-                            <div className="relative">
-                                <h2 className="text-xl font-bold font-poppins text-gray-800">My Calendar</h2>
-                                <div className="absolute -bottom-1 left-0 w-10 h-1 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full"></div>
-                            </div>
-                            <div className="text-sm bg-indigo-100 text-indigo-700 py-1 px-3 rounded-full font-medium flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                </svg>
-                                {new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
-                            </div>
-                        </div>
-                        
-                        <div className="calendar-container rounded-lg overflow-hidden bg-gradient-to-br from-indigo-50 to-purple-50 shadow-inner" style={{ height: 350 }}>
-                            <Calendar
-                                localizer={localizer}
-                                events={events}
-                                startAccessor="start"
-                                endAccessor="end"
-                                onSelectEvent={handleSelectEvent}
-                                eventPropGetter={eventStyleGetter}
-                                views={['month']}
-                                defaultView="month"
-                                defaultDate={new Date()}
-                                popup
-                                className="font-poppins custom-calendar"
-                                dayPropGetter={(date: Date) => {
-                                    const today = new Date();
-                                    if (
-                                        date.getDate() === today.getDate() &&
-                                        date.getMonth() === today.getMonth() &&
-                                        date.getFullYear() === today.getFullYear()
-                                    ) {
-                                        return {
-                                            style: {
-                                                backgroundColor: 'rgba(99, 102, 241, 0.15)',
-                                                borderRadius: '50%'
-                                            }
-                                        };
-                                    }
-                                    return {};
-                                }}
-                                components={{
-                                    toolbar: () => null
-                                }}
-                            />
-                        </div>
-                        
-                        <div className="mt-4 p-3 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-lg shadow-inner">
-                            <h3 className="text-lg font-semibold font-poppins text-indigo-700 mb-2">Assignment Legend</h3>
-                            <div className="grid grid-cols-3 gap-1">
-                                <div className="flex items-center gap-2">
-                                    <span className="w-3 h-3 inline-block rounded-full bg-red-500 shadow-sm"></span>
-                                    <span className="text-xs text-gray-700">Overdue</span>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <span className="w-3 h-3 inline-block rounded-full bg-amber-500 shadow-sm"></span>
-                                    <span className="text-xs text-gray-700">Due Soon</span>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <span className="w-3 h-3 inline-block rounded-full bg-indigo-500 shadow-sm"></span>
-                                    <span className="text-xs text-gray-700">Upcoming</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <GeneratorModal />
-
-            <style>{`
-                @keyframes wave {
-                    0% { transform: rotate(0deg); }
-                    20% { transform: rotate(8deg); }
-                    40% { transform: rotate(0deg); }
-                    60% { transform: rotate(8deg); }
-                    80% { transform: rotate(0deg); }
-                    100% { transform: rotate(0deg); }
-                }
-                @keyframes float {
-                    0% { transform: translateY(0px); }
-                    50% { transform: translateY(-10px); }
-                    100% { transform: translateY(0px); }
-                }
-                @keyframes fadeIn {
-                    0% { opacity: 0; transform: translateY(10px); }
-                    100% { opacity: 1; transform: translateY(0); }
-                }
-                .animate-wave {
-                    animation: wave 2.5s infinite;
-                    transform-origin: 70% 70%;
-                    display: inline-block;
-                }
-                .animate-float {
-                    animation: float 6s ease-in-out infinite;
-                }
-                .animate-fadeIn {
-                    animation: fadeIn 0.5s ease-out forwards;
-                }
-                .line-clamp-1 {
-                    display: -webkit-box;
-                    -webkit-line-clamp: 1;
-                    -webkit-box-orient: vertical;  
-                    overflow: hidden;
-                }
-                .line-clamp-2 {
-                    display: -webkit-box;
-                    -webkit-line-clamp: 2;
-                    -webkit-box-orient: vertical;  
-                    overflow: hidden;
-                }
-                
-                /* Calendar custom styles */
-                .rbc-calendar {
-                    font-family: 'Poppins', sans-serif;
-                    background: transparent;
-                }
-                .rbc-header {
-                    padding: 6px 2px;
-                    font-weight: 600;
-                    font-size: 0.75rem;
-                    color: #6b7280;
-                    background-color: transparent;
-                    border: none;
-                    text-transform: uppercase;
-                    letter-spacing: 0.05em;
-                }
-                .rbc-month-view {
-                    border: none;
-                    border-radius: 8px;
-                    overflow: hidden;
-                    background: transparent;
-                }
-                .rbc-month-row {
-                    border: none;
-                    min-height: 36px;
-                }
-                .rbc-day-bg {
-                    background-color: transparent;
-                    border: none;
-                    transition: background-color 0.2s ease;
-                }
-                .rbc-day-bg:hover {
-                    background-color: rgba(99, 102, 241, 0.05);
-                }
-                .rbc-off-range-bg {
-                    background-color: transparent;
-                    opacity: 0.3;
-                }
-                .rbc-date-cell {
-                    padding: 2px 4px 0 0;
-                    font-size: 0.82rem;
-                    color: #4b5563;
-                    text-align: center;
-                    font-family: 'Poppins', 'Inter', sans-serif;
-                    font-weight: 500;
-                    letter-spacing: 0.01em;
-                }
-                .rbc-date-cell.rbc-now {
-                    font-weight: 700;
-                    color: #4f46e5;
-                    position: relative;
-                }
-                .rbc-date-cell.rbc-now::after {
-                    content: '';
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    width: 24px;
-                    height: 24px;
-                    background-color: rgba(99, 102, 241, 0.15);
-                    border-radius: 50%;
-                    z-index: -1;
-                }
-                .rbc-row-segment {
-                    padding: 1px 1px;
-                }
-                .rbc-event {
-                    border-radius: 3px;
-                    padding: 1px 3px;
-                    font-size: 0.65rem;
-                    border: none;
-                    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-                    opacity: 0.9;
-                    transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
-                }
-                .rbc-event:hover {
-                    opacity: 1;
-                    transform: translateY(-1px);
-                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-                }
-                .rbc-today {
-                    background-color: transparent;
-                }
-                .custom-calendar .rbc-row-content {
-                    z-index: 0;
-                }
-                .rbc-month-row + .rbc-month-row {
-                    border: none;
-                }
-                .rbc-day-bg + .rbc-day-bg {
-                    border: none;
-                }
-                .rbc-month-header {
-                    border-bottom: 1px dashed rgba(99, 102, 241, 0.2);
-                    margin-bottom: 4px;
-                }
-                .rbc-date-cell > a {
-                    font-weight: 500;
-                    transition: color 0.2s ease;
-                }
-                .rbc-date-cell > a:hover {
-                    color: #4f46e5;
-                }
-            `}</style>
         </div>
     );
 };
