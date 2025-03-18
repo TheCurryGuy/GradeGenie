@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { UserModel, AssignmentModel, SubmissionModel } from "./Schema/db";
 import { JWT_PASSWORD } from "./Config/config";
 import { userMiddleware } from "./Middleware/middleware";
-import { randomHash, filterNullValues, filterObjectProperties, InnerObjectType } from "./Utils/utils";
+import { randomHash, filterNullValues, filterObjectProperties, InnerObjectType, FilteredObjectType } from "./Utils/utils";
 import cors from "cors";
 import bcrypt from "bcrypt"
 const app = express();
@@ -193,22 +193,66 @@ app.post("/api/v1/generate/:shareId", async (req, res)=> {
     }
 })
 
-app.get("/api/v1/get/latest/all",userMiddleware, async(req, res)=> {
-    const userId = req.userId;
-    const data:InnerObjectType[] = await AssignmentModel.find({
-        userId
-    })
-    if(!data){
-        res.status(404).json({
-        message: "Data Not Found"
-        })
-    }
-    const filteredData = filterObjectProperties(data);
+app.get("/api/v1/get/latest/all", userMiddleware, async (req, res): Promise<void> => {
+    const userId = (req as any).userId; // Assuming userMiddleware adds userId to the request object
 
-    res.json({
-        data: filteredData
-    })
-})
+    try {
+        const data: InnerObjectType[] = await AssignmentModel.find({ userId }); // Fetch ALL assignments for the user
+
+        if (!data || data.length === 0) {
+            res.status(404).json({
+                message: "Data Not Found"
+            });
+            return;
+        }
+
+        const filteredData: FilteredObjectType[] = filterObjectProperties(data);
+        
+
+        res.json({
+            data: filteredData // Send the array of filtered objects - THIS IS WHAT YOU WANTED
+        });
+
+    } catch (error) {
+        console.error("Error fetching assignments:", error);
+        res.status(500).json({
+            message: "Internal Server Error"
+        });
+    }
+});
+
+app.delete('/api/v1/delete', userMiddleware, async (req, res): Promise<void> => {
+    try {
+        const { _id } = req.body;
+        const userId = req.userId; // Get userId from request object
+
+        if (!_id) {
+            res.status(400).json({ success: false, message: 'Missing assignment ID' });
+            return;
+        }
+        const deletedAssignment = await AssignmentModel.findOneAndDelete({
+            _id,
+            userId // Ensure user owns the assignment
+      });
+  
+      if (!deletedAssignment) {
+        res.status(404).json({ success: false, message: 'Assignment not found' });
+        return;
+      }
+  
+      res.json({ 
+        success: true, 
+        message: 'Assignment deleted successfully',
+        deletedId: _id
+      });
+  
+    } catch (error) {
+      console.error('Delete error:', error);
+      res.status(500).json({ 
+        success: false
+      });
+    }
+  });
 
 
 app.listen(3000, ()=> {

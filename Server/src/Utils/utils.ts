@@ -1,4 +1,4 @@
-
+import mongoose, { Schema, Document } from 'mongoose';
 interface DataObject {
     [key: string]: any; 
 }
@@ -24,40 +24,56 @@ export function randomHash(len: number, userId: string ){
     } return hash;
 }
 
-export interface InnerObjectType { // Define an interface for the inner objects (optional, but good practice)
-    Name?: boolean;
-    Class?: boolean;
-    Section?: boolean;
-    RollNo?: boolean;
-    Department?: boolean;
-    Email?: boolean;
-    PhoneNumber?: boolean;
-    hash?: string;
-    Questions?: string;
-    Title?: string;
-    Description?: string;
-    Deadline?: string;
-    userId?: any; // Or mongoose.Types.ObjectId if you are using mongoose types directly
-    [key: string]: any; // Allow other properties (for flexibility)
-  }
+export interface InnerObjectType extends Document {
+  Name?: boolean;
+  Class?: boolean;
+  Section?: boolean;
+  RollNo?: boolean;
+  Department?: boolean;
+  Email?: boolean;
+  PhoneNumber?: boolean;
+  hash?: string;
+  Questions?: string;
+  Title?: string;
+  Description?: string;
+  Deadline?: string;
+  userId: mongoose.Types.ObjectId; // Explicitly type userId as ObjectId
+}
+
+export interface FilteredObjectType {
+  Name?: boolean;
+  Class?: boolean;
+  Section?: boolean;
+  RollNo?: boolean;
+  Department?: boolean;
+  Email?: boolean;
+  PhoneNumber?: boolean;
+  hash?: string;
+  Title?: string;
+  Deadline?: string;
+  userId?: mongoose.Types.ObjectId;
+}
   
-  export function filterObjectProperties(originalArray: InnerObjectType[]): InnerObjectType[] {
-    const keysToRemove: string[] = ["Title", "hash", "Questions", "Description"];
-    const filteredArray: InnerObjectType[] = []; // Initialize an empty array to hold filtered objects
-  
-    for (let i = 0; i < originalArray.length; i++) { // Loop through the array
-      const innerObject: InnerObjectType = originalArray[i]; // Get each object from the array
-      const filteredInnerObject: Partial<InnerObjectType> = {}; // Use Partial to allow subset of properties
-  
+export function filterObjectProperties(originalArray: InnerObjectType[]): FilteredObjectType[] {
+  const keysToRemove: string[] = ["Questions", "Description"];
+  const filteredArray: FilteredObjectType[] = [];
+
+  for (const innerObject of originalArray) {
+      console.log('Original object BEFORE filtering:', innerObject); // Keep this log for debugging
+      const filteredInnerObject: Partial<FilteredObjectType> = {};
+
       for (const innerKey in innerObject) {
-        if (innerObject.hasOwnProperty(innerKey)) {
-          if (!keysToRemove.includes(innerKey)) {
-            filteredInnerObject[innerKey] = innerObject[innerKey];
-          }
-        }
+          // TEMPORARILY SIMPLIFY - REMOVE hasOwnProperty for now for debugging
+          // if (Object.prototype.hasOwnProperty.call(innerObject, innerKey)) {
+              if (!keysToRemove.includes(innerKey)) {
+                //@ts-ignore
+                  filteredInnerObject[innerKey] = innerObject[innerKey];
+              }
+          // }
       }
-      filteredArray.push(filteredInnerObject as InnerObjectType); // Type assertion because Partial is used
-    }
-  
-    return filteredArray;
+      console.log('Filtered object AFTER filtering:', filteredInnerObject); // Keep this log
+      filteredArray.push(filteredInnerObject as FilteredObjectType);
   }
+
+  return filteredArray;
+}
