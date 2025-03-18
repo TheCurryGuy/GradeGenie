@@ -5,7 +5,6 @@ import jwt from "jsonwebtoken";
 
 export const userMiddleware = (req: Request, res: Response, next: NextFunction) => {
     const header = req.headers.token;
-    console.log(header)//req.headers["token"]
     if(!JWT_PASSWORD){
         res.status(403).json({
             message: "Server Error"
