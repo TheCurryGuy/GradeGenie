@@ -4,10 +4,12 @@ import { motion } from "framer-motion"
 import { SlideIn, StaggeredReveal } from "../utils/utils"
 import { FaTwitter, FaLinkedin, FaFacebook } from "react-icons/fa"
 import { IoStatsChart, IoSchool, IoSpeedometer } from "react-icons/io5"
+import { useNavigate } from "react-router-dom"
 
 const LandingPage = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const navigate = useNavigate()
 
   // Handle scroll effect for navbar
   useEffect(() => {
@@ -76,13 +78,14 @@ const LandingPage = () => {
                       scrolled
                         ? "bg-gray-100 text-blue-600 hover:bg-gray-200"
                         : "bg-white/20 backdrop-blur-sm text-white hover:bg-white/30"
-                    }`}
+                    }`} onClick={() => navigate('/signin')}
                   >
                     Login
                   </a>
                   <a
                     href="#"
                     className="bg-white hover:bg-blue-50 text-blue-600 font-medium px-5 py-2 rounded-full transition duration-200 shadow-sm"
+                    onClick={() => navigate('/signup')}
                   >
                     Sign Up
                   </a>
@@ -128,12 +131,14 @@ const LandingPage = () => {
                     <a
                       href="#"
                       className="bg-gray-100 hover:bg-gray-200 text-blue-600 font-medium px-5 py-3 rounded-xl transition duration-200 text-center"
+                      onClick={() => navigate('/login')}
                     >
                       Login
                     </a>
                     <a
                       href="#"
                       className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-5 py-3 rounded-xl transition duration-200 text-center"
+                      onClick={() => navigate('/signup')}
                     >
                       Sign Up
                     </a>
@@ -328,17 +333,17 @@ const LandingPage = () => {
 
       {/* How It Works Section */}
       <section
-        className="py-16 md:py-24 bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 text-white"
+        className="py-16 md:py-24 bg-white text-white"
         id="how-it-works"
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <SlideIn direction="bottom">
             <div className="max-w-3xl mx-auto mb-12 md:mb-16 text-center">
-              <span className="inline-block px-4 py-1 rounded-full bg-indigo-500/30 text-indigo-300 font-medium text-sm mb-4">
+              <span className="inline-block px-4 py-1 rounded-full bg-white text-indigo-300 font-medium text-sm mb-4">
                 HOW IT WORKS
               </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Simple 3-Step Process</h2>
-              <p className="text-indigo-200 text-lg">
+              <h2 className="text-3xl md:text-4xl font-bold text-indigo-700 mb-6">Simple 3-Step Process</h2>
+              <p className="text-indigo-300 text-lg">
                 Get started in minutes with our intuitive workflow designed for busy educators
               </p>
             </div>
