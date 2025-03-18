@@ -21,24 +21,24 @@ const Dashboard: React.FC = () => {
     const navigate = useNavigate();
     const fetchUserData = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/userdata', {
+            const response = await axios.get('http://localhost:3000/api/v1/userdata', { // **Correct Endpoint URL**
                 headers: {
-                    token: `Bearer ${token}`
+                  token: token
                 }
             });
-            setFirstName(response.data.firstName);
+            setFirstName(response.data.info.firstName);
         } catch (error) {
             console.error('Error fetching user data:', error);
         }
     };
     const fetchCards = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/assignments', {
+            const response = await axios.get('http://localhost:3000/api/v1/assignments', { // **Correct Endpoint URL**
                 headers: {
-                    token: `Bearer ${token}`
+                  token: token
                 }
             });
-            //console.log(response.data.info);
+            console.log(response.data.info);
             setCards(response.data.info);
             setLoading(false);
         } catch (error) {
@@ -54,7 +54,7 @@ const Dashboard: React.FC = () => {
         else {
             navigate('/');
         }
-    }, [token]);
+    }, []);
 
     if (loading) {
         return <div>Loading...</div>;

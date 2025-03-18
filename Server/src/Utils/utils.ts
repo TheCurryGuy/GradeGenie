@@ -59,19 +59,14 @@ export function filterObjectProperties(originalArray: InnerObjectType[]): Filter
   const filteredArray: FilteredObjectType[] = [];
 
   for (const innerObject of originalArray) {
-      console.log('Original object BEFORE filtering:', innerObject); // Keep this log for debugging
       const filteredInnerObject: Partial<FilteredObjectType> = {};
 
       for (const innerKey in innerObject) {
-          // TEMPORARILY SIMPLIFY - REMOVE hasOwnProperty for now for debugging
-          // if (Object.prototype.hasOwnProperty.call(innerObject, innerKey)) {
               if (!keysToRemove.includes(innerKey)) {
                 //@ts-ignore
                   filteredInnerObject[innerKey] = innerObject[innerKey];
               }
-          // }
       }
-      console.log('Filtered object AFTER filtering:', filteredInnerObject); // Keep this log
       filteredArray.push(filteredInnerObject as FilteredObjectType);
   }
 
