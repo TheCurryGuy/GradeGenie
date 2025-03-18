@@ -144,7 +144,7 @@ const GeneratorModal = () => {
     if (!modalOpen) return null
   
     return (
-      <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm transition-opacity flex items-center justify-center p-4 font-mono">
+      <div className="fixed inset-0 z-500 bg-black/80 backdrop-blur-sm transition-opacity flex items-center justify-center p-4 font-mono">
         <div
           className="relative bg-white rounded-3xl shadow-2xl overflow-hidden transform transition-all w-full max-w-md md:max-w-2xl animate-fadeIn" // Adjusted max-w for md breakpoint
           onClick={(e) => e.stopPropagation()}

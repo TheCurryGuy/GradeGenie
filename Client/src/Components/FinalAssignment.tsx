@@ -1,5 +1,5 @@
-import CreateAssignment from "./CreateAssignment";
 import Assignments from "./Assignments";
+import CreateAssignment from "./CreateAssignment";
 
 const FinalAssignment = () => {
     return (

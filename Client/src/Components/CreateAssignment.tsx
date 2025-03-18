@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-
 import { StateContext } from '../Context API/StateContext';
 import GeneratorModal from './GeneratorModal';
 
@@ -23,7 +22,7 @@ const CreateAssignment: React.FC = () => {
                 </button>
             </div>
         {modalOpen && (
-            <div className="fixed m-auto md:ml-10 w-full h-full flex items-center justify-center">
+            <div className="fixed z-1000 m-auto md:ml-10 w-full h-full flex items-center justify-center">
                 <GeneratorModal/>
             </div>
         )}    
