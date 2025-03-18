@@ -128,7 +128,7 @@ const GeneratorModal = () => {
         .then(response => {
           const hash = response.data.hash;
           localStorage.setItem('assignmentHash', hash);
-          const assignmentUrl = `http://localhost:3000/api/v1/generate/${hash}`;
+          const assignmentUrl = `http://localhost:5173/share/${hash}`;
           alert(`Assignment link generated: ${assignmentUrl}`);
           setModal((e:boolean)=> !e)
         })

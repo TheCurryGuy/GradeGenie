@@ -3,9 +3,10 @@ import jwt from "jsonwebtoken";
 import { UserModel, AssignmentModel, SubmissionModel } from "./Schema/db";
 import { JWT_PASSWORD } from "./Config/config";
 import { userMiddleware } from "./Middleware/middleware";
-import { randomHash, filterNullValues, filterObjectProperties, InnerObjectType, FilteredObjectType } from "./Utils/utils";
+import { randomHash, filterNullValues, filterObjectProperties, InnerObjectType, FilteredObjectType, filterSecondObjectProperties, FilteredSecondObjectType } from "./Utils/utils";
 import cors from "cors";
 import bcrypt from "bcrypt"
+import { use } from "react";
 const app = express();
 app.use(express.json()); 
 app.use(cors({
@@ -138,31 +139,30 @@ app.post("/api/v1/generate", userMiddleware, async (req, res) => {
     }
 });
 
-app.get("/api/v1/generate/:shareId", async (req,res) => {
+app.get("/api/v1/generate/:shareId", async (req, res) => {
     const hash = req.params.shareId;
-    const data = await AssignmentModel.findOne({
-        hash
-    })
-    if(!data) {
-        res.status(411).json({
-            message: "It Seems like the Submission Deadline Passed away 🫤"
-        })
-    } else{
-        const user = await UserModel.findOne({
-            _id: data.userId
-        })
-        if(!user){
-            res.status(404).json({
-                message: "User Not Found"
-            }) 
-            return;
-        } 
-        res.status(200).json({
-            username: user.firstName,//as user can be null although thats imposible
-            data: data
-        })
+    try {
+        const data = await AssignmentModel.findOne({
+            hash: hash
+        }) as InnerObjectType | null;
+
+        if (!data) {
+            res.status(404).json({ 
+                message: "Assignment not found"
+            });
+        } else {
+            const filteredData: FilteredSecondObjectType = filterSecondObjectProperties(data);
+            res.status(200).json({ 
+                info: filteredData
+            });
+        }
+    } catch (error) {
+        console.error("Error fetching shared assignment:", error);
+        res.status(500).json({ 
+            message: "Failed to retrieve assignment. Please try again later."
+        });
     }
-})
+});
 
 app.get("/api/v1/userdata", userMiddleware, async(req, res): Promise<void> => {
     const userId = req.userId;

@@ -39,7 +39,18 @@ export interface InnerObjectType extends Document {
   Deadline?: string;
   userId: mongoose.Types.ObjectId; // Explicitly type userId as ObjectId
 }
-
+export interface FilteredSecondObjectType {
+  Name?: boolean;
+  Class?: boolean;
+  Section?: boolean;
+  RollNo?: boolean;
+  Department?: boolean;
+  Email?: boolean;
+  PhoneNumber?: boolean;
+  Title?: string;
+  Deadline?: string;
+  userId: string; // Change userId to string
+}
 export interface FilteredObjectType {
   Name?: boolean;
   Class?: boolean;
@@ -72,3 +83,42 @@ export function filterObjectProperties(originalArray: InnerObjectType[]): Filter
 
   return filteredArray;
 }
+
+  
+export function filterSecondObjectProperties(originalObject: InnerObjectType): FilteredSecondObjectType {
+  // Explicit list of allowed properties from FilteredSecondObjectType
+  const allowedKeys: (keyof FilteredSecondObjectType)[] = [
+    'Name', 'Class', 'Section', 'RollNo', 
+    'Department', 'Email', 'PhoneNumber',
+    'Title', 'Deadline', 'userId'
+  ];
+
+  const filteredObject: FilteredSecondObjectType = {} as FilteredSecondObjectType;
+
+  // Convert MongoDB document to plain object if needed
+  const plainObject = originalObject.toObject ? originalObject.toObject() : originalObject;
+
+  for (const key of allowedKeys) {
+    if (plainObject[key] !== undefined) {
+      // For ObjectId fields, convert to string if needed
+      if (key === 'userId' && plainObject[key] instanceof mongoose.Types.ObjectId) {
+        (filteredObject as any)[key] = plainObject[key].toString();
+      } else {
+        (filteredObject as any)[key] = plainObject[key];
+      }
+    }
+  }
+
+  // Explicitly remove unwanted fields
+  const finalFilteredObject = {
+    ...filteredObject,
+    _id: undefined,
+    __v: undefined,
+    hash: undefined,
+    Questions: undefined,
+    Description: undefined
+  };
+
+  return JSON.parse(JSON.stringify(finalFilteredObject)); // Remove undefined fields
+}
+
