@@ -30,7 +30,7 @@ const AssignmentCard: React.FC<AssignmentProps> = (props) => {
     PhoneNumber,
     hash,
     _id,
-    onDelete
+    onDelete,
   } = props;
 
   const informationFields = [

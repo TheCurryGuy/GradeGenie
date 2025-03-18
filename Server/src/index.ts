@@ -164,6 +164,41 @@ app.get("/api/v1/generate/:shareId", async (req,res) => {
     }
 })
 
+app.get("/api/v1/userdata", userMiddleware, async(req, res): Promise<void> => {
+    const userId = req.userId;
+    const data = await UserModel.findOne({
+        _id: userId
+    });
+
+    if(data) {
+        res.json({ 
+            info: data
+        });
+        return;
+    }
+    res.status(404).json({ 
+        data: "Error user not Found!"
+    });
+});
+
+app.get("/api/v1/assignments", userMiddleware, async(req, res): Promise<void> => {
+    const userId = req.userId;
+    const data = await AssignmentModel.find({
+        userId: userId
+    });
+    const dataLen = 89
+    if(data) {
+        res.json({ 
+            info: data,
+            submissions: dataLen
+        });
+        return;
+    }
+    res.status(404).json({ 
+        data: "Error user not Found!"
+    });
+});
+
 
 app.post("/api/v1/generate/:shareId", async (req, res)=> {
     const hash = req.params.shareId;
