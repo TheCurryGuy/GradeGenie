@@ -70,9 +70,8 @@ const Assignments: React.FC = () => {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-gray-800 mb-5">Assignments</h1>
+      <h1 className="text-3xl font-bold text-gray-800 mb-5 mt-4">Existing Assignments</h1>
       <div>
-
       </div>
       {loading ? (
         <p>Loading...</p>

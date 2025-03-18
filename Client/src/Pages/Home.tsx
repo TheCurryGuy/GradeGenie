@@ -4,7 +4,7 @@ import { StateContext } from '../Context API/StateContext';
 import Sidebar from '../Components/Sidebar';
 import Dashboard from '../Components/Dashboard';
 import FinalAssignment from '../Components/FinalAssignment';
-import FinalSubmission from '../Components/FinalSubmission';
+
 
 interface ErrorBoundaryProps {
     children: React.ReactNode;
@@ -43,7 +43,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
 
 const Home: React.FC = () => {
     // Destructure boolean state variables (isHome, isAssignments, isSubmissions) from StateContext
-    const { isHome, isAssignments, isSubmissions } = useContext(StateContext);
+    const { isHome, isAssignments } = useContext(StateContext);
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
 
@@ -59,8 +59,7 @@ const Home: React.FC = () => {
             <div className='w-full h-screen'>
             <ErrorBoundary>
                 {isHome && <Dashboard/>}       {/* Use boolean state variables for conditional rendering */}
-                {isAssignments && <FinalAssignment/>} {/* Use boolean state variables for conditional rendering */}
-                {isSubmissions && <FinalSubmission/>} {/* Use boolean state variables for conditional rendering */}
+                {isAssignments && <FinalAssignment/>}
             </ErrorBoundary>
             </div>
             

@@ -10,17 +10,15 @@ interface StateProviderProps {
 
 export const StateProvider: React.FC<StateProviderProps> = ({ children }) => {
     const [modalOpen, setModal] = useState(false)
-
-    const [isHome, setHome] = useState(true)
     const [isAssignments, setAssignments] = useState(false)
     const [isSubmissions, setSubmissions] = useState(false)
+    const [isHome, setHome] = useState(true)
     return (
         <StateContext.Provider value={{
             modalOpen, setModal,
-
-            isHome, setHome,
             isAssignments, setAssignments,
-            isSubmissions, setSubmissions
+            isSubmissions, setSubmissions,
+            isHome, setHome,
         }}>
             {children}
         </StateContext.Provider>
