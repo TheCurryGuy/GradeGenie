@@ -62,12 +62,12 @@ const Assignments: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className='overflow-scroll'>
       <h1 className="text-3xl font-bold text-gray-800 mb-5 mt-4">Existing Assignments</h1>
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <div className="flex gap-3 overflow-y-clip">
+        <div className="flex flex-grow flex-wrap gap-3 overflow-y-clip">
           {assignments.map((assignment) => (
             <AssignmentCard
               key={assignment._id || assignment.Title}
