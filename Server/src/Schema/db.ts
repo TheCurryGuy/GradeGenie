@@ -26,18 +26,17 @@ const AssignmentSchema = new Schema({
    userId: {type: mongoose.Types.ObjectId, ref: "User", required: true}
 })
 
-const SubmissionSchema = new Schema({
-   Name: String,
-   Class: String,
-   Section: String,
-   RollNo: String,
-   Department: String,
-   Email: String,
-   PhoneNumber: Number,
-   hash: String,
-   Questions: String,
-   userId: {type: mongoose.Types.ObjectId, ref: "User", required: true}
-})
+const SubmissionSchema: Schema = new Schema({
+    Name: { type: String },
+    Class: { type: String },
+    Section: { type: String },
+    RollNo: { type: String },
+    Department: { type: String },
+    Email: { type: String },
+    PhoneNumber: { type: String },
+    hash: {type: String},
+    assignmentFile: { type: String }, // Store the file path or filename in the database
+  })
 
 
 const linkSchema = new Schema({

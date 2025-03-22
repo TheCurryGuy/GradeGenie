@@ -99,12 +99,11 @@ const SubmitHandler = () => {
       { key: "Department", value: departmentValue },
       { key: "Email", value: emailValue },
       { key: "PhoneNumber", value: phoneNumberValue },
+      { key: "hash", value:shareId?shareId:"null"}
     ];
 
     values.forEach(({ key, value }) => {
-      if (value.trim() !== "") {
-        submissionData[key] = value.trim();
-      }
+      submissionData[key] = value;
     });
 
     const formData = new FormData();
