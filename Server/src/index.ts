@@ -1,11 +1,17 @@
-import express from "express"; 
+import express, { Request, Response } from "express"; 
 import jwt from "jsonwebtoken";
 import { UserModel, AssignmentModel, SubmissionModel } from "./Schema/db";
-import { JWT_PASSWORD } from "./Config/config";
+import { JWT_PASSWORD, GEMINI_API_KEY } from "./Config/config";
 import { userMiddleware } from "./Middleware/middleware";
+import multer from 'multer';
 import { randomHash, filterNullValues, filterObjectProperties, InnerObjectType, FilteredObjectType, filterSecondObjectProperties, FilteredSecondObjectType } from "./Utils/utils";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleAIFileManager } from "@google/generative-ai/server";
 import cors from "cors";
 import bcrypt from "bcrypt"
+import fs from "fs";
+import path from "path";
+
 const app = express();
 app.use(express.json()); 
 app.use(cors({
@@ -22,6 +28,142 @@ declare global{
         }
     }
 }
+
+const UPLOADS_DIR = path.join(__dirname, 'uploads');
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      fs.mkdirSync(UPLOADS_DIR, { recursive: true }); 
+      cb(null, UPLOADS_DIR);
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname); // Use original filename
+    }
+  });
+  
+  const upload = multer({
+    storage: storage,
+    limits: { fileSize: 5 * 1024 * 1024 }
+  });
+  
+  const apiKey = GEMINI_API_KEY? GEMINI_API_KEY : "null";
+  const genAI = new GoogleGenerativeAI(apiKey);
+  const fileManager = new GoogleAIFileManager(apiKey);
+  
+  async function uploadToGemini(filePath: string, mimeType: string) {
+    const uploadResult = await fileManager.uploadFile(filePath, {
+      mimeType,
+      displayName: filePath,
+    });
+    const file = uploadResult.file;
+    console.log(`Uploaded file ${file.displayName} as: ${file.name}`);
+    return file;
+  }
+  
+  async function waitForFilesActive(files: any[]) {
+    console.log("Waiting for file processing...");
+    for (const name of files.map((file) => file.name)) {
+      let file = await fileManager.getFile(name);
+      while (file.state === "PROCESSING") {
+        process.stdout.write(".");
+        await new Promise((resolve) => setTimeout(resolve, 10_000));
+        file = await fileManager.getFile(name);
+      }
+      if (file.state !== "ACTIVE") {
+        throw Error(`File ${file.name} failed to process`);
+      }
+    }
+    console.log("...all files ready\n");
+  }
+  
+  const model = genAI.getGenerativeModel({
+    model: "gemini-2.0-flash",
+  });
+  
+  const generationConfig = {
+    temperature: 1,
+    topP: 0.95,
+    topK: 40,
+    maxOutputTokens:5000,
+    responseMimeType: "text/plain",
+  };
+
+
+app.post("/api/v1/data", upload.single('assignmentFile'), async (req: Request, res:Response): Promise<void> => {
+    try {
+      // Extract text data from req.body
+      const { Name, Class, Section, RollNo, Department, Email, PhoneNumber, hash } = req.body;
+      let ocrTextResult = "OCR processing not performed.";
+      let geminiUploadedFile;
+      let assignmentFilePath: string | undefined = undefined;
+  
+      if (req.file) {
+        assignmentFilePath = req.file.path;
+  
+        try {
+          geminiUploadedFile = await uploadToGemini(assignmentFilePath, req.file.mimetype);
+          await waitForFilesActive([geminiUploadedFile]);
+  
+          // Corrected geminiRequest to include 'role: "user"' in contents
+          const geminiRequest = {
+            contents: [{
+              role: "user", // Added role: "user" here
+              parts: [
+                {
+                  fileData: {
+                    mimeType: geminiUploadedFile.mimeType,
+                    fileUri: geminiUploadedFile.uri,
+                  },
+                },
+                { text: "Your job is to extract the handwritten text from the file and provide the extracted data as is, without adding any extra words whatsoever. Behave like a ocr and give the extracted data as you response" },
+              ],
+            }],
+            generationConfig: generationConfig,
+          };
+  
+          const geminiResponse = await model.generateContent(geminiRequest);
+          const responseText = geminiResponse.response.text();
+  
+          if (responseText) {
+            ocrTextResult = responseText;
+            console.log("Gemini OCR Result:", ocrTextResult);
+          } else {
+            ocrTextResult = "Gemini OCR processing failed to extract text.";
+            console.error("Gemini OCR failed to extract text.");
+          }
+  
+        } catch (geminiUploadError: any) {
+          console.error("Gemini File Upload or Processing Error:", geminiUploadError);
+          ocrTextResult = "Error during Gemini file upload or processing.";
+        }
+      }
+      const newSubmission = await SubmissionModel.create({
+        Name,
+        Class,
+        Section,
+        RollNo,
+        Department,
+        Email,
+        PhoneNumber,
+        hash,
+        assignmentFile: assignmentFilePath,
+      });
+  
+      res.status(201).json({
+        message: 'Submission successful',
+        submissionId: newSubmission._id,
+        ocrText: ocrTextResult,
+      });
+    } catch (error: any) {
+      console.error('Error saving submission or during OCR process:', error);
+      if (error instanceof multer.MulterError && error.code === 'LIMIT_FILE_SIZE') {
+        res.status(400).json({ message: 'File size exceeds the limit of 5MB.' });
+      } else{
+        res.status(500).json({ message: 'Failed to submit data or process OCR', error: error.message });
+      }
+    }
+    return;
+});
 
 app.get("/", (req, res) => {
 
