@@ -45,11 +45,11 @@ const AssignmentCard: React.FC<AssignmentProps> = (props) => {
 
 
   return (
-    <div className="group mb-6 rounded-2xl shadow-xl bg-white hover:shadow-2xl transition-shadow duration-300 ease-in-out overflow-hidden border border-gray-200 hover:border-blue-gray-300 transform hover:-translate-y-2">
+    <div className="group mb-6 rounded-2xl justify-between flex flex-col shadow-xl bg-white hover:shadow-2xl max-w-sm min-h-76 transition-shadow duration-300 ease-in-out overflow-hidden border border-gray-200 hover:border-blue-gray-300 transform hover:-translate-y-2">
       {/* Header Section */}
       <div className="px-6 py-6 border-b border-gray-200">
         <div className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold text-gray-800 mb-1 truncate group-hover:text-blue-gray-700 transition-colors duration-200">
+          <h2 className="text-xl font-semibold text-ellipsis text-gray-800 mb-1 truncate group-hover:text-blue-gray-700 transition-colors duration-200">
             {Title || 'Assignment Title'}
           </h2>
         </div>
@@ -77,7 +77,7 @@ const AssignmentCard: React.FC<AssignmentProps> = (props) => {
       </div>
 
       {/* Body Section - Direct Styling for Tags */}
-      <div className="px-6 py-5">
+      <div className="px-6 pt-1 pb-3">
         <h3 className="text-md font-semibold text-gray-700 mb-4 uppercase tracking-wide">
           Information Required
         </h3>
