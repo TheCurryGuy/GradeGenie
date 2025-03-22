@@ -162,6 +162,7 @@ app.post("/api/v1/data", upload.single('assignmentFile'), async (req: Request, r
         res.status(500).json({ message: 'Failed to submit data or process OCR', error: error.message });
       }
     }
+    return;
 });
 
 app.get("/", (req, res) => {
