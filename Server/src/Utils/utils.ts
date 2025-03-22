@@ -171,4 +171,3 @@ export function filterSecondObjectProperties(originalObject: InnerObjectType): F
 
   return JSON.parse(JSON.stringify(finalFilteredObject)); // Remove undefined fields
 }
-

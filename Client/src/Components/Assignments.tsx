@@ -27,6 +27,7 @@ const Assignments: React.FC = () => {
       const response = await axios.get('http://localhost:3000/api/v1/get/latest/all', {
         headers: { token: token || '' }
       });
+      console.log(response.data.data);
       setAssignments(response.data.data);
       setLoading(false);
     } catch (error: any) {

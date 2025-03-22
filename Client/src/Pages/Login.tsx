@@ -24,8 +24,8 @@ const Login: React.FC = () => {
         password: password,
       });
       alert("Login Successful!");
-      localStorage.setItem("token", response.data.token);
       navigate("/home");
+      localStorage.setItem("token", response.data.token);
     } catch (error: any) {
       console.error(error);
       if (error.response && error.response.status === 401) {
