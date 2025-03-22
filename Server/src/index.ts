@@ -6,7 +6,6 @@ import { userMiddleware } from "./Middleware/middleware";
 import { randomHash, filterNullValues, filterObjectProperties, InnerObjectType, FilteredObjectType, filterSecondObjectProperties, FilteredSecondObjectType } from "./Utils/utils";
 import cors from "cors";
 import bcrypt from "bcrypt"
-import { use } from "react";
 const app = express();
 app.use(express.json()); 
 app.use(cors({
