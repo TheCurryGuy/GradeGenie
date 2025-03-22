@@ -4,7 +4,7 @@ import { UserModel, AssignmentModel, SubmissionModel } from "./Schema/db";
 import { JWT_PASSWORD, GEMINI_API_KEY } from "./Config/config";
 import { userMiddleware } from "./Middleware/middleware";
 import multer from 'multer';
-import { randomHash, filterNullValues, filterObjectProperties, InnerObjectType, FilteredObjectType, filterSecondObjectProperties, FilteredSecondObjectType } from "./Utils/utils";
+import { randomHash, filterNullValues, filterObjectProperties, InnerObjectType, FilteredObjectType, filterSecondObjectProperties, FilteredSecondObjectType, ThirdFilteredObjectType, ThirdfilterObjectProperties } from "./Utils/utils";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { GoogleAIFileManager } from "@google/generative-ai/server";
 import cors from "cors";
@@ -458,6 +458,29 @@ app.get("/api/v1/get/latest/all", userMiddleware, async (req, res): Promise<void
             message: "Internal Server Error"
         });
     }
+});
+
+app.get("api/v1/latest/assignments", userMiddleware, async (req, res): Promise<void> => {
+    const userId = req.userId;
+    const data: InnerObjectType[] = await AssignmentModel.find({userId})
+    if (!data || data.length === 0) {
+        res.status(404).json({
+            message: "Data Not Found"
+        });
+        return;
+    }
+    const assignmentHashes: string[] = data.map(assignment => assignment.hash).filter((hash): hash is string => hash !== undefined);
+    const submissionCounts: number[] = [];
+    for (const hash of assignmentHashes) {
+        const submissions = await SubmissionModel.find({ hash: hash });
+        submissionCounts.push(submissions.length);
+    }
+    const filteredData: ThirdFilteredObjectType[] = ThirdfilterObjectProperties(data);
+    res.status(200).json({
+        assignments: filteredData, 
+        submissionCounts: submissionCounts, 
+        message: "Data Fetched Successfully"
+    });
 });
 
 app.delete('/api/v1/delete', userMiddleware, async (req, res): Promise<void> => {
