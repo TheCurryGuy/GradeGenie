@@ -257,38 +257,7 @@ const Dashboard: React.FC = () => {
                             />
                         </div>
 
-                        <div className="mt-6 p-5 bg-gradient-to-br from-purple-50/90 to-indigo-50/90 rounded-2xl backdrop-blur-xl relative">
-                            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-indigo-500/5 rounded-2xl"></div>
-                            <div className="relative">
-                                <div className="flex items-center gap-3 mb-5">
-                                    <h3 className="text-base font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">Assignment Status</h3>
-                                    <div className="flex-1 h-px bg-gradient-to-r from-purple-200 via-indigo-200 to-transparent rounded-full"></div>
-                                </div>
-                                <div className="grid grid-cols-3 gap-4">
-                                    <div className="flex items-center gap-2.5 group cursor-default">
-                                        <div className="relative">
-                                            <span className="absolute inset-0 bg-red-500/30 rounded-full blur-lg group-hover:blur-xl transition-all duration-300"></span>
-                                            <span className="relative w-2.5 h-2.5 inline-block rounded-full bg-gradient-to-r from-red-500 to-red-600 group-hover:scale-125 transition-transform duration-300"></span>
-                                        </div>
-                                        <span className="text-sm font-medium text-gray-600 group-hover:text-gray-900 transition-colors duration-300">Overdue</span>
-                                    </div>
-                                    <div className="flex items-center gap-2.5 group cursor-default">
-                                        <div className="relative">
-                                            <span className="absolute inset-0 bg-amber-500/30 rounded-full blur-lg group-hover:blur-xl transition-all duration-300"></span>
-                                            <span className="relative w-2.5 h-2.5 inline-block rounded-full bg-gradient-to-r from-amber-500 to-amber-600 group-hover:scale-125 transition-transform duration-300"></span>
-                                        </div>
-                                        <span className="text-sm font-medium text-gray-600 group-hover:text-gray-900 transition-colors duration-300">Due Soon</span>
-                                    </div>
-                                    <div className="flex items-center gap-2.5 group cursor-default">
-                                        <div className="relative">
-                                            <span className="absolute inset-0 bg-purple-500/30 rounded-full blur-lg group-hover:blur-xl transition-all duration-300"></span>
-                                            <span className="relative w-2.5 h-2.5 inline-block rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 group-hover:scale-125 transition-transform duration-300"></span>
-                                        </div>
-                                        <span className="text-sm font-medium text-gray-600 group-hover:text-gray-900 transition-colors duration-300">Upcoming</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
 
