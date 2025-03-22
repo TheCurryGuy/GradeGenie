@@ -63,26 +63,77 @@ export interface FilteredObjectType {
   Title?: string;
   Deadline?: string;
   userId?: mongoose.Types.ObjectId;
+  _id?: string;
+}
+
+export interface ThirdFilteredObjectType {
+  Name?: boolean;
+  hash?: string;
+  Title?: string;
+  Deadline?: string;
+  Description?:string;
+  userId?: mongoose.Types.ObjectId;
+  _id?: string;
 }
   
+  
 export function filterObjectProperties(originalArray: InnerObjectType[]): FilteredObjectType[] {
-  const keysToRemove: string[] = ["Questions", "Description"];
-  const filteredArray: FilteredObjectType[] = [];
+  const allowedKeys: (keyof FilteredObjectType)[] = [
+    'Name', 'Class', 'Section', 'RollNo', 'Department', 'Email', 'PhoneNumber',
+    'hash', 'Title', 'Deadline', 'userId', '_id'
+  ];
 
-  for (const innerObject of originalArray) {
-      const filteredInnerObject: Partial<FilteredObjectType> = {};
+  return originalArray.map(innerObject => {
+    // Convert Mongoose document to plain object, preserving ObjectId types
+    const plainObject = innerObject.toObject?.({ getters: false }) || { ...innerObject };
 
-      for (const innerKey in innerObject) {
-              if (!keysToRemove.includes(innerKey)) {
-                //@ts-ignore
-                  filteredInnerObject[innerKey] = innerObject[innerKey];
-              }
+    const filteredInnerObject: Partial<FilteredObjectType> = {};
+
+    // Copy allowed keys
+    for (const key of allowedKeys) {
+      if (plainObject[key] !== undefined) {
+        filteredInnerObject[key] = plainObject[key];
       }
-      filteredArray.push(filteredInnerObject as FilteredObjectType);
-  }
+    }
 
-  return filteredArray;
+    delete (filteredInnerObject as any).__v;
+    delete (filteredInnerObject as any).Questions;
+    delete (filteredInnerObject as any).Description;
+
+    return filteredInnerObject as FilteredObjectType;
+  });
 }
+export function ThirdfilterObjectProperties(originalArray: InnerObjectType[]): ThirdFilteredObjectType[] {
+  const allowedKeys: (keyof ThirdFilteredObjectType)[] = [
+    'Name', 'hash', 'Title', 'Deadline', 'userId', '_id', 'Description'
+  ];
+
+  return originalArray.map(innerObject => {
+    // Convert Mongoose document to plain object, preserving ObjectId types
+    const plainObject = innerObject.toObject?.({ getters: false }) || { ...innerObject };
+
+    const filteredInnerObject: Partial<ThirdFilteredObjectType> = {};
+
+    // Copy allowed keys
+    for (const key of allowedKeys) {
+      if (plainObject[key] !== undefined) {
+        filteredInnerObject[key] = plainObject[key];
+      }
+    }
+
+    delete (filteredInnerObject as any).__v;
+    delete (filteredInnerObject as any).Questions;
+    delete (filteredInnerObject as any).Class;
+    delete (filteredInnerObject as any).Section;
+    delete (filteredInnerObject as any).RollNo;
+    delete (filteredInnerObject as any).Department;
+    delete (filteredInnerObject as any).Email;
+    delete (filteredInnerObject as any).PhoneNumber;
+
+    return filteredInnerObject as ThirdFilteredObjectType;
+  });
+}
+
 
   
 export function filterSecondObjectProperties(originalObject: InnerObjectType): FilteredSecondObjectType {

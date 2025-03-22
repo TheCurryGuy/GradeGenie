@@ -19,12 +19,13 @@ const Login: React.FC = () => {
     }
 
     try {
-      await axios.post("http://localhost:3000/api/v1/signin", {
+      const response = await axios.post("http://localhost:3000/api/v1/signin", {
         username: username,
         password: password,
       });
       alert("Login Successful!");
-      navigate("/dashboard");
+      localStorage.setItem("token", response.data.token);
+      navigate("/home");
     } catch (error: any) {
       console.error(error);
       if (error.response && error.response.status === 401) {
