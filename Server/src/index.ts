@@ -11,6 +11,7 @@ import cors from "cors";
 import bcrypt from "bcrypt"
 import fs from "fs";
 import path from "path";
+import { createObjectCsvStringifier } from 'csv-writer'; 
 
 const app = express();
 app.use(express.json()); 
@@ -330,15 +331,11 @@ app.post("/api/v1/generate", userMiddleware, async (req, res) => {
             Deadline: deadline
         });
         res.json({ hash: hashed });
-    } catch (e: any) { // Type 'e' as 'any' to access error properties
-        console.error("Error in /api/v1/generate:", e); // Log the full error object to server console
-
-        // Send a more informative error response to the frontend
-        res.status(500).json({ // Use 500 status code for server errors
+    } catch (e: any) { 
+        console.error("Error in /api/v1/generate:", e); 
+        res.status(500).json({
             message: "Failed to generate assignment.",
-            error: e.message, // Include the error message for debugging
-            // Optionally, you can include more error details like e.stack if needed for development,
-            // but avoid sending stack traces in production for security reasons.
+            error: e.message, 
         });
     }
 });
@@ -514,7 +511,44 @@ app.delete('/api/v1/delete', userMiddleware, async (req, res): Promise<void> => 
         success: false
       });
     }
-  });
+});
+
+app.get("/api/v1/export", userMiddleware, async (req, res): Promise<void> => {
+    try {
+        const hash = req.body.hash;
+        if (!hash) {
+            res.status(400).send("Hash query parameter is required.");
+            return
+        }
+        const submissions = await SubmissionModel.find({hash: hash})
+        const csvStringifier = createObjectCsvStringifier({
+            header: [
+                { id: 'Name', title: 'Name' },
+                { id: 'Class', title: 'Class' },
+                { id: 'Section', title: 'Section' },
+                { id: 'RollNo', title: 'RollNo' },
+                { id: 'Department', title: 'Department' },
+                { id: 'Email', title: 'Email' },
+                { id: 'PhoneNumber', title: 'PhoneNumber' },
+                { id: 'hash', title: 'Hash' },
+                { id: 'evaluationResult', title: 'EvaluationResult' },
+                { id: 'assignmentFile', title: 'AssignmentFile' },
+                { id: '_id', title: 'Submission ID'},
+            ]
+        });
+
+        const csvData = csvStringifier.getHeaderString() + csvStringifier.stringifyRecords(submissions);
+
+        res.setHeader('Content-Type', 'text/csv');
+        res.setHeader('Content-Disposition', 'attachment; filename=submissions.csv');
+        res.status(200).send(csvData);
+
+    } catch (error: any) {
+        console.error("Error generating CSV for submissions:", error);
+        res.status(500).send("Error generating CSV for submissions");
+    }
+    return
+});
 
 
 app.listen(3000, ()=> {

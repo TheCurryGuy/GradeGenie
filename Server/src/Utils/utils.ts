@@ -67,7 +67,6 @@ export interface FilteredObjectType {
 }
 
 export interface ThirdFilteredObjectType {
-  Name?: boolean;
   hash?: string;
   Title?: string;
   Deadline?: string;
@@ -105,7 +104,7 @@ export function filterObjectProperties(originalArray: InnerObjectType[]): Filter
 }
 export function ThirdfilterObjectProperties(originalArray: InnerObjectType[]): ThirdFilteredObjectType[] {
   const allowedKeys: (keyof ThirdFilteredObjectType)[] = [
-    'Name', 'hash', 'Title', 'Deadline', 'userId', '_id', 'Description'
+    'hash', 'Title', 'Deadline', 'userId', '_id', 'Description'
   ];
 
   return originalArray.map(innerObject => {
@@ -129,7 +128,7 @@ export function ThirdfilterObjectProperties(originalArray: InnerObjectType[]): T
     delete (filteredInnerObject as any).Department;
     delete (filteredInnerObject as any).Email;
     delete (filteredInnerObject as any).PhoneNumber;
-
+    delete (filteredInnerObject as any).Name;
     return filteredInnerObject as ThirdFilteredObjectType;
   });
 }
