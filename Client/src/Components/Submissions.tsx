@@ -51,18 +51,7 @@ const Submissions = () => {
         }
     }, []);
 
-    const exportSubmission = async (hash: string) => {
-        try {
-            await axios.post(`http://localhost:3000/api/v1/export`, {
-                hash,
-            });
-
-            console.log("Submission exported successfully!");
-        } catch (error) {
-            console.error("Error exporting submission:", error);
-
-        }
-    };
+    
 
     return (
         <div>
