@@ -58,7 +58,7 @@ export const Sidebar = () => {
 
             {/* Sidebar */}
             <div
-                className={`bg-white border-r h-screen min-w-80 fixed md:relative transform transition-transform duration-300 ease-in-out z-40 md:z-0 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+                className={`bg-white border-r min-h-screen min-w-80 fixed md:relative transform transition-transform duration-300 ease-in-out z-40 md:z-0 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"
                     } md:translate-x-0`}
             >
                 {/* Sidebar Content */}

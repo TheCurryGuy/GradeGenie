@@ -54,13 +54,13 @@ const Home: React.FC = () => {
     }, [token, navigate]);
 
     return (
-        <div className="flex w-full h-full">
+        <div className="flex w-full min-h-screen">
             <Sidebar/>
-            <div className='w-full h-screen'>
-            <ErrorBoundary>
-                {isHome && <Dashboard/>}       {/* Use boolean state variables for conditional rendering */}
-                {isAssignments && <FinalAssignment/>}
-            </ErrorBoundary>
+            <div className='w-full h-full'>
+                <ErrorBoundary>
+                    {isHome && <Dashboard/>}       {/* Use boolean state variables for conditional rendering */}
+                    {isAssignments && <FinalAssignment/>}
+                </ErrorBoundary>
             </div>
             
         </div>
