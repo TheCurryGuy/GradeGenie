@@ -74,6 +74,7 @@ const storage = multer.diskStorage({
       }
     }
     console.log("...all files ready\n");
+    return
   }
   
   const model = genAI.getGenerativeModel({
@@ -128,7 +129,7 @@ app.post("/api/v1/data", upload.single('assignmentFile'), async (req: Request, r
             ocrTextResult = responseText;
             console.log("Gemini OCR Result:", ocrTextResult);
           } else {
-            ocrTextResult = "Gemini OCR processing failed to extract text.";
+            ocrTextResult = "Error during Gemini file upload or processing.";
             console.error("Gemini OCR failed to extract text.");
           }
   
@@ -137,23 +138,29 @@ app.post("/api/v1/data", upload.single('assignmentFile'), async (req: Request, r
           ocrTextResult = "Error during Gemini file upload or processing.";
         }
       }
-      const newSubmission = await SubmissionModel.create({
-        Name,
-        Class,
-        Section,
-        RollNo,
-        Department,
-        Email,
-        PhoneNumber,
-        hash,
-        assignmentFile: assignmentFilePath,
-      });
-  
-      res.status(201).json({
-        message: 'Submission successful',
-        submissionId: newSubmission._id,
-        ocrText: ocrTextResult,
-      });
+      if(ocrTextResult !== "Error during Gemini file upload or processing."){
+        const newSubmission = await SubmissionModel.create({
+            Name,
+            Class,
+            Section,
+            RollNo,
+            Department,
+            Email,
+            PhoneNumber,
+            hash,
+            assignmentFile: assignmentFilePath,
+        });
+    
+        res.status(201).json({
+            message: 'Submission successful',
+            submissionId: newSubmission._id,
+            ocrText: ocrTextResult,
+        });
+      } else{
+        res.status(201).json({
+            message: 'Submission unsuccessful'
+        });
+      }
     } catch (error: any) {
       console.error('Error saving submission or during OCR process:', error);
       if (error instanceof multer.MulterError && error.code === 'LIMIT_FILE_SIZE') {
@@ -164,6 +171,62 @@ app.post("/api/v1/data", upload.single('assignmentFile'), async (req: Request, r
     }
     return;
 });
+
+app.post("/api/v1/result", async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { ocrText, sub_id } = req.body;
+      if (!ocrText || !sub_id) {
+        res.status(400).json({ message: "Missing required fields: ocrText and sub_id" });
+        return;
+      }
+      const submission = await SubmissionModel.findById(sub_id);
+      if (!submission) {
+        res.status(404).json({ message: "Submission not found" });
+        return;
+      }
+      const assignment = await AssignmentModel.findOne({ 
+        hash: submission.hash 
+      });
+      if (!assignment) {
+        res.status(400).json({ message: "Linked assignment not found" });
+        return;
+      }
+      const systemInstruction = `You are a professional teacher who critically evaluates student's answers based on multiple factors, including depth, clarity, knowledge, grammar, and tone. Your task is to assess their responses rigorously and assign them a score on a scale of 1 to 100, ensuring that the score appears as the heading of your response. Following this, you must provide a concise yet insightful analysis of their answer within 150-200 words, highlighting its strengths and weaknesses. After the analysis, generate a detailed, personalized feedback section of up to 500 words, offering constructive suggestions for improvement. Maintain a friendly and encouraging tone throughout your response to ensure the student feels motivated and supported in their learning journey.`;
+      const userContent = `Name: ${submission.Name || "Student"}\nQuestions: ${assignment.Questions}\nAnswer: ${ocrText}`;
+      const geminiResponse = await model.generateContent({
+        contents: [{
+          role: "user",
+          parts: [
+            { text: systemInstruction },
+            { text: userContent }
+          ]
+        }],
+        generationConfig
+      }).catch(err => {
+        throw new Error(`Gemini API Error: ${err.message}`);
+      });
+      const evaluationResultText = geminiResponse.response.text();
+      if (!evaluationResultText) {
+        throw new Error("Empty response from Gemini");
+      }
+      submission.evaluationResult = evaluationResultText;
+      await submission.save();
+      res.status(200).json({
+        message: "Evaluation successful",
+        result: evaluationResultText
+      });
+  
+    } catch (error: any) {
+      console.error("Result route error:", error);
+      if (!res.headersSent) {
+        const statusCode = error.message.includes("not found") ? 404 : 500;
+        res.status(statusCode).json({
+          message: "Evaluation failed",
+        });
+      }
+    }
+});
+
 
 app.get("/", (req, res) => {
 
