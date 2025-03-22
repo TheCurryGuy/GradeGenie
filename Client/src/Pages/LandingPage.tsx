@@ -5,7 +5,7 @@ import { SlideIn, StaggeredReveal } from "../utils/utils"
 import { FaTwitter, FaLinkedin, FaFacebook } from "react-icons/fa"
 import { IoStatsChart, IoSchool, IoSpeedometer } from "react-icons/io5"
 import { useNavigate } from "react-router-dom"
-
+import dashboardImg from "../assets/Dashboard.png"
 const LandingPage = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -166,6 +166,7 @@ const LandingPage = () => {
                       className="bg-white text-blue-600 font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-full hover:bg-blue-50 transition duration-200 shadow-md flex items-center justify-center"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
+                      onClick={() => navigate('/signup')}
                     >
                       Get Started for Free
                       <ArrowRight className="ml-2 h-4 w-4" />
@@ -190,7 +191,7 @@ const LandingPage = () => {
                     <div className="absolute -top-6 -left-6 w-24 h-24 bg-yellow-400 rounded-full opacity-20 blur-xl"></div>
                     <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-purple-400 rounded-full opacity-20 blur-xl"></div>
                     <img
-                      src="/placeholder.svg?height=400&width=500"
+                      src={dashboardImg}
                       alt="GradeGenie Dashboard Preview"
                       className="rounded-lg shadow-2xl border-4 border-white/20 backdrop-blur-sm w-full h-auto"
                     />

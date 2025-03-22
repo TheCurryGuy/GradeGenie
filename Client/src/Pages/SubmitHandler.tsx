@@ -1,8 +1,8 @@
 "use client";
 
 import type React from "react";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState, useContext } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import type { Dispatch, SetStateAction } from "react";
 import {
@@ -12,6 +12,9 @@ import {
   Upload,
   AlertCircle,
 } from "lucide-react";
+
+import favicon from "../assets/favicon.ico";
+import { StateContext } from "../Context API/StateContext";
 
 interface Assignment {
   Name?: boolean;
@@ -47,7 +50,8 @@ const SubmitHandler = () => {
   const [departmentValue, setDepartmentValue] = useState("");
   const [emailValue, setEmailValue] = useState("");
   const [phoneNumberValue, setPhoneNumberValue] = useState("");
-
+  const { setOcrOutput, setSub_id } = useContext(StateContext);
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -69,10 +73,7 @@ const SubmitHandler = () => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
       if (
-        file.type === "application/pdf" ||
-        file.type === "application/msword" ||
-        file.type ===
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        file.type === "application/pdf"  
       ) {
         setUploadedFile(file);
         setError(null);
@@ -113,7 +114,7 @@ const SubmitHandler = () => {
     if (uploadedFile) {
       formData.append("assignmentFile", uploadedFile);
     }
-
+    console.log(formData);
     try {
       const response = await axios.post(
         "http://localhost:3000/api/v1/data",
@@ -125,7 +126,13 @@ const SubmitHandler = () => {
         }
       );
       setSubmissionStatus("success");
+      setOcrOutput(response.data.ocrText);
+      setSub_id(response.data.submissionId);
       console.log("Submission successful:", response.data);
+      alert("You will be redirected to the result page in 2 seconds");
+      setTimeout(() => {
+        navigate("/result");
+      }, 2000);
       // Optionally redirect or show a success message
     } catch (submissionError: any) {
       setSubmissionStatus("error");
@@ -215,6 +222,10 @@ const SubmitHandler = () => {
       {/* Fixed header with form title */}
       <header className="sticky top-0 z-10 bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+          <div>
+            <img src={favicon} alt="GradeGenie Logo" className="w-8 h-8 mr-2" />
+            <span className="bg-gradient-to-r font-bold from-indigo-600 to-purple-600 bg-clip-text text-transparent">GradeGenie</span>
+          </div>
           <div>
             <h1 className="text-xl sm:text-2xl font-bold text-purple-700">
               {assignment.Title || "Assignment Submission"}
@@ -374,14 +385,14 @@ const SubmitHandler = () => {
                             name="assignmentFile"
                             type="file"
                             onChange={handleFileChange}
-                            accept=".pdf,.doc,.docx"
+                            accept=".pdf"
                             className="sr-only"
                           />
                         </label>
                         <p className="pl-1">or drag and drop</p>
                       </div>
                       <p className="text-xs text-gray-500">
-                        PDF or Word documents only
+                        PDF documents only
                       </p>
                     </>
                   ) : (

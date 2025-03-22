@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-import DashboardTop from '../assets/DashboardTop.png';
 // @ts-ignore
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
@@ -45,7 +44,7 @@ const Dashboard: React.FC = () => {
         try {
             const response = await axios.get('http://localhost:3000/api/v1/userdata', {
                 headers: {
-                    token: token
+                  token: token
                 }
             });
             setFirstName(response.data.info.firstName);
@@ -58,7 +57,7 @@ const Dashboard: React.FC = () => {
         try {
             const response = await axios.get('http://localhost:3000/api/v1/assignments', {
                 headers: {
-                    token: token
+                  token: token
                 }
             });
             setCards(response.data.info);
@@ -184,11 +183,11 @@ const Dashboard: React.FC = () => {
                         </button>
                     </div>
                 </div>
-                <img
-                    src={DashboardTop}
-                    alt="Education supplies"
+                {/* <img 
+                    src={DashboardTop} 
+                    alt="Education supplies" 
                     className="absolute right-0 h-full w-auto object-contain animate-float"
-                />
+                /> */}
             </div>
 
             <div className="mx-4 flex flex-col lg:flex-row gap-6">
@@ -265,7 +264,7 @@ const Dashboard: React.FC = () => {
                 <div className="lg:w-2/3 lg:order-1">
                     <div className="flex justify-between items-center mb-4">
                         <h2 className="text-3xl pl-2 pt-2 font-bold font-poppins text-gray-900">Active Assignments</h2>
-                    </div>
+        </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                         {cards.length > 0 ? (
@@ -286,22 +285,22 @@ const Dashboard: React.FC = () => {
                                                 {timeRemaining}
                                             </span>
                                         </div>
-
+                                        
                                         <p className="text-gray-600 mb-4 line-clamp-2">{card.Description || "No description provided"}</p>
-
+                                        
                                         <div className="flex items-center gap-2 text-gray-500 mb-4 text-sm">
                                             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                             </svg>
-                                            <span>Due: {new Date(card.Deadline || '').toLocaleDateString('en-US', {
-                                                month: 'short',
-                                                day: 'numeric',
+                                            <span>Due: {new Date(card.Deadline || '').toLocaleDateString('en-US', { 
+                                                month: 'short', 
+                                                day: 'numeric', 
                                                 year: 'numeric',
                                                 hour: '2-digit',
                                                 minute: '2-digit'
                                             })}</span>
                                         </div>
-
+                                        
                                         <div className="flex justify-between items-center">
                                             <div className="flex items-center">
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -338,7 +337,7 @@ const Dashboard: React.FC = () => {
                     </div>
                 </div>
             </div>
-
+            
             <GeneratorModal />
         </div>
     );
