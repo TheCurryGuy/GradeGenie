@@ -35,6 +35,7 @@ const SubmissionSchema: Schema = new Schema({
     Email: { type: String },
     PhoneNumber: { type: String },
     hash: {type: String},
+    evaluationResult: {type: String},
     assignmentFile: { type: String }, // Store the file path or filename in the database
   })
 
