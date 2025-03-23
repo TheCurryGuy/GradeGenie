@@ -30,7 +30,7 @@ const Signup: React.FC = () => {
     }
 
     try {
-      await axios.post("http://localhost:3000/api/v1/signup", {
+      await axios.post("https://grade-genie-server.vercel.app/api/v1/signup", {
         firstName: firstname,
         lastName: lastname,
         username: username,

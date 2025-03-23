@@ -19,7 +19,7 @@ const Login: React.FC = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:3000/api/v1/signin", {
+      const response = await axios.post("https://grade-genie-server.vercel.app/api/v1/signin", {
         username: username,
         password: password,
       });

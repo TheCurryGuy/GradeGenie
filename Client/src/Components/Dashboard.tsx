@@ -42,7 +42,7 @@ const Dashboard: React.FC = () => {
 
     const fetchUserData = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/api/v1/userdata', {
+            const response = await axios.get('https://grade-genie-server.vercel.app/api/v1/userdata', {
                 headers: {
                   token: token
                 }
@@ -55,7 +55,7 @@ const Dashboard: React.FC = () => {
 
     const fetchCards = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/api/v1/assignments', {
+            const response = await axios.get('https://grade-genie-server.vercel.app/api/v1/assignments', {
                 headers: {
                   token: token
                 }
