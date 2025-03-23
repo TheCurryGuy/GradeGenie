@@ -58,35 +58,32 @@ declare global{
     }
 }
 
-const UPLOADS_DIR = path.join(__dirname, 'uploads');
-
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      fs.mkdirSync(UPLOADS_DIR, { recursive: true }); 
-      cb(null, UPLOADS_DIR);
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.originalname); // Use original filename
-    }
-  });
-  
-  const upload = multer({
-    storage: storage,
-    limits: { fileSize: 3 * 1024 * 1024 }
-  });
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 3 * 1024 * 1024 }
+});
   
   const apiKey = GEMINI_API_KEY? GEMINI_API_KEY : "null";
   const genAI = new GoogleGenerativeAI(apiKey);
   const fileManager = new GoogleAIFileManager(apiKey);
   
-  async function uploadToGemini(filePath: string, mimeType: string) {
-    const uploadResult = await fileManager.uploadFile(filePath, {
-      mimeType,
-      displayName: filePath,
-    });
-    const file = uploadResult.file;
-    console.log(`Uploaded file ${file.displayName} as: ${file.name}`);
-    return file;
+  async function uploadToGemini(buffer: Buffer, mimeType: string, fileName: string) {
+    const tempDir = path.join(__dirname, 'temp');
+    if (!fs.existsSync(tempDir)) {
+      fs.mkdirSync(tempDir, { recursive: true });
+    }
+    const tempPath = path.join(tempDir, fileName);
+  
+    try {
+      fs.writeFileSync(tempPath, buffer);
+      const uploadResult = await fileManager.uploadFile(tempPath, {
+        mimeType,
+        displayName: fileName,
+      });
+      return uploadResult.file;
+    } finally {
+      fs.unlinkSync(tempPath); // Clean up temp file
+    }
   }
   
   async function waitForFilesActive(files: any[]) {
@@ -103,7 +100,6 @@ const storage = multer.diskStorage({
       }
     }
     console.log("...all files ready\n");
-    return
   }
   
   const model = genAI.getGenerativeModel({
@@ -138,7 +134,7 @@ const storage = multer.diskStorage({
 
 
             try {
-                geminiUploadedFile = await uploadToGemini(req.file.path, req.file.mimetype); // Still upload to Gemini
+                geminiUploadedFile = await uploadToGemini(file.buffer, file.mimetype, file.originalname);
                 await waitForFilesActive([geminiUploadedFile]);
 
 
