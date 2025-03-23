@@ -22,7 +22,6 @@ app.use(cors({
 
 app.options('*', cors());
 
-
 declare global{
     namespace Express{
         export interface Request{
