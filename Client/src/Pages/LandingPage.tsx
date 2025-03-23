@@ -11,7 +11,7 @@ import dashboardImg from "../assets/Dashboard.png"
 import TypeScriptLogo from "../assets/TypeScriptLogo.png"
 import SolutionsChallenge from "../assets/SolutionsChallenge.png"
 import GeminiLogo from "../assets/GeminiLogo.png"
-import AiStudioLogo from "../assets/AiStudioLogo.png"
+import AiStudioLogo from "../assets/AIStudioLogo.png"
 import VercelLogo from "../assets/VercelLogo.png"
 import ViteLogo from "../assets/ViteLogo.png"
 const LandingPage = () => {
