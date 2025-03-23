@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express"; 
 import jwt from "jsonwebtoken";
 import { UserModel, AssignmentModel, SubmissionModel } from "./Schema/db";
-import { JWT_PASSWORD, GEMINI_API_KEY, BLOB_READ_WRITE_TOKEN } from "./Config/config";
+import { JWT_PASSWORD, GEMINI_API_KEY, MAIN_READ_WRITE_TOKEN} from "./Config/config";
 import { userMiddleware } from "./Middleware/middleware";
 import multer from 'multer';
 import { randomHash, filterNullValues, filterObjectProperties, InnerObjectType, FilteredObjectType, filterSecondObjectProperties, FilteredSecondObjectType, ThirdFilteredObjectType, ThirdfilterObjectProperties } from "./Utils/utils";
@@ -103,7 +103,7 @@ const storage = multer.diskStorage({
             const file = req.file;
             const { url } = await put(file.originalname, file.buffer, {
                 access: 'public', 
-                token: BLOB_READ_WRITE_TOKEN,
+                token: MAIN_READ_WRITE_TOKEN,
             });
 
             assignmentFilePath = url; // Store the Vercel Blob URL
