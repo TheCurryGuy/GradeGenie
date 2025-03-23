@@ -24,7 +24,7 @@ const Results = () => {
             try {
                 setLoading(true);
                 const response = await axios.post(
-                    "http://localhost:3000/api/v1/result",
+                    "https://grade-genie-server.vercel.app/api/v1/result",
                     { ocrText: ocrOutput, sub_id },
                     { signal: abortController.signal }
                 );

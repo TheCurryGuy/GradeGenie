@@ -24,7 +24,7 @@ const Submissions = () => {
             setError(null);
             try {
                 const response = await axios.get(
-                    "http://localhost:3000/api/v1/latest/assignments",
+                    "https://grade-genie-server.vercel.app/api/v1/latest/assignments",
                     {
                         headers: {
                             token: token,
