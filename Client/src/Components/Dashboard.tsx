@@ -8,7 +8,7 @@ import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import GeneratorModal from './GeneratorModal';
 import { StateContext } from '../Context API/StateContext';
-
+import DashboardTop from '../assets/DashboardTop.svg';
 // Set up the localizer for react-big-calendar
 const localizer = momentLocalizer(moment);
 
@@ -164,7 +164,7 @@ const Dashboard: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            <div className="bg-gradient-to-r from-indigo-500 to-purple-600 m-4 p-6 rounded-xl shadow-lg relative overflow-hidden transform transition-all duration-500 hover:shadow-xl">
+            <div className="flex bg-gradient-to-r from-indigo-500 to-purple-600 m-4 p-6 rounded-xl shadow-lg relative overflow-hidden transform transition-all duration-500 hover:shadow-xl">
                 <div className="flex flex-col gap-3 justify-center z-10 font-poppins max-w-[60%] text-white">
                     <h1 className="text-4xl font-bold tracking-tight">
                         Welcome, {firstName}
@@ -183,11 +183,11 @@ const Dashboard: React.FC = () => {
                         </button>
                     </div>
                 </div>
-                {/* <img 
+                <img 
                     src={DashboardTop} 
                     alt="Education supplies" 
-                    className="absolute right-0 h-full w-auto object-contain animate-float"
-                /> */}
+                    className="absolute right-0 top-0 h-full w-auto pr-3 object-contain animate-float"
+                /> 
             </div>
 
             <div className="mx-4 flex flex-col lg:flex-row gap-6">

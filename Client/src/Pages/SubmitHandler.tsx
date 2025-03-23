@@ -41,7 +41,7 @@ const SubmitHandler = () => {
   const [error, setError] = useState<string | null>(null);
   const [submissionStatus, setSubmissionStatus] = useState<string | null>(null);
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
-
+  const { setStudentName } = useContext(StateContext);
   // State variables for input fields
   const [nameValue, setNameValue] = useState("");
   const [classValue, setClassValue] = useState("");
@@ -116,6 +116,7 @@ const SubmitHandler = () => {
     }
     console.log(formData);
     try {
+      setStudentName(nameValue);
       const response = await axios.post(
         "https://grade-genie-server.vercel.app/api/v1/data",
         formData,

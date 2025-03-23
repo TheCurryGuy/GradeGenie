@@ -15,6 +15,7 @@ export const StateProvider: React.FC<StateProviderProps> = ({ children }) => {
     const [isHome, setHome] = useState(true)
     const [ocrOutput, setOcrOutput] = useState("")
     const [sub_id, setSub_id] = useState("")
+    const [studentName, setStudentName] = useState("")
     return (
         <StateContext.Provider value={{
             modalOpen, setModal,
@@ -22,7 +23,8 @@ export const StateProvider: React.FC<StateProviderProps> = ({ children }) => {
             isSubmissions, setSubmissions,
             isHome, setHome,
             ocrOutput, setOcrOutput,
-            sub_id, setSub_id
+            sub_id, setSub_id,
+            studentName, setStudentName
         }}>
             {children}
         </StateContext.Provider>

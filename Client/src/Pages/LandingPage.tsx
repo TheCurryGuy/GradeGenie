@@ -8,7 +8,12 @@ import { FaTwitter, FaLinkedin, FaFacebook, FaGithub, FaDiscord } from "react-ic
 import { IoStatsChart, IoSchool, IoSpeedometer } from "react-icons/io5"
 import { useNavigate } from "react-router-dom"
 import dashboardImg from "../assets/Dashboard.png"
-
+import TypeScriptLogo from "../assets/TypeScriptLogo.png"
+import SolutionsChallenge from "../assets/SolutionsChallenge.png"
+import GeminiLogo from "../assets/GeminiLogo.png"
+import AiStudioLogo from "../assets/AiStudioLogo.png"
+import VercelLogo from "../assets/VercelLogo.png"
+import ViteLogo from "../assets/ViteLogo.png"
 const LandingPage = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -66,7 +71,7 @@ const LandingPage = () => {
 
   // Close mobile menu when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event:any) => {
+    const handleClickOutside = (event: any) => {
       if (mobileMenuOpen && !event.target.closest("nav")) {
         setMobileMenuOpen(false)
       }
@@ -148,14 +153,7 @@ const LandingPage = () => {
                   >
                     Features
                   </a>
-                  <a
-                    href="#benefits"
-                    className={`hover:text-blue-400 transition duration-200 ${
-                      scrolled ? "text-gray-700" : "text-white"
-                    }`}
-                  >
-                    Benefits
-                  </a>
+                  
                   <a
                     href="#how-it-works"
                     className={`hover:text-blue-400 transition duration-200 ${
@@ -227,13 +225,7 @@ const LandingPage = () => {
                       >
                         Features
                       </a>
-                      <a
-                        href="#benefits"
-                        className="text-gray-700 hover:text-blue-600 transition duration-200 text-2xl font-medium"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        Benefits
-                      </a>
+                      
                       <a
                         href="#how-it-works"
                         className="text-gray-700 hover:text-blue-600 transition duration-200 text-2xl font-medium"
@@ -372,9 +364,9 @@ const LandingPage = () => {
                 </div>
 
                 {/* Right column - Dashboard image */}
-                <div className="w-full lg:w-1/2 px-4 sm:px-8 lg:px-4">
+                <div className="w-full lg:w-1/2 px-4 sm:px-8 lg:px-4 lg:pt-12">
                   <motion.div
-                    className="relative mx-auto max-w-lg lg:max-w-none"
+                    className="relative mx-auto max-w-lg lg:max-w-none lg:mt-8"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.2 }}
@@ -402,7 +394,7 @@ const LandingPage = () => {
 
                     {/* Floating notification */}
                     <motion.div
-                      className="absolute -top-10 right-0 bg-white rounded-lg shadow-xl p-3 z-10 max-w-[200px]"
+                      className="absolute -top-16 right-0 bg-white rounded-lg shadow-xl p-3 z-10 max-w-[200px]"
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6, delay: 1.2 }}
@@ -455,7 +447,7 @@ const LandingPage = () => {
 
                     {/* Floating stats */}
                     <motion.div
-                      className="absolute -bottom-10 left-0 bg-white rounded-lg shadow-xl p-3 z-10"
+                      className="absolute -bottom-14 left-0 bg-white rounded-lg shadow-xl p-3 z-10"
                       initial={{ opacity: 0, y: -20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6, delay: 1.4 }}
@@ -939,12 +931,12 @@ const LandingPage = () => {
               >
                 <div className="w-24 h-24 md:w-32 md:h-32 bg-white rounded-2xl shadow-lg flex items-center justify-center p-4 border-2 border-blue-100">
                   <img
-                    src="/placeholder.svg?height=80&width=80"
+                    src={SolutionsChallenge}
                     alt="Google Solution Challenge"
                     className="max-w-full max-h-full"
                   />
                 </div>
-                <p className="mt-4 text-sm font-medium text-gray-700">Google Solution Challenge</p>
+                <p className="mt-4 text-sm font-medium text-gray-700">Google Solution Challenge'25</p>
               </motion.div>
 
               {/* AI Studio of Google */}
@@ -955,12 +947,12 @@ const LandingPage = () => {
               >
                 <div className="w-24 h-24 md:w-32 md:h-32 bg-white rounded-2xl shadow-lg flex items-center justify-center p-4 border-2 border-purple-100">
                   <img
-                    src="/placeholder.svg?height=80&width=80"
+                    src={AiStudioLogo}
                     alt="AI Studio of Google"
                     className="max-w-full max-h-full"
                   />
                 </div>
-                <p className="mt-4 text-sm font-medium text-gray-700">AI Studio of Google</p>
+                <p className="mt-4 text-sm font-medium text-gray-700">Google AI Studio</p>
               </motion.div>
 
               {/* GEMINI */}
@@ -970,9 +962,9 @@ const LandingPage = () => {
                 transition={{ duration: 0.2 }}
               >
                 <div className="w-24 h-24 md:w-32 md:h-32 bg-white rounded-2xl shadow-lg flex items-center justify-center p-4 border-2 border-blue-100">
-                  <img src="/placeholder.svg?height=80&width=80" alt="GEMINI" className="max-w-full max-h-full" />
+                  <img src={GeminiLogo} alt="GEMINI" className="max-w-full max-h-full" />
                 </div>
-                <p className="mt-4 text-sm font-medium text-gray-700">GEMINI</p>
+                <p className="mt-4 text-sm font-medium text-gray-700">Gemini</p>
               </motion.div>
 
               {/* VERCEL */}
@@ -982,21 +974,45 @@ const LandingPage = () => {
                 transition={{ duration: 0.2 }}
               >
                 <div className="w-24 h-24 md:w-32 md:h-32 bg-white rounded-2xl shadow-lg flex items-center justify-center p-4 border-2 border-purple-100">
-                  <img src="/placeholder.svg?height=80&width=80" alt="VERCEL" className="max-w-full max-h-full" />
+                  <img src={VercelLogo} alt="VERCEL" className="max-w-full max-h-full" />
                 </div>
-                <p className="mt-4 text-sm font-medium text-gray-700">VERCEL</p>
+                <p className="mt-4 text-sm font-medium text-gray-700">Vercel</p>
               </motion.div>
 
-              {/* MERN */}
+              {/* TypeScript */}
               <motion.div
                 className="flex flex-col items-center"
                 whileHover={{ y: -8, scale: 1.05 }}
                 transition={{ duration: 0.2 }}
               >
                 <div className="w-24 h-24 md:w-32 md:h-32 bg-white rounded-2xl shadow-lg flex items-center justify-center p-4 border-2 border-blue-100">
-                  <img src="/placeholder.svg?height=80&width=80" alt="MERN" className="max-w-full max-h-full" />
+                  <img src={TypeScriptLogo} alt="TypeScript" className="max-w-full max-h-full" />
                 </div>
-                <p className="mt-4 text-sm font-medium text-gray-700">MERN</p>
+                <p className="mt-4 text-sm font-medium text-gray-700">TypeScript</p>
+              </motion.div>
+
+              {/* Tailwind CSS */}
+              <motion.div
+                className="flex flex-col items-center"
+                whileHover={{ y: -8, scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className="w-24 h-24 md:w-32 md:h-32 bg-white rounded-2xl shadow-lg flex items-center justify-center p-4 border-2 border-blue-100">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 54 33"><g clip-path="url(#prefix__clip0)"><path fill="#38bdf8" fill-rule="evenodd" d="M27 0c-7.2 0-11.7 3.6-13.5 10.8 2.7-3.6 5.85-4.95 9.45-4.05 2.054.513 3.522 2.004 5.147 3.653C30.744 13.09 33.808 16.2 40.5 16.2c7.2 0 11.7-3.6 13.5-10.8-2.7 3.6-5.85 4.95-9.45 4.05-2.054-.513-3.522-2.004-5.147-3.653C36.756 3.11 33.692 0 27 0zM13.5 16.2C6.3 16.2 1.8 19.8 0 27c2.7-3.6 5.85-4.95 9.45-4.05 2.054.514 3.522 2.004 5.147 3.653C17.244 29.29 20.308 32.4 27 32.4c7.2 0 11.7-3.6 13.5-10.8-2.7 3.6-5.85 4.95-9.45 4.05-2.054-.513-3.522-2.004-5.147-3.653C23.256 19.31 20.192 16.2 13.5 16.2z" clip-rule="evenodd"/></g><defs><clipPath id="prefix__clip0"><path fill="#fff" d="M0 0h54v32.4H0z"/></clipPath></defs></svg>
+                </div>
+                <p className="mt-4 text-sm font-medium text-gray-700">Tailwind CSS</p>
+              </motion.div>
+
+              {/* Vite */}
+              <motion.div
+                className="flex flex-col items-center"
+                whileHover={{ y: -8, scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className="w-24 h-24 md:w-32 md:h-32 bg-white rounded-2xl shadow-lg flex items-center justify-center p-4 border-2 border-blue-100">
+                  <img src={ViteLogo} alt="Vite" className="max-w-full max-h-full" />
+                </div>
+                <p className="mt-4 text-sm font-medium text-gray-700"> Vite Build</p>
               </motion.div>
             </div>
           </div>

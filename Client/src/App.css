@@ -1,51 +1,129 @@
 @import "tailwindcss";
 
-/* Add a new animation for the wave effect at the bottom of the hero section */
+@keyframes floatParticle {
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.6;
+  }
+  25% {
+    transform: translateY(-15px) translateX(10px);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(0) translateX(25px);
+    opacity: 0.8;
+  }
+  75% {
+    transform: translateY(15px) translateX(10px);
+    opacity: 1;
+  }
+}
+
+@keyframes scanlines {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 100%;
+  }
+}
+
 @keyframes wave {
-    0% {
-      transform: translateX(0) translateY(0);
-    }
-    50% {
-      transform: translateX(-25px) translateY(10px);
-    }
-    100% {
-      transform: translateX(0) translateY(0);
-    }
+  0% {
+    transform: translateX(0);
   }
-  
-  .animate-wave {
-    animation: wave 15s ease-in-out infinite;
+  50% {
+    transform: translateX(-25px);
   }
-  
-  @keyframes blob {
-    0% {
-      transform: translate(0px, 0px) scale(1);
-    }
-    33% {
-      transform: translate(30px, -50px) scale(1.1);
-    }
-    66% {
-      transform: translate(-20px, 20px) scale(0.9);
-    }
-    100% {
-      transform: translate(0px, 0px) scale(1);
-    }
+  100% {
+    transform: translateX(0);
   }
-  
-  .animate-blob {
-    animation: blob 7s infinite;
+}
+
+@keyframes wave-slow {
+  0% {
+    transform: translateX(0);
   }
-  
-  .animation-delay-2000 {
-    animation-delay: 2s;
+  50% {
+    transform: translateX(25px);
   }
-  
-  .animation-delay-4000 {
-    animation-delay: 4s;
+  100% {
+    transform: translateX(0);
   }
-  
-  .perspective-1000 {
-    perspective: 1000px;
+}
+
+@keyframes animate-gradient-x {
+  0% {
+    background-position: 0% 50%;
   }
-  
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient-x {
+  background-size: 200% 200%;
+  animation: animate-gradient-x 15s ease infinite;
+}
+
+.animate-wave {
+  animation: wave 8s ease-in-out infinite;
+}
+
+.animate-wave-slow {
+  animation: wave-slow 12s ease-in-out infinite;
+}
+
+.animate-scanlines {
+  animation: scanlines 2s linear infinite;
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.perspective-1200 {
+  perspective: 1200px;
+}
+
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-3000 {
+  animation-delay: 3s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+.animation-delay-5000 {
+  animation-delay: 5s;
+}
+
+
   
