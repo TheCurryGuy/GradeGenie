@@ -16,22 +16,39 @@ import { put } from '@vercel/blob';
 
 const app = express();
 app.use(express.json()); 
-// Enable CORS
-const allowedOrigins = [
-  'http://localhost:5173',
-  'https://grade-genie.vercel.app',
-  'https://grade-genie-git-main-team-altfs-projects.vercel.app',
-  'https://grade-genie-21na6hq7f-team-altfs-projects.vercel.app'
-];
+const corsOptions: cors.CorsOptions = {
+  origin: [
+    'https://grade-genie.vercel.app',
+    'https://grade-genie-git-*.vercel.app', // Vercel preview deployments
+    process.env.NODE_ENV === 'development' && 'http://localhost:3000'
+  ].filter(Boolean) as string[],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: [
+    'Content-Type',
+    'Authorization',
+    'token',
+    'X-Requested-With',
+    'Accept',
+    'Origin',
+    'X-File-Name', // For file uploads
+    'Content-Disposition', // For file downloads
+    'X-CSRF-Token', // If using CSRF protection
+    'X-HTTP-Method-Override' // For legacy systems
+  ],
+  exposedHeaders: [
+    'Content-Disposition', // For file download prompts
+    'X-Submission-ID', // Custom headers you might use
+    'X-RateLimit-Limit', // If using rate limiting
+    'X-RateLimit-Remaining'
+  ],
+  credentials: true,
+  maxAge: 86400, // 24h preflight cache
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+};
 
-app.use(cors({
-  origin: allowedOrigins,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['*'], // Allow all headers
-  credentials: true
-}));
-
-app.options('*', cors());
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 declare global{
     namespace Express{
