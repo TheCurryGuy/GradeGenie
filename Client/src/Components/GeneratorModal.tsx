@@ -135,10 +135,9 @@ const GeneratorModal = () => {
         .catch(error => {
           console.error("Error sending data:", error);
           alert("Failed to generate assignment link. Please try again.");
+          setModal((e:boolean)=> !e)
         });
-  
       console.log("Data to Send to Backend:", dataToSend)
-      setModal((e:boolean)=> !e)
     }
   
     if (!modalOpen) return null
