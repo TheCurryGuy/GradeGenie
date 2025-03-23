@@ -20,8 +20,8 @@ const corsOptions: cors.CorsOptions = {
   origin: [
     'https://grade-genie.vercel.app',
     'https://grade-genie-git-*.vercel.app', // Vercel preview deployments
-    process.env.NODE_ENV === 'development' && 'http://localhost:3000'
-  ].filter(Boolean) as string[],
+    'http://localhost:5173'  // Keep localhost for development
+  ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: [
     'Content-Type',
@@ -48,7 +48,7 @@ const corsOptions: cors.CorsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
+app.options('*', cors(corsOptions)); 
 
 declare global{
     namespace Express{
