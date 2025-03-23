@@ -16,8 +16,19 @@ import { put } from '@vercel/blob';
 
 const app = express();
 app.use(express.json()); 
+// Enable CORS
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://grade-genie.vercel.app',
+  'https://grade-genie-git-main-team-altfs-projects.vercel.app',
+  'https://grade-genie-21na6hq7f-team-altfs-projects.vercel.app'
+];
+
 app.use(cors({
-    origin: 'https://grade-genie.vercel.app'
+  origin: allowedOrigins,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['*'], // Allow all headers
+  credentials: true
 }));
 
 app.options('*', cors());
