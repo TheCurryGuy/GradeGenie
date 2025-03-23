@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 
 const Results = () => {
-    const { ocrOutput, sub_id } = useContext(StateContext);
+    const { ocrOutput, sub_id, studentName } = useContext(StateContext);
     const [markdownContent, setMarkdownContent] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -25,7 +25,7 @@ const Results = () => {
                 setLoading(true);
                 const response = await axios.post(
                     "https://grade-genie-server.vercel.app/api/v1/result",
-                    { ocrText: ocrOutput, sub_id },
+                    { ocrText: ocrOutput, sub_id},
                     { signal: abortController.signal }
                 );
 
@@ -97,7 +97,7 @@ const Results = () => {
                 <div className="bg-white rounded-lg shadow-md overflow-hidden">
                     <div className="border-b border-gray-200 bg-purple-100 px-6 py-5">
                         <div className="flex items-center justify-between flex-wrap gap-4">
-                            <h1 className="text-2xl font-bold text-purple-800">Assignment Results</h1>
+                            <h1 className="text-2xl font-bold text-purple-800">Evaluated Results of {studentName}</h1>
                             <div className="flex gap-2">
                                 <button 
                                     onClick={() => window.print()} 

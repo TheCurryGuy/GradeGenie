@@ -105,6 +105,10 @@ const AssignmentCard: React.FC<AssignmentProps> = (props) => {
               rel="noopener noreferrer"
               className="font-mono text-blue-500 hover:text-blue-700 transition-colors"
               title={`Shareable Link for Assignment: ${Title}`}
+              onClick={() => {
+                navigator.clipboard.writeText(`https://grade-genie.vercel.app/share/${hash}`);
+                alert("Link copied to clipboard");
+              }}
             >
               Share Link
             </a>
