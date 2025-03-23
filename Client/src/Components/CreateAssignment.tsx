@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { StateContext } from '../Context API/StateContext';
 import GeneratorModal from './GeneratorModal';
 import { motion } from 'framer-motion';
