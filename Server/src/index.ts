@@ -457,7 +457,7 @@ app.get("/api/v1/get/latest/all", userMiddleware, async (req, res): Promise<void
     }
 });
 
-app.get("api/v1/latest/assignments", userMiddleware, async (req, res): Promise<void> => {
+app.get("/api/v1/latest/assignments", userMiddleware, async (req, res): Promise<void> => {
     const userId = req.userId;
     const data: InnerObjectType[] = await AssignmentModel.find({userId})
     if (!data || data.length === 0) {
@@ -513,7 +513,7 @@ app.delete('/api/v1/delete', userMiddleware, async (req, res): Promise<void> => 
     }
 });
 
-app.get("/api/v1/export", userMiddleware, async (req, res): Promise<void> => {
+app.post("/api/v1/export", userMiddleware, async (req, res): Promise<void> => {
     try {
         const hash = req.body.hash;
         if (!hash) {

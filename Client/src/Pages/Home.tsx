@@ -4,6 +4,7 @@ import { StateContext } from '../Context API/StateContext';
 import Sidebar from '../Components/Sidebar';
 import Dashboard from '../Components/Dashboard';
 import FinalAssignment from '../Components/FinalAssignment';
+import Submissions from '../Components/Submissions';
 
 
 interface ErrorBoundaryProps {
@@ -43,7 +44,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
 
 const Home: React.FC = () => {
     // Destructure boolean state variables (isHome, isAssignments, isSubmissions) from StateContext
-    const { isHome, isAssignments } = useContext(StateContext);
+    const { isHome, isAssignments, isSubmissions } = useContext(StateContext);
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
 
@@ -60,6 +61,7 @@ const Home: React.FC = () => {
                 <ErrorBoundary>
                     {isHome && <Dashboard/>}       {/* Use boolean state variables for conditional rendering */}
                     {isAssignments && <FinalAssignment/>}
+                    {isSubmissions && <Submissions/>}
                 </ErrorBoundary>
             </div>
             
