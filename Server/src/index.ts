@@ -9,7 +9,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { GoogleAIFileManager } from "@google/generative-ai/server";
 import cors from "cors";
 import bcrypt from "bcrypt"
-import fs from "fs";
+import fs from "fs/promises";
 import path from "path";
 import { createObjectCsvStringifier } from 'csv-writer'; 
 import { put } from '@vercel/blob';
@@ -68,21 +68,34 @@ const upload = multer({
   const fileManager = new GoogleAIFileManager(apiKey);
   
   async function uploadToGemini(buffer: Buffer, mimeType: string, fileName: string) {
-    const tempDir = path.join(__dirname, 'temp');
-    if (!fs.existsSync(tempDir)) {
-      fs.mkdirSync(tempDir, { recursive: true });
-    }
+    const tempDir = '/tmp/gemini-uploads'; // Use serverless-friendly temp directory
     const tempPath = path.join(tempDir, fileName);
   
     try {
-      fs.writeFileSync(tempPath, buffer);
+      // Create directory if it doesn't exist
+      await fs.mkdir(tempDir, { recursive: true });
+      
+      // Write buffer to temp file
+      await fs.writeFile(tempPath, buffer);
+      
+      // Upload to Gemini
       const uploadResult = await fileManager.uploadFile(tempPath, {
         mimeType,
         displayName: fileName,
       });
+      
       return uploadResult.file;
+    } catch (error) {
+      console.error('File upload error:', error);
+      throw new Error('Failed to process file upload');
     } finally {
-      fs.unlinkSync(tempPath); // Clean up temp file
+      // Clean up temp file
+      try {
+        await fs.unlink(tempPath);
+        console.log(`Cleaned up temp file: ${tempPath}`);
+      } catch (cleanupError) {
+        console.error('Temp file cleanup error:', cleanupError);
+      }
     }
   }
   
