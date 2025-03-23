@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express"; 
 import jwt from "jsonwebtoken";
 import { UserModel, AssignmentModel, SubmissionModel } from "./Schema/db";
-import { JWT_PASSWORD, GEMINI_API_KEY } from "./Config/config";
+import { JWT_PASSWORD, GEMINI_API_KEY, BLOB_READ_WRITE_TOKEN } from "./Config/config";
 import { userMiddleware } from "./Middleware/middleware";
 import multer from 'multer';
 import { randomHash, filterNullValues, filterObjectProperties, InnerObjectType, FilteredObjectType, filterSecondObjectProperties, FilteredSecondObjectType, ThirdFilteredObjectType, ThirdfilterObjectProperties } from "./Utils/utils";
@@ -12,11 +12,12 @@ import bcrypt from "bcrypt"
 import fs from "fs";
 import path from "path";
 import { createObjectCsvStringifier } from 'csv-writer'; 
+import { put } from '@vercel/blob';
 
 const app = express();
 app.use(express.json()); 
 app.use(cors({
-    origin: 'http://localhost:5173'
+    origin: 'https://grade-genie.vercel.app'
 }));
 
 app.options('*', cors());
@@ -44,7 +45,7 @@ const storage = multer.diskStorage({
   
   const upload = multer({
     storage: storage,
-    limits: { fileSize: 5 * 1024 * 1024 }
+    limits: { fileSize: 3 * 1024 * 1024 }
   });
   
   const apiKey = GEMINI_API_KEY? GEMINI_API_KEY : "null";
@@ -91,84 +92,91 @@ const storage = multer.diskStorage({
   };
 
 
-app.post("/api/v1/data", upload.single('assignmentFile'), async (req: Request, res:Response): Promise<void> => {
+  app.post("/api/v1/data", upload.single('assignmentFile'), async (req: Request, res: Response): Promise<void> => {
     try {
-      // Extract text data from req.body
-      const { Name, Class, Section, RollNo, Department, Email, PhoneNumber, hash } = req.body;
-      let ocrTextResult = "OCR processing not performed.";
-      let geminiUploadedFile;
-      let assignmentFilePath: string | undefined = undefined;
-  
-      if (req.file) {
-        assignmentFilePath = req.file.path;
-  
-        try {
-          geminiUploadedFile = await uploadToGemini(assignmentFilePath, req.file.mimetype);
-          await waitForFilesActive([geminiUploadedFile]);
-  
-          // Corrected geminiRequest to include 'role: "user"' in contents
-          const geminiRequest = {
-            contents: [{
-              role: "user", // Added role: "user" here
-              parts: [
-                {
-                  fileData: {
-                    mimeType: geminiUploadedFile.mimeType,
-                    fileUri: geminiUploadedFile.uri,
-                  },
-                },
-                { text: "Your job is to extract the handwritten text from the file and provide the extracted data as is, without adding any extra words whatsoever. Behave like a ocr and give the extracted data as you response" },
-              ],
-            }],
-            generationConfig: generationConfig,
-          };
-  
-          const geminiResponse = await model.generateContent(geminiRequest);
-          const responseText = geminiResponse.response.text();
-  
-          if (responseText) {
-            ocrTextResult = responseText;
-            console.log("Gemini OCR Result:", ocrTextResult);
-          } else {
-            ocrTextResult = "Error during Gemini file upload or processing.";
-            console.error("Gemini OCR failed to extract text.");
-          }
-  
-        } catch (geminiUploadError: any) {
-          console.error("Gemini File Upload or Processing Error:", geminiUploadError);
-          ocrTextResult = "Error during Gemini file upload or processing.";
+        const { Name, Class, Section, RollNo, Department, Email, PhoneNumber, hash } = req.body;
+        let ocrTextResult = "OCR processing not performed.";
+        let geminiUploadedFile;
+        let assignmentFilePath: string | undefined = undefined;
+
+        if (req.file) {
+             // --- Vercel Blob Upload ---
+            const file = req.file;
+            const { url } = await put(file.originalname, file.buffer, {
+                access: 'public', 
+                token: BLOB_READ_WRITE_TOKEN,
+            });
+
+            assignmentFilePath = url; // Store the Vercel Blob URL
+
+
+            try {
+                geminiUploadedFile = await uploadToGemini(req.file.path, req.file.mimetype); // Still upload to Gemini
+                await waitForFilesActive([geminiUploadedFile]);
+
+
+                const geminiRequest = {
+                    contents: [{
+                        role: "user",
+                        parts: [
+                            {
+                                fileData: {
+                                    mimeType: geminiUploadedFile.mimeType,
+                                    fileUri: geminiUploadedFile.uri,
+                                },
+                            },
+                            { text: "Your job is to extract the handwritten text from the file and provide the extracted data as is, without adding any extra words whatsoever. Behave like a ocr and give the extracted data as you response" },
+                        ],
+                    }],
+                    generationConfig: generationConfig,
+                };
+
+                const geminiResponse = await model.generateContent(geminiRequest);
+                const responseText = geminiResponse.response.text();
+
+                if (responseText) {
+                    ocrTextResult = responseText;
+                    console.log("Gemini OCR Result:", ocrTextResult);
+                } else {
+                    ocrTextResult = "Error during Gemini file upload or processing.";
+                    console.error("Gemini OCR failed to extract text.");
+                }
+
+            } catch (geminiUploadError: any) {
+                console.error("Gemini File Upload or Processing Error:", geminiUploadError);
+                ocrTextResult = "Error during Gemini file upload or processing.";
+            }
         }
-      }
-      if(ocrTextResult !== "Error during Gemini file upload or processing."){
-        const newSubmission = await SubmissionModel.create({
-            Name,
-            Class,
-            Section,
-            RollNo,
-            Department,
-            Email,
-            PhoneNumber,
-            hash,
-            assignmentFile: assignmentFilePath,
-        });
-    
-        res.status(201).json({
-            message: 'Submission successful',
-            submissionId: newSubmission._id,
-            ocrText: ocrTextResult,
-        });
-      } else{
-        res.status(201).json({
-            message: 'Submission unsuccessful'
-        });
-      }
+        if (ocrTextResult !== "Error during Gemini file upload or processing.") {
+            const newSubmission = await SubmissionModel.create({
+                Name,
+                Class,
+                Section,
+                RollNo,
+                Department,
+                Email,
+                PhoneNumber,
+                hash,
+                assignmentFile: assignmentFilePath,
+            });
+
+            res.status(201).json({
+                message: 'Submission successful',
+                submissionId: newSubmission._id,
+                ocrText: ocrTextResult,
+            });
+        } else {
+            res.status(201).json({
+                message: 'Submission unsuccessful'
+            });
+        }
     } catch (error: any) {
-      console.error('Error saving submission or during OCR process:', error);
-      if (error instanceof multer.MulterError && error.code === 'LIMIT_FILE_SIZE') {
-        res.status(400).json({ message: 'File size exceeds the limit of 5MB.' });
-      } else{
-        res.status(500).json({ message: 'Failed to submit data or process OCR', error: error.message });
-      }
+        console.error('Error saving submission or during OCR process:', error);
+        if (error instanceof multer.MulterError && error.code === 'LIMIT_FILE_SIZE') {
+            res.status(400).json({ message: 'File size exceeds the limit of 5MB.' });
+        } else {
+            res.status(500).json({ message: 'Failed to submit data or process OCR', error: error.message });
+        }
     }
     return;
 });

@@ -56,7 +56,7 @@ const SubmitHandler = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get<any>(
-          `http://localhost:3000/api/v1/generate/${shareId}`
+          `https://grade-genie-server.vercel.app/api/v1/generate/${shareId}`
         );
         console.log(response.data.info);
         setAssignments(response.data.info);
@@ -117,7 +117,7 @@ const SubmitHandler = () => {
     console.log(formData);
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/data",
+        "https://grade-genie-server.vercel.app/api/v1/data",
         formData,
         {
           headers: {
@@ -367,7 +367,7 @@ const SubmitHandler = () => {
                 htmlFor="assignmentFile"
                 className="block text-sm font-medium text-gray-700 mb-1"
               >
-                Upload Assignment File <span className="text-red-500">*</span>
+                Upload Assignment File {"< 2MB"}<span className="text-red-500">*</span>
               </label>
               <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md hover:bg-gray-50 transition-colors">
                 <div className="space-y-1 text-center">
