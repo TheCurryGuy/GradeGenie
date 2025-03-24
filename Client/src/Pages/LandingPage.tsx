@@ -485,7 +485,7 @@ const LandingPage = () => {
                       <span className="absolute inset-0 w-0 h-full bg-white opacity-20 transform -skew-x-12 group-hover:animate-shine"></span>
                       
                       <span className="relative z-10 flex items-center">
-                        Get Started for Free
+                        Get Started Today
                         <motion.span
                           className="ml-2 inline-block"
                           animate={{ x: [0, 4, 0] }}
@@ -536,7 +536,7 @@ const LandingPage = () => {
                     >
                       <span className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-yellow-400/0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                       <Star className="text-yellow-400 w-5 h-5 relative z-10" />
-                      <span className="text-white text-sm font-medium relative z-10">Trusted by 10,000+ educators</span>
+                      <span className="text-white text-sm font-medium relative z-10">Made for Educators Worldwide</span>
                     </motion.div>
                     
                     <motion.div 
@@ -546,7 +546,7 @@ const LandingPage = () => {
                     >
                       <span className="absolute inset-0 bg-gradient-to-r from-purple-400/20 to-purple-400/0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                       <Award className="text-purple-400 w-5 h-5 relative z-10" />
-                      <span className="text-white text-sm font-medium relative z-10">Award-winning AI technology</span>
+                      <span className="text-white text-sm font-medium relative z-10">Made with Google AI</span>
                     </motion.div>
                   </motion.div>
                 </div>
@@ -821,7 +821,7 @@ const LandingPage = () => {
               <span className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-yellow-400/0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
               <div className="flex items-center relative z-10">
                 <Star className="text-yellow-400 w-5 h-5 mr-2" />
-                <span className="text-white text-sm font-medium">Trusted by 10,000+ educators</span>
+                <span className="text-white text-sm font-medium">Made for Educators Worldwide</span>
               </div>
             </motion.div>
 
@@ -835,7 +835,7 @@ const LandingPage = () => {
               <span className="absolute inset-0 bg-gradient-to-r from-purple-400/20 to-purple-400/0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
               <div className="flex items-center relative z-10">
                 <Award className="text-yellow-400 w-5 h-5 mr-2" />
-                <span className="text-white text-sm font-medium">Award-winning AI technology</span>
+                <span className="text-white text-sm font-medium">Made with Google AI</span>
               </div>
             </motion.div>
           </div>
@@ -1420,14 +1420,14 @@ const LandingPage = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  Start Free Trial
+                  Start Today
                 </motion.button>
                 <motion.button
                   className="bg-transparent border-2 border-white text-white font-semibold px-8 py-4 rounded-full hover:bg-white/10 transition duration-200"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  Schedule Demo
+                  Watch Demo
                 </motion.button>
               </div>
             </div>
