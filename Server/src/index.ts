@@ -426,25 +426,6 @@ app.get("/api/v1/userdata", userMiddleware, async(req, res): Promise<void> => {
     });
 });
 
-app.get("/api/v1/assignments", userMiddleware, async(req, res): Promise<void> => {
-    const userId = req.userId;
-    const data = await AssignmentModel.find({
-        userId: userId
-    });
-    const dataLen = 89
-    if(data) {
-        res.json({ 
-            info: data,
-            submissions: dataLen
-        });
-        return;
-    }
-    res.status(404).json({ 
-        data: "Error user not Found!"
-    });
-});
-
-
 app.post("/api/v1/generate/:shareId", async (req, res)=> {
     const hash = req.params.shareId;
     const data = req.body;
@@ -500,6 +481,31 @@ app.get("/api/v1/get/latest/all", userMiddleware, async (req, res): Promise<void
         });
     }
 });
+
+
+app.get("/api/v1/assignments", userMiddleware, async(req, res): Promise<void> => {
+    const userId = req.userId;
+    const data = await AssignmentModel.find({
+        userId: userId
+    });
+    const assignmentHashes: string[] = data.map(assignment => assignment.hash).filter((hash): hash is string => hash !== undefined);
+    const submissionCounts: number[] = [];
+    for (const hash of assignmentHashes) {
+        const submissions = await SubmissionModel.find({ hash: hash });
+        submissionCounts.push(submissions.length);
+    }
+    if(data) {
+        res.json({ 
+            info: data,
+            submissionCounts: submissionCounts
+        });
+        return;
+    }
+    res.status(404).json({ 
+        data: "Error user not Found!"
+    });
+});
+
 
 app.get("/api/v1/latest/assignments", userMiddleware, async (req, res): Promise<void> => {
     const userId = req.userId;
