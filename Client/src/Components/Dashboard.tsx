@@ -13,12 +13,12 @@ import DashboardTop from '../assets/DashboardTop.svg';
 const localizer = momentLocalizer(moment);
 
 interface Card {
+    _id?: string; // Add _id to the Card interface
     hash?: string;
     Questions?: string;
     Title?: string;
     Description?: string;
     Deadline?: string;
-    submissions?: number;
     [key: string]: any;
 }
 
@@ -32,10 +32,11 @@ interface CalendarEvent {
 
 const Dashboard: React.FC = () => {
     const [cards, setCards] = useState<Card[]>([]);
+    const [submissionCounts, setSubmissionCounts] = useState<number[]>([]);
+    const [combinedFinal, setCombinedFinal] = useState<{ card: Card; count: number }[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [firstName, setFirstName] = useState<string>('');
     const [events, setEvents] = useState<CalendarEvent[]>([]);
-    const [submissions, setSubmissions] = useState<number>(0);
     const token = localStorage.getItem('token');
     const navigate = useNavigate();
     const { setModal } = useContext(StateContext);
@@ -53,21 +54,22 @@ const Dashboard: React.FC = () => {
         }
     };
 
-    const fetchCards = async () => {
+    const fetchAssignmentsAndCounts = async () => {
         try {
-            const response = await axios.get('https://grade-genie-server.vercel.app/api/v1/assignments', {
+            const assignmentsResponse = await axios.get('https://grade-genie-server.vercel.app/api/v1/assignments', {
                 headers: {
-                  token: token
+                    token: token
                 }
             });
-            setCards(response.data.info);
-            setSubmissions(response.data.submissions);
-            setLoading(false);
-            
+            console.log(assignmentsResponse.data)
+            setCards(assignmentsResponse.data.info as Card[]);
+            setSubmissionCounts(assignmentsResponse.data.submissionCounts as number[]);
+            console.log(cards)
+            console.log(submissionCounts)
             // Transform assignments to calendar events
-            const calendarEvents = response.data.info.map((card: Card) => {
+            const calendarEvents = assignmentsResponse.data.info.map((card: Card) => {
                 if (!card.Deadline) return null;
-                
+
                 const deadlineDate = new Date(card.Deadline);
                 return {
                     id: card._id || card.hash,
@@ -77,8 +79,9 @@ const Dashboard: React.FC = () => {
                     resource: card
                 };
             }).filter(Boolean);
-            
+
             setEvents(calendarEvents);
+            setLoading(false);
         } catch (error) {
             console.error('Error fetching cards:', error);
             setLoading(false);
@@ -88,24 +91,36 @@ const Dashboard: React.FC = () => {
     useEffect(() => {
         if (token) {
             fetchUserData();
-            fetchCards();
+            fetchAssignmentsAndCounts();
         }
         else {
             navigate('/');
         }
     }, []);
 
+    // Combine assignments and submission counts after they are fetched
+    useEffect(() => {
+        if (cards && submissionCounts && cards.length > 0 && submissionCounts.length > 0 && cards.length === submissionCounts.length) {
+            const combined = cards.map((card, index) => ({
+                card: card,
+                count: submissionCounts[index]
+            }));
+            setCombinedFinal(combined);
+            console.log(combinedFinal)
+        }
+    }, [cards, submissionCounts]);
+    
     const getTimeRemaining = (deadline: string | undefined): string => {
         if (!deadline) return "No deadline";
         const now = new Date();
         const due = new Date(deadline);
         const diff = due.getTime() - now.getTime();
-        
+
         if (diff <= 0) return "Overdue";
-        
+
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
         if (days > 0) return `${days} day${days > 1 ? 's' : ''} left`;
-        
+
         const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         return `${hours} hour${hours > 1 ? 's' : ''} left`;
     };
@@ -115,7 +130,7 @@ const Dashboard: React.FC = () => {
         const now = new Date();
         const due = new Date(deadline);
         const diff = due.getTime() - now.getTime();
-        
+
         if (diff <= 0) return "bg-red-100 text-red-800";
         if (diff < 1000 * 60 * 60 * 24 * 2) return "bg-yellow-100 text-yellow-800";
         return "bg-green-100 text-green-800";
@@ -129,9 +144,9 @@ const Dashboard: React.FC = () => {
         const due = deadline ? new Date(deadline) : null;
         const isOverdue = due ? now.getTime() > due.getTime() : false;
         const isUpcoming = due ? due.getTime() - now.getTime() < 1000 * 60 * 60 * 24 * 2 : false;
-        
+
         let className = 'px-2 py-1 rounded text-xs font-medium text-white border-0 transition-all duration-200 ease-in-out hover:-translate-y-0.5 hover:shadow-md';
-        
+
         if (isOverdue) {
             className += ' bg-red-500 hover:bg-red-600';
         } else if (isUpcoming) {
@@ -139,7 +154,7 @@ const Dashboard: React.FC = () => {
         } else {
             className += ' bg-indigo-500 hover:bg-indigo-600';
         }
-        
+
         return { className };
     };
 
@@ -175,19 +190,19 @@ const Dashboard: React.FC = () => {
                         <br />Here's an overview of your active assignments.
                     </p>
                     <div className="flex gap-2 mt-2">
-                        <button 
-                            className="bg-white text-indigo-600 px-4 py-1 rounded-full text-sm font-medium hover:bg-opacity-90 transition-all" 
+                        <button
+                            className="bg-white text-indigo-600 px-4 py-1 rounded-full text-sm font-medium hover:bg-opacity-90 transition-all"
                             onClick={() => setModal(true)}
                         >
                             Create a New Assignment
                         </button>
                     </div>
                 </div>
-                <img 
-                    src={DashboardTop} 
-                    alt="Education supplies" 
+                <img
+                    src={DashboardTop}
+                    alt="Education supplies"
                     className="absolute right-0 top-0 h-full w-auto pr-3 object-contain animate-float"
-                /> 
+                />
             </div>
 
             <div className="mx-4 flex flex-col lg:flex-row gap-6">
@@ -223,16 +238,16 @@ const Dashboard: React.FC = () => {
                                 defaultView="month"
                                 defaultDate={new Date()}
                                 popup
-                                className="font-poppins h-full 
-                                    [&_.rbc-calendar]:h-full [&_.rbc-calendar]:bg-transparent [&_.rbc-calendar]:border-0 
+                                className="font-poppins h-full
+                                    [&_.rbc-calendar]:h-full [&_.rbc-calendar]:bg-transparent [&_.rbc-calendar]:border-0
                                     [&_.rbc-header]:py-4 [&_.rbc-header]:px-2 [&_.rbc-header]:text-[11px] [&_.rbc-header]:tracking-wider [&_.rbc-header]:font-bold [&_.rbc-header]:uppercase [&_.rbc-header]:bg-gradient-to-r [&_.rbc-header]:from-purple-600 [&_.rbc-header]:to-indigo-600 [&_.rbc-header]:bg-clip-text [&_.rbc-header]:text-transparent [&_.rbc-header]:border-0
                                     [&_.rbc-month-view]:border-0 [&_.rbc-month-view]:rounded-2xl [&_.rbc-month-view]:shadow-none [&_.rbc-month-view]:overflow-hidden
                                     [&_.rbc-month-row]:min-h-[65px] [&_.rbc-month-row]:border-0
                                     [&_.rbc-date-cell]:p-1.5 [&_.rbc-date-cell]:text-sm [&_.rbc-date-cell]:font-medium [&_.rbc-date-cell]:text-gray-600 [&_.rbc-date-cell]:flex [&_.rbc-date-cell]:justify-center [&_.rbc-date-cell]:items-center [&_.rbc-date-cell:hover]:text-purple-700 [&_.rbc-date-cell]:transition-all [&_.rbc-date-cell]:duration-300
-                                    [&_.rbc-today]:bg-transparent 
-                                    [&_.rbc-off-range-bg]:bg-transparent [&_.rbc-off-range]:text-gray-300 
+                                    [&_.rbc-today]:bg-transparent
+                                    [&_.rbc-off-range-bg]:bg-transparent [&_.rbc-off-range]:text-gray-300
                                     [&_.rbc-event]:mb-1 [&_.rbc-event]:rounded-lg [&_.rbc-event]:shadow-lg [&_.rbc-event:hover]:shadow-xl [&_.rbc-event:hover]:-translate-y-0.5 [&_.rbc-event]:transition-all [&_.rbc-event]:duration-300
-                                    [&_.rbc-show-more]:bg-transparent [&_.rbc-show-more]:text-xs [&_.rbc-show-more]:text-purple-600 [&_.rbc-show-more:hover]:bg-transparent [&_.rbc-show-more:hover]:text-purple-700 
+                                    [&_.rbc-show-more]:bg-transparent [&_.rbc-show-more]:text-xs [&_.rbc-show-more]:text-purple-600 [&_.rbc-show-more:hover]:bg-transparent [&_.rbc-show-more:hover]:text-purple-700
                                     [&_.rbc-day-bg]:transition-all [&_.rbc-day-bg:hover]:bg-gradient-to-br [&_.rbc-day-bg:hover]:from-purple-50 [&_.rbc-day-bg:hover]:to-indigo-50 [&_.rbc-day-bg:hover]:duration-300
                                     [&_.rbc-month-row_+_.rbc-month-row]:border-0
                                     [&_.rbc-day-bg_+_.rbc-day-bg]:border-0
@@ -256,7 +271,7 @@ const Dashboard: React.FC = () => {
                             />
                         </div>
 
-                        
+
                     </div>
                 </div>
 
@@ -264,17 +279,18 @@ const Dashboard: React.FC = () => {
                 <div className="lg:w-2/3 lg:order-1">
                     <div className="flex justify-between items-center mb-4">
                         <h2 className="text-3xl pl-2 pt-2 font-bold font-poppins text-gray-900">Active Assignments</h2>
-        </div>
+                    </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                        {cards.length > 0 ? (
-                            cards.map((card, index) => {
+                        {combinedFinal.length > 0 ? (
+                            combinedFinal.map((item, index) => {
+                                const { card, count } = item;
                                 const statusColor = getStatusColor(card.Deadline);
                                 const timeRemaining = getTimeRemaining(card.Deadline);
-                                
-            return (
-                                    <div 
-                                        key={card._id} 
+
+                                return (
+                                    <div
+                                        key={card._id}
                                         className="bg-white rounded-xl shadow-md p-5 hover:shadow-lg transition-all duration-300 border border-gray-100 transform hover:-translate-y-1 cursor-pointer"
                                         onClick={() => navigate(`/share/${card.hash}`)}
                                         style={{ animationDelay: `${index * 0.05}s` }}
@@ -285,29 +301,29 @@ const Dashboard: React.FC = () => {
                                                 {timeRemaining}
                                             </span>
                                         </div>
-                                        
+
                                         <p className="text-gray-600 mb-4 line-clamp-2">{card.Description || "No description provided"}</p>
-                                        
+
                                         <div className="flex items-center gap-2 text-gray-500 mb-4 text-sm">
                                             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                             </svg>
-                                            <span>Due: {new Date(card.Deadline || '').toLocaleDateString('en-US', { 
-                                                month: 'short', 
-                                                day: 'numeric', 
+                                            <span>Due: {new Date(card.Deadline || '').toLocaleDateString('en-US', {
+                                                month: 'short',
+                                                day: 'numeric',
                                                 year: 'numeric',
                                                 hour: '2-digit',
                                                 minute: '2-digit'
                                             })}</span>
                                         </div>
-                                        
+
                                         <div className="flex justify-between items-center">
                                             <div className="flex items-center">
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                                 </svg>
                                                 <span className="ml-1 text-sm font-medium text-gray-600">
-                                                    {submissions || 0} submissions
+                                                    {count || 0} submissions
                                                 </span>
                                             </div>
                                             <button className="bg-indigo-500 hover:bg-indigo-600 text-white py-1 px-4 rounded-lg text-sm font-medium transition-colors">
@@ -337,11 +353,10 @@ const Dashboard: React.FC = () => {
                     </div>
                 </div>
             </div>
-            
+
             <GeneratorModal />
         </div>
     );
 };
 
 export default Dashboard;
-
