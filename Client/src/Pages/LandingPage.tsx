@@ -1,7 +1,7 @@
-"use client"
+
 
 import { useState, useEffect, useRef } from "react"
-import { Menu, X, Plus, FileText, CheckCircle, Play, ArrowRight, Star, Award, Zap } from "lucide-react"
+import { Menu, X, Plus, FileText, CheckCircle, Play, ArrowRight, Star, Award, Zap } from 'lucide-react'
 import { motion, useScroll, useTransform, AnimatePresence, useMotionValueEvent } from "framer-motion"
 import { SlideIn, StaggeredReveal } from "../utils/utils"
 import { FaTwitter, FaLinkedin, FaFacebook, FaGithub, FaDiscord } from "react-icons/fa"
@@ -14,6 +14,7 @@ import GeminiLogo from "../assets/GeminiLogo.png"
 import AiStudioLogo from "../assets/AIStudioLogo.png"
 import VercelLogo from "../assets/VercelLogo.png"
 import ViteLogo from "../assets/ViteLogo.png"
+
 const LandingPage = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -269,24 +270,105 @@ const LandingPage = () => {
         </StaggeredReveal>
       </motion.div>
 
-      {/* Hero Section - Completely revamped for all viewports */}
+      {/* Hero Section - Ultra Enhanced God-Level Version */}
       <div
-        className="relative overflow-hidden bg-gradient-to-r from-blue-700 via-blue-600 to-purple-700"
+        className="relative overflow-hidden bg-gradient-to-r from-blue-700 via-indigo-600 to-purple-700"
         ref={heroRef}
         style={{
           minHeight: `calc(var(--vh, 1vh) * 100)`,
           height: `calc(var(--vh, 1vh) * 100)`,
         }}
       >
-        {/* Animated background elements */}
+        {/* Enhanced animated background elements */}
         <div className="absolute inset-0 overflow-hidden">
-          {/* Animated gradient orbs */}
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-[80px] opacity-70 animate-blob"></div>
-          <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-purple-400 rounded-full mix-blend-multiply filter blur-[80px] opacity-70 animate-blob animation-delay-2000"></div>
-          <div className="absolute bottom-1/4 right-1/3 w-96 h-96 bg-pink-400 rounded-full mix-blend-multiply filter blur-[80px] opacity-70 animate-blob animation-delay-4000"></div>
-
-          {/* Animated grid pattern */}
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRoLTJ2LTRoMnY0em0wLTZoLTJ2LTRoMnY0em0wLTZoLTJ2LTRoMnY0em0wLTZoLTJWNmgydjR6bTAgMjRoLTJ2LTRoMnY0em0wIDZoLTJ2LTRoMnY0em0wIDZoLTJ2LTRoMnY0em0wIDZoLTJ2LTRoMnY0em0tNi0yNGgtMnYtNGgydjR6bTAgNmgtMnYtNGgydjR6bTAgNmgtMnYtNGgydjR6bTAgNmgtMnYtNGgydjR6bTAgNmgtMnYtNGgydjR6bS02LTQyaC0ydi00aDJ2NHptMCA2aC0ydi00aDJ2NHptMCA2aC0ydi00aDJ2NHptMCA2aC0ydi00aDJ2NHptMCA2aC0ydi00aDJ2NHptMCA2aC0ydi00aDJ2NHptMCA2aC0ydi00aDJ2NHptMCA2aC0ydi00aDJ2NHptLTYtNDJoLTJ2LTRoMnY0em0wIDZoLTJ2LTRoMnY0em0wIDZoLTJ2LTRoMnY0em0wIDZoLTJ2LTRoMnY0em0wIDZoLTJ2LTRoMnY0em0wIDZoLTJ2LTRoMnY0em0wIDZoLTJ2LTRoMnY0em0wIDZoLTJ2LTRoMnY0em0tNi00MmgtMnYtNGgydjR6bTAgNmgtMnYtNGgydjR6bTAgNmgtMnYtNGgydjR6bTAgNmgtMnYtNGgydjR6bTAgNmgtMnYtNGgydjR6bTAgNmgtMnYtNGgydjR6bTAgNmgtMnYtNGgydjR6bTAgNmgtMnYtNGgydjR6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-30"></div>
+          {/* Animated 3D mesh grid */}
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRoLTJ2LTRoMnY0em0wLTZoLTJ2LTRoMnY0em0wLTZoLTJ2LTRoMnY0em0wLTZoLTJWNmgydjR6bTAgMjRoLTJ2LTRoMnY0em0wIDZoLTJ2LTRoMnY0em0wIDZoLTJ2LTRoMnY0em0wIDZoLTJ2LTRoMnY0em0tNi0yNGgtMnYtNGgydjR6bTAgNmgtMnYtNGgydjR6bTAgNmgtMnYtNGgydjR6bTAgNmgtMnYtNGgydjR6bTAgNmgtMnYtNGgydjR6bS02LTQyaC0ydi00aDJ2NHptMCA2aC0ydi00aDJ2NHptMCA2aC0ydi00aDJ2NHptMCA2aC0ydi00aDJ2NHptMCA2aC0ydi00aDJ2NHptMCA2aC0ydi00aDJ2NHptMCA2aC0ydi00aDJ2NHptMCA2aC0ydi00aDJ2NHptLTYtNDJoLTJ2LTRoMnY0em0wIDZoLTJ2LTRoMnY0em0wIDZoLTJ2LTRoMnY0em0wIDZoLTJ2LTRoMnY0em0wIDZoLTJ2LTRoMnY0em0wIDZoLTJ2LTRoMnY0em0wIDZoLTJ2LTRoMnY0em0wIDZoLTJ2LTRoMnY0em0tNi00MmgtMnYtNGgydjR6bTAgNmgtMnYtNGgydjR6bTAgNmgtMnYtNGgydjR6bTAgNmgtMnYtNGgydjR6bTAgNmgtMnYtNGgydjR6bTAgNmgtMnYtNGgydjR6bTAgNmgtMnYtNGgydjR6bTAgNmgtMnYtNGgydjR6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-30 animate-pulse"></div>
+          
+          {/* Enhanced animated gradient orbs with more depth and dimension */}
+          <div className="absolute top-1/4 left-1/4 w-[30rem] h-[30rem] bg-blue-400 rounded-full mix-blend-multiply filter blur-[120px] opacity-70 animate-blob"></div>
+          <div className="absolute top-1/3 right-1/4 w-[25rem] h-[25rem] bg-purple-400 rounded-full mix-blend-multiply filter blur-[100px] opacity-70 animate-blob animation-delay-2000"></div>
+          <div className="absolute bottom-1/4 right-1/3 w-[28rem] h-[28rem] bg-pink-400 rounded-full mix-blend-multiply filter blur-[110px] opacity-70 animate-blob animation-delay-4000"></div>
+          <div className="absolute -bottom-32 left-1/4 w-[35rem] h-[35rem] bg-cyan-400 rounded-full mix-blend-multiply filter blur-[130px] opacity-50 animate-blob animation-delay-3000"></div>
+          
+          {/* Animated particles with enhanced effects */}
+          <div className="absolute inset-0">
+            {[...Array(50)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute rounded-full"
+                initial={{
+                  x: Math.random() * 100 + "%",
+                  y: Math.random() * 100 + "%",
+                  scale: Math.random() * 0.5 + 0.5,
+                  opacity: Math.random() * 0.5 + 0.25,
+                }}
+                animate={{
+                  y: [
+                    Math.random() * 100 + "%",
+                    Math.random() * 100 + "%",
+                    Math.random() * 100 + "%",
+                  ],
+                  x: [
+                    Math.random() * 100 + "%",
+                    Math.random() * 100 + "%",
+                    Math.random() * 100 + "%",
+                  ],
+                }}
+                transition={{
+                  duration: Math.random() * 20 + 10,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+                style={{
+                  width: Math.random() * 6 + 2 + "px",
+                  height: Math.random() * 6 + 2 + "px",
+                  background: `rgba(255, 255, 255, ${Math.random() * 0.5 + 0.5})`,
+                  boxShadow: `0 0 ${Math.random() * 10 + 5}px rgba(255, 255, 255, 0.8)`,
+                }}
+              />
+            ))}
+          </div>
+          
+          {/* Animated light beams */}
+          <div className="absolute inset-0 overflow-hidden">
+            {[...Array(5)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute origin-center bg-gradient-to-r from-white/0 via-white/20 to-white/0"
+                initial={{
+                  rotate: i * 36,
+                  width: "200%",
+                  height: "3px",
+                  left: "-50%",
+                  top: "50%",
+                  opacity: 0,
+                }}
+                animate={{
+                  rotate: [i * 36, i * 36 + 360],
+                  opacity: [0, 0.7, 0],
+                }}
+                transition={{
+                  duration: 15,
+                  repeat: Infinity,
+                  delay: i * 3,
+                  ease: "linear",
+                  times: [0, 0.5, 1],
+                }}
+              />
+            ))}
+          </div>
+          
+          {/* Animated digital circuit lines */}
+          <div className="absolute inset-0 opacity-20">
+            <svg width="100%" height="100%" className="absolute inset-0">
+              <defs>
+                <pattern id="circuit-pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+                  <path d="M0 50 H100 M50 0 V100 M25 25 L75 75 M75 25 L25 75" stroke="white" strokeWidth="0.5" fill="none" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#circuit-pattern)" />
+            </svg>
+          </div>
         </div>
 
         {/* Hero content container */}
@@ -304,38 +386,86 @@ const LandingPage = () => {
           >
             <div className="container mx-auto max-w-7xl">
               <div className="flex flex-col lg:flex-row items-center lg:items-start">
-                {/* Left column - Text content */}
-                <div className="w-full lg:w-1/2 text-center lg:text-left mb-12 lg:mb-0 lg:pr-8 xl:pr-12">
+                {/* Left column - Text content with enhanced animations */}
+                <div className="w-full lg:w-1/2 text-center lg:text-left mb-12 lg:mb-0 lg:pr-8 xl:pr-12 relative">
+                  {/* Animated highlight accent */}
+                  <motion.div 
+                    className="absolute -left-8 top-1/4 w-16 h-16 bg-yellow-300 rounded-full opacity-30 blur-xl"
+                    animate={{ 
+                      scale: [1, 1.5, 1],
+                      opacity: [0.3, 0.6, 0.3],
+                    }}
+                    transition={{
+                      duration: 4,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
+                  
+                  <motion.div 
+                    className="absolute -right-4 bottom-1/4 w-20 h-20 bg-purple-300 rounded-full opacity-30 blur-xl"
+                    animate={{ 
+                      scale: [1, 1.3, 1],
+                      opacity: [0.3, 0.5, 0.3],
+                    }}
+                    transition={{
+                      duration: 5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: 1
+                    }}
+                  />
+                  
+                  {/* Enhanced badge with 3D effect and animation */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
-                    className="inline-block px-3 py-1 rounded-full bg-white/20 text-white text-sm font-medium mb-6 backdrop-blur-sm"
+                    className="inline-block relative group"
                   >
-                    AI-Powered Education Tool
+                    <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-violet-500 rounded-full blur-md opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
+                    <div className="px-4 py-1.5 rounded-full bg-white/10 text-white text-sm font-medium mb-6 backdrop-blur-md border border-white/20 shadow-xl relative z-10 group-hover:shadow-pink-500/20 group-hover:border-white/30 transition-all duration-300">
+                      <span className="bg-gradient-to-r from-pink-200 to-violet-200 bg-clip-text text-transparent font-semibold">
+                        AI-Powered Education Tool
+                      </span>
+                    </div>
                   </motion.div>
 
+                  {/* Enhanced heading with 3D text effect */}
                   <motion.h1
-                    className="text-4xl sm:text-5xl md:text-6xl xl:text-6xl font-bold text-white mb-6 leading-tight"
+                    className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-bold text-white mb-6 leading-tight relative z-10"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.1 }}
                   >
                     The AI-Powered <br className="hidden sm:block" />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 to-pink-200">
-                      Grading Assistant
+                    <span className="relative">
+                      <span className="absolute -inset-1 bg-gradient-to-r from-yellow-300 to-pink-300 blur-xl opacity-30 rounded-lg"></span>
+                      <span className="relative text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-pink-200 to-purple-200 drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)]">
+                        Grading Assistant
+                      </span>
                     </span>
                   </motion.h1>
 
-                  <motion.p
-                    className="text-lg sm:text-xl text-white/90 mb-8 max-w-xl mx-auto lg:mx-0"
+                  {/* Enhanced description with animated underline */}
+                  <motion.div
+                    className="relative"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.2 }}
                   >
-                    Streamline assignments, track submissions, and save hours of grading time with AI-powered automation
-                  </motion.p>
+                    <p className="text-lg sm:text-xl text-white/90 mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                      Streamline assignments, track submissions, and save hours of grading time with AI-powered automation
+                    </p>
+                    <motion.div 
+                      className="absolute -bottom-2 left-0 h-0.5 bg-gradient-to-r from-transparent via-blue-300 to-transparent"
+                      initial={{ width: "0%" }}
+                      animate={{ width: "100%" }}
+                      transition={{ duration: 1.5, delay: 0.8, ease: "easeInOut" }}
+                    />
+                  </motion.div>
 
+                  {/* Enhanced CTA buttons with 3D effects and animations */}
                   <motion.div
                     className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
                     initial={{ opacity: 0, y: 20 }}
@@ -343,27 +473,85 @@ const LandingPage = () => {
                     transition={{ duration: 0.6, delay: 0.3 }}
                   >
                     <motion.button
-                      className="bg-white text-blue-600 font-semibold px-8 py-4 rounded-full hover:bg-blue-50 transition duration-200 shadow-lg flex items-center justify-center text-lg"
-                      whileHover={{ scale: 1.05, boxShadow: "0 10px 25px -5px rgba(59, 130, 246, 0.5)" }}
+                      className="relative group bg-white text-blue-600 font-semibold px-8 py-4 rounded-full transition duration-300 shadow-lg flex items-center justify-center text-lg overflow-hidden z-10"
+                      whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => navigate("/signup")}
                     >
-                      Get Started for Free
-                      <ArrowRight className="ml-2 h-5 w-5" />
+                      {/* Button glow effect */}
+                      <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-400 to-purple-400 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span>
+                      
+                      {/* Button shine effect */}
+                      <span className="absolute inset-0 w-0 h-full bg-white opacity-20 transform -skew-x-12 group-hover:animate-shine"></span>
+                      
+                      <span className="relative z-10 flex items-center">
+                        Get Started for Free
+                        <motion.span
+                          className="ml-2 inline-block"
+                          animate={{ x: [0, 4, 0] }}
+                          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                        >
+                          <ArrowRight className="h-5 w-5" />
+                        </motion.span>
+                      </span>
                     </motion.button>
 
                     <motion.button
-                      className="bg-transparent border-2 border-white text-white font-semibold px-8 py-4 rounded-full hover:bg-white/10 transition duration-200 flex items-center justify-center text-lg backdrop-blur-sm"
-                      whileHover={{ scale: 1.05, boxShadow: "0 10px 25px -5px rgba(255, 255, 255, 0.2)" }}
+                      className="relative group bg-transparent border-2 border-white text-white font-semibold px-8 py-4 rounded-full transition duration-300 flex items-center justify-center text-lg backdrop-blur-sm overflow-hidden"
+                      whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
-                      <Play className="mr-2 h-5 w-5" />
-                      Watch Demo
+                      {/* Button glow effect */}
+                      <span className="absolute inset-0 w-full h-full bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span>
+                      
+                      {/* Button shine effect */}
+                      <span className="absolute inset-0 w-0 h-full bg-white opacity-20 transform -skew-x-12 group-hover:animate-shine"></span>
+                      
+                      <span className="relative z-10 flex items-center">
+                        <motion.span
+                          className="mr-2 inline-block"
+                          animate={{ 
+                            scale: [1, 1.2, 1],
+                          }}
+                          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                        >
+                          <Play className="h-5 w-5" />
+                        </motion.span>
+                        Watch Demo
+                      </span>
                     </motion.button>
+                  </motion.div>
+                  
+                  {/* Trust badges - Enhanced with 3D effects */}
+                  <motion.div 
+                    className="mt-12 hidden lg:flex gap-6"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.5 }}
+                  >
+                    <motion.div 
+                      className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-lg border border-white/20 shadow-xl relative group"
+                      whileHover={{ y: -5, scale: 1.05 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <span className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-yellow-400/0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                      <Star className="text-yellow-400 w-5 h-5 relative z-10" />
+                      <span className="text-white text-sm font-medium relative z-10">Trusted by 10,000+ educators</span>
+                    </motion.div>
+                    
+                    <motion.div 
+                      className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-lg border border-white/20 shadow-xl relative group"
+                      whileHover={{ y: -5, scale: 1.05 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <span className="absolute inset-0 bg-gradient-to-r from-purple-400/20 to-purple-400/0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                      <Award className="text-purple-400 w-5 h-5 relative z-10" />
+                      <span className="text-white text-sm font-medium relative z-10">Award-winning AI technology</span>
+                    </motion.div>
                   </motion.div>
                 </div>
 
-                {/* Right column - Dashboard image */}
+                {/* Right column - Dashboard image with enhanced 3D effects */}
                 <div className="w-full lg:w-1/2 px-4 sm:px-8 lg:px-4 lg:pt-12">
                   <motion.div
                     className="relative mx-auto max-w-lg lg:max-w-none lg:mt-8"
@@ -371,50 +559,103 @@ const LandingPage = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.2 }}
                   >
-                    {/* Advanced glow effects */}
-                    <div className="absolute -top-10 -left-10 w-32 h-32 bg-yellow-400 rounded-full opacity-30 blur-3xl"></div>
-                    <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-purple-400 rounded-full opacity-30 blur-3xl"></div>
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-blue-400 rounded-full opacity-20 blur-3xl"></div>
+                    {/* Enhanced glow effects with animation */}
+                    <motion.div 
+                      className="absolute -top-10 -left-10 w-40 h-40 bg-yellow-400 rounded-full opacity-30 blur-3xl"
+                      animate={{ 
+                        scale: [1, 1.2, 1],
+                        opacity: [0.3, 0.5, 0.3],
+                      }}
+                      transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                    ></motion.div>
+                    
+                    <motion.div 
+                      className="absolute -bottom-10 -right-10 w-48 h-48 bg-purple-400 rounded-full opacity-30 blur-3xl"
+                      animate={{ 
+                        scale: [1, 1.3, 1],
+                        opacity: [0.3, 0.4, 0.3],
+                      }}
+                      transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                    ></motion.div>
+                    
+                    <motion.div 
+                      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-blue-400 rounded-full opacity-20 blur-3xl"
+                      animate={{ 
+                        scale: [1, 1.1, 1],
+                        opacity: [0.2, 0.3, 0.2],
+                      }}
+                      transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+                    ></motion.div>
 
-                    {/* Animated particles */}
+                    {/* Enhanced animated particles with glow */}
                     <div className="absolute inset-0 overflow-hidden">
-                      {[...Array(20)].map((_, i) => (
-                        <div
+                      {[...Array(30)].map((_, i) => (
+                        <motion.div
                           key={i}
                           className="absolute w-2 h-2 bg-white rounded-full opacity-60"
-                          style={{
+                          initial={{
                             top: `${Math.random() * 100}%`,
                             left: `${Math.random() * 100}%`,
-                            animation: `float ${3 + Math.random() * 7}s linear infinite`,
-                            animationDelay: `${Math.random() * 5}s`,
+                            scale: Math.random() * 0.5 + 0.5,
                           }}
-                        ></div>
+                          animate={{
+                            top: [
+                              `${Math.random() * 100}%`,
+                              `${Math.random() * 100}%`,
+                              `${Math.random() * 100}%`,
+                            ],
+                            left: [
+                              `${Math.random() * 100}%`,
+                              `${Math.random() * 100}%`,
+                              `${Math.random() * 100}%`,
+                            ],
+                            scale: [0.5, 1, 0.5],
+                            opacity: [0.3, 0.8, 0.3],
+                          }}
+                          transition={{
+                            duration: 10 + Math.random() * 20,
+                            repeat: Infinity,
+                            ease: "linear",
+                          }}
+                          style={{
+                            boxShadow: `0 0 ${Math.random() * 10 + 5}px rgba(255, 255, 255, 0.8)`,
+                          }}
+                        />
                       ))}
                     </div>
 
-                    {/* Floating notification */}
+                    {/* Enhanced floating notifications with 3D effects */}
                     <motion.div
-                      className="absolute -top-16 right-0 bg-white rounded-lg shadow-xl p-3 z-10 max-w-[200px]"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
+                      className="absolute -top-16 right-0 bg-white rounded-lg shadow-xl p-3 z-10 max-w-[220px] backdrop-blur-sm border border-white/20"
+                      initial={{ opacity: 0, y: 20, rotateZ: -5 }}
+                      animate={{ opacity: 1, y: 0, rotateZ: 0 }}
                       transition={{ duration: 0.6, delay: 1.2 }}
                       whileHover={{
                         scale: 1.05,
                         boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+                        rotateZ: 2,
                       }}
                     >
                       <div className="flex items-start">
-                        <div className="bg-green-100 p-2 rounded-full mr-3">
-                          <CheckCircle className="h-4 w-4 text-green-600" />
+                        <div className="bg-gradient-to-br from-green-100 to-green-200 p-2 rounded-full mr-3 shadow-inner">
+                          <CheckCircle className="h-5 w-5 text-green-600" />
                         </div>
                         <div>
-                          <p className="text-xs font-medium text-gray-800">Assignment graded</p>
+                          <p className="text-sm font-medium text-gray-800">Assignment graded</p>
                           <p className="text-xs text-gray-500">24 submissions processed</p>
+                          <div className="mt-1 w-full bg-gray-100 h-1 rounded-full overflow-hidden">
+                            <motion.div 
+                              className="h-full bg-green-500 rounded-full" 
+                              initial={{ width: "0%" }}
+                              animate={{ width: "100%" }}
+                              transition={{ duration: 1.5, delay: 1.5 }}
+                            />
+                          </div>
                         </div>
                       </div>
                     </motion.div>
 
-                    {/* Dashboard Image with advanced glass morphism effect */}
+                    {/* Dashboard Image with enhanced glass morphism and 3D effects */}
                     <div className="relative rounded-xl overflow-hidden backdrop-blur-sm transform perspective-1000">
                       <motion.div
                         className="absolute inset-0 bg-gradient-to-tr from-blue-500/20 to-purple-500/20 backdrop-blur-sm"
@@ -424,7 +665,7 @@ const LandingPage = () => {
                       ></motion.div>
 
                       <motion.div
-                        className="relative z-10"
+                        className="relative z-10 rounded-xl overflow-hidden"
                         initial={{ rotateX: 10, rotateY: -10 }}
                         animate={{ rotateX: 0, rotateY: 0 }}
                         transition={{ duration: 1, ease: "easeOut" }}
@@ -434,35 +675,131 @@ const LandingPage = () => {
                           boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
                         }}
                       >
-                        <img
-                          src={dashboardImg || "/placeholder.svg?height=600&width=800"}
-                          alt="GradeGenie Dashboard Preview"
-                          className="rounded-xl shadow-2xl border-4 border-white/20 w-full h-auto"
-                        />
+                        {/* Enhanced image frame with animated border */}
+                        <div className="relative p-1 rounded-xl overflow-hidden">
+                          <div className="absolute inset-0">
+                            <motion.div 
+                              className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-xl"
+                              animate={{ 
+                                backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+                              }}
+                              transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                              style={{ backgroundSize: '200% 200%' }}
+                            />
+                          </div>
+                          
+                          <div className="relative rounded-lg overflow-hidden border-2 border-white/20">
+                            <img
+                              src={dashboardImg || "/placeholder.svg?height=600&width=800"}
+                              alt="GradeGenie Dashboard Preview"
+                              className="rounded-lg shadow-2xl w-full h-auto"
+                            />
 
-                        {/* Reflection effect */}
-                        <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent opacity-50 rounded-xl"></div>
+                            {/* Enhanced reflection effect */}
+                            <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent opacity-60 rounded-lg"></div>
+                            
+                            {/* Animated scan line effect */}
+                            <motion.div 
+                              className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-400/20 to-transparent h-[20%] opacity-30"
+                              initial={{ top: '-20%' }}
+                              animate={{ top: '100%' }}
+                              transition={{ duration: 3, repeat: Infinity, ease: "linear", repeatDelay: 1 }}
+                            />
+                          </div>
+                        </div>
                       </motion.div>
                     </div>
 
-                    {/* Floating stats */}
+                    {/* Enhanced floating stats with 3D effects and animation */}
                     <motion.div
-                      className="absolute -bottom-14 left-0 bg-white rounded-lg shadow-xl p-3 z-10"
-                      initial={{ opacity: 0, y: -20 }}
-                      animate={{ opacity: 1, y: 0 }}
+                      className="absolute -bottom-14 left-0 bg-white rounded-lg shadow-xl p-3 z-10 backdrop-blur-sm border border-white/20"
+                      initial={{ opacity: 0, y: -20, rotateZ: 5 }}
+                      animate={{ opacity: 1, y: 0, rotateZ: 0 }}
                       transition={{ duration: 0.6, delay: 1.4 }}
                       whileHover={{
                         scale: 1.05,
                         boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+                        rotateZ: -2,
                       }}
                     >
                       <div className="flex items-center">
-                        <div className="bg-blue-100 p-2 rounded-full mr-3">
-                          <Zap className="h-4 w-4 text-blue-600" />
+                        <div className="bg-gradient-to-br from-blue-100 to-blue-200 p-2 rounded-full mr-3 shadow-inner">
+                          <Zap className="h-5 w-5 text-blue-600" />
                         </div>
                         <div>
                           <p className="text-xs font-medium text-gray-800">Time saved this week</p>
-                          <p className="text-sm font-bold text-blue-600">12.5 hours</p>
+                          <div className="flex items-center">
+                            <motion.p 
+                              className="text-sm font-bold text-blue-600"
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              transition={{ duration: 0.3, delay: 1.8 }}
+                            >
+                              12.5 hours
+                            </motion.p>
+                            <motion.span 
+                              className="ml-1 text-xs text-green-500 flex items-center"
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              transition={{ duration: 0.3, delay: 2 }}
+                            >
+                              <svg className="w-3 h-3 mr-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+                              </svg>
+                              24%
+                            </motion.span>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                    
+                    {/* New floating element - AI processing indicator */}
+                    <motion.div
+                      className="absolute top-1/2 -right-10 bg-white rounded-lg shadow-xl p-3 z-10 backdrop-blur-sm border border-white/20"
+                      initial={{ opacity: 0, x: -20, rotateZ: -5 }}
+                      animate={{ opacity: 1, x: 0, rotateZ: 0 }}
+                      transition={{ duration: 0.6, delay: 1.6 }}
+                      whileHover={{
+                        scale: 1.05,
+                        boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+                        rotateZ: 2,
+                      }}
+                    >
+                      <div className="flex items-center">
+                        <div className="relative bg-gradient-to-br from-purple-100 to-purple-200 p-2 rounded-full mr-3 shadow-inner overflow-hidden">
+                          <motion.div 
+                            className="absolute inset-0 bg-purple-300 opacity-30"
+                            animate={{ 
+                              scale: [1, 1.5, 1],
+                              opacity: [0.3, 0, 0.3],
+                            }}
+                            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                          />
+                          <svg className="h-5 w-5 text-purple-600 relative z-10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 16.5C14.4853 16.5 16.5 14.4853 16.5 12C16.5 9.51472 14.4853 7.5 12 7.5C9.51472 7.5 7.5 9.51472 7.5 12C7.5 14.4853 9.51472 16.5 12 16.5Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M12 2V4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M12 20V22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M4.93 4.93L6.34 6.34" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M17.66 17.66L19.07 19.07" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M2 12H4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M20 12H22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M6.34 17.66L4.93 19.07" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M19.07 4.93L17.66 6.34" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="text-xs font-medium text-gray-800">AI Processing</p>
+                          <div className="flex items-center">
+                            <div className="w-16 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                              <motion.div 
+                                className="h-full bg-purple-500 rounded-full" 
+                                animate={{ 
+                                  width: ["0%", "100%", "0%"],
+                                }}
+                                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                              />
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </motion.div>
@@ -472,47 +809,93 @@ const LandingPage = () => {
             </div>
           </motion.div>
 
-          {/* Mobile badges - Only visible on smaller screens */}
+          {/* Mobile badges - Only visible on smaller screens - Enhanced with 3D effects */}
           <div className="lg:hidden flex flex-wrap justify-center gap-4 pb-12 px-6">
             <motion.div
-              className="bg-white/10 backdrop-blur-md px-4 py-3 rounded-lg border border-white/20 shadow-xl"
+              className="bg-white/10 backdrop-blur-md px-4 py-3 rounded-lg border border-white/20 shadow-xl relative group"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.8 }}
+              whileHover={{ y: -5, scale: 1.05 }}
             >
-              <div className="flex items-center">
+              <span className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-yellow-400/0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+              <div className="flex items-center relative z-10">
                 <Star className="text-yellow-400 w-5 h-5 mr-2" />
                 <span className="text-white text-sm font-medium">Trusted by 10,000+ educators</span>
               </div>
             </motion.div>
 
             <motion.div
-              className="bg-white/10 backdrop-blur-md px-4 py-3 rounded-lg border border-white/20 shadow-xl"
+              className="bg-white/10 backdrop-blur-md px-4 py-3 rounded-lg border border-white/20 shadow-xl relative group"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1 }}
+              whileHover={{ y: -5, scale: 1.05 }}
             >
-              <div className="flex items-center">
+              <span className="absolute inset-0 bg-gradient-to-r from-purple-400/20 to-purple-400/0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+              <div className="flex items-center relative z-10">
                 <Award className="text-yellow-400 w-5 h-5 mr-2" />
                 <span className="text-white text-sm font-medium">Award-winning AI technology</span>
               </div>
             </motion.div>
           </div>
 
-          {/* Wave Divider - Improved for all screen sizes */}
-          <div className="w-full overflow-hidden mt-auto">
-            <svg
-              className="w-full h-auto"
-              viewBox="0 0 1440 120"
-              preserveAspectRatio="none"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+          {/* Enhanced Wave Divider with animation */}
+          <div className="w-full overflow-hidden mt-auto relative">
+            <motion.div
+              initial={{ y: 100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 1, delay: 0.5 }}
             >
-              <path
-                d="M0 0L48 8.33333C96 16.6667 192 33.3333 288 41.6667C384 50 480 50 576 41.6667C672 33.3333 768 16.6667 864 8.33333C960 0 1056 0 1152 8.33333C1248 16.6667 1344 33.3333 1392 41.6667L1440 50V120H1392C1344 120 1248 120 1152 120C1056 120 960 120 864 120C768 120 672 120 576 120C480 120 384 120 288 120C192 120 96 120 48 120H0V0Z"
-                fill="white"
-              />
-            </svg>
+              <svg
+                className="w-full h-auto"
+                viewBox="0 0 1440 120"
+                preserveAspectRatio="none"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <motion.path
+                  d="M0 0L48 8.33333C96 16.6667 192 33.3333 288 41.6667C384 50 480 50 576 41.6667C672 33.3333 768 16.6667 864 8.33333C960 0 1056 0 1152 8.33333C1248 16.6667 1344 33.3333 1392 41.6667L1440 50V120H1392C1344 120 1248 120 1152 120C1056 120 960 120 864 120C768 120 672 120 576 120C480 120 384 120 288 120C192 120 96 120 48 120H0V0Z"
+                  fill="white"
+                  animate={{
+                    d: [
+                      "M0 0L48 8.33333C96 16.6667 192 33.3333 288 41.6667C384 50 480 50 576 41.6667C672 33.3333 768 16.6667 864 8.33333C960 0 1056 0 1152 8.33333C1248 16.6667 1344 33.3333 1392 41.6667L1440 50V120H1392C1344 120 1248 120 1152 120C1056 120 960 120 864 120C768 120 672 120 576 120C480 120 384 120 288 120C192 120 96 120 48 120H0V0Z",
+                      "M0 0L48 12C96 24 192 48 288 60C384 72 480 72 576 60C672 48 768 24 864 12C960 0 1056 0 1152 12C1248 24 1344 48 1392 60L1440 72V120H1392C1344 120 1248 120 1152 120C1056 120 960 120 864 120C768 120 672 120 576 120C480 120 384 120 288 120C192 120 96 120 48 120H0V0Z",
+                      "M0 0L48 8.33333C96 16.6667 192 33.3333 288 41.6667C384 50 480 50 576 41.6667C672 33.3333 768 16.6667 864 8.33333C960 0 1056 0 1152 8.33333C1248 16.6667 1344 33.3333 1392 41.6667L1440 50V120H1392C1344 120 1248 120 1152 120C1056 120 960 120 864 120C768 120 672 120 576 120C480 120 384 120 288 120C192 120 96 120 48 120H0V0Z",
+                    ],
+                  }}
+                  transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+                />
+              </svg>
+            </motion.div>
+            
+            {/* Additional decorative elements on the wave */}
+            <motion.div 
+              className="absolute bottom-0 left-1/4 w-4 h-4 bg-blue-500 rounded-full opacity-70"
+              animate={{ 
+                y: [0, -20, 0],
+                opacity: [0.7, 0.3, 0.7],
+              }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            />
+            
+            <motion.div 
+              className="absolute bottom-0 left-2/3 w-3 h-3 bg-purple-500 rounded-full opacity-70"
+              animate={{ 
+                y: [0, -15, 0],
+                opacity: [0.7, 0.4, 0.7],
+              }}
+              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+            />
+            
+            <motion.div 
+              className="absolute bottom-0 left-1/2 w-5 h-5 bg-pink-500 rounded-full opacity-70"
+              animate={{ 
+                y: [0, -25, 0],
+                opacity: [0.7, 0.2, 0.7],
+              }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            />
           </div>
         </div>
       </div>
@@ -931,7 +1314,7 @@ const LandingPage = () => {
               >
                 <div className="w-24 h-24 md:w-32 md:h-32 bg-white rounded-2xl shadow-lg flex items-center justify-center p-4 border-2 border-blue-100">
                   <img
-                    src={SolutionsChallenge}
+                    src={SolutionsChallenge || "/placeholder.svg"}
                     alt="Google Solution Challenge"
                     className="max-w-full max-h-full"
                   />
@@ -947,7 +1330,7 @@ const LandingPage = () => {
               >
                 <div className="w-24 h-24 md:w-32 md:h-32 bg-white rounded-2xl shadow-lg flex items-center justify-center p-4 border-2 border-purple-100">
                   <img
-                    src={AiStudioLogo}
+                    src={AiStudioLogo || "/placeholder.svg"}
                     alt="AI Studio of Google"
                     className="max-w-full max-h-full"
                   />
@@ -962,7 +1345,7 @@ const LandingPage = () => {
                 transition={{ duration: 0.2 }}
               >
                 <div className="w-24 h-24 md:w-32 md:h-32 bg-white rounded-2xl shadow-lg flex items-center justify-center p-4 border-2 border-blue-100">
-                  <img src={GeminiLogo} alt="GEMINI" className="max-w-full max-h-full" />
+                  <img src={GeminiLogo || "/placeholder.svg"} alt="GEMINI" className="max-w-full max-h-full" />
                 </div>
                 <p className="mt-4 text-sm font-medium text-gray-700">Gemini</p>
               </motion.div>
@@ -974,7 +1357,7 @@ const LandingPage = () => {
                 transition={{ duration: 0.2 }}
               >
                 <div className="w-24 h-24 md:w-32 md:h-32 bg-white rounded-2xl shadow-lg flex items-center justify-center p-4 border-2 border-purple-100">
-                  <img src={VercelLogo} alt="VERCEL" className="max-w-full max-h-full" />
+                  <img src={VercelLogo || "/placeholder.svg"} alt="VERCEL" className="max-w-full max-h-full" />
                 </div>
                 <p className="mt-4 text-sm font-medium text-gray-700">Vercel</p>
               </motion.div>
@@ -986,7 +1369,7 @@ const LandingPage = () => {
                 transition={{ duration: 0.2 }}
               >
                 <div className="w-24 h-24 md:w-32 md:h-32 bg-white rounded-2xl shadow-lg flex items-center justify-center p-4 border-2 border-blue-100">
-                  <img src={TypeScriptLogo} alt="TypeScript" className="max-w-full max-h-full" />
+                  <img src={TypeScriptLogo || "/placeholder.svg"} alt="TypeScript" className="max-w-full max-h-full" />
                 </div>
                 <p className="mt-4 text-sm font-medium text-gray-700">TypeScript</p>
               </motion.div>
@@ -998,7 +1381,7 @@ const LandingPage = () => {
                 transition={{ duration: 0.2 }}
               >
                 <div className="w-24 h-24 md:w-32 md:h-32 bg-white rounded-2xl shadow-lg flex items-center justify-center p-4 border-2 border-blue-100">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 54 33"><g clip-path="url(#prefix__clip0)"><path fill="#38bdf8" fill-rule="evenodd" d="M27 0c-7.2 0-11.7 3.6-13.5 10.8 2.7-3.6 5.85-4.95 9.45-4.05 2.054.513 3.522 2.004 5.147 3.653C30.744 13.09 33.808 16.2 40.5 16.2c7.2 0 11.7-3.6 13.5-10.8-2.7 3.6-5.85 4.95-9.45 4.05-2.054-.513-3.522-2.004-5.147-3.653C36.756 3.11 33.692 0 27 0zM13.5 16.2C6.3 16.2 1.8 19.8 0 27c2.7-3.6 5.85-4.95 9.45-4.05 2.054.514 3.522 2.004 5.147 3.653C17.244 29.29 20.308 32.4 27 32.4c7.2 0 11.7-3.6 13.5-10.8-2.7 3.6-5.85 4.95-9.45 4.05-2.054-.513-3.522-2.004-5.147-3.653C23.256 19.31 20.192 16.2 13.5 16.2z" clip-rule="evenodd"/></g><defs><clipPath id="prefix__clip0"><path fill="#fff" d="M0 0h54v32.4H0z"/></clipPath></defs></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 54 33"><g clipPath="url(#prefix__clip0)"><path fill="#38bdf8" fillRule="evenodd" d="M27 0c-7.2 0-11.7 3.6-13.5 10.8 2.7-3.6 5.85-4.95 9.45-4.05 2.054.513 3.522 2.004 5.147 3.653C30.744 13.09 33.808 16.2 40.5 16.2c7.2 0 11.7-3.6 13.5-10.8-2.7 3.6-5.85 4.95-9.45 4.05-2.054-.513-3.522-2.004-5.147-3.653C36.756 3.11 33.692 0 27 0zM13.5 16.2C6.3 16.2 1.8 19.8 0 27c2.7-3.6 5.85-4.95 9.45-4.05 2.054.514 3.522 2.004 5.147 3.653C17.244 29.29 20.308 32.4 27 32.4c7.2 0 11.7-3.6 13.5-10.8-2.7 3.6-5.85 4.95-9.45 4.05-2.054-.513-3.522-2.004-5.147-3.653C23.256 19.31 20.192 16.2 13.5 16.2z" clipRule="evenodd"/></g><defs><clipPath id="prefix__clip0"><path fill="#fff" d="M0 0h54v32.4H0z"/></clipPath></defs></svg>
                 </div>
                 <p className="mt-4 text-sm font-medium text-gray-700">Tailwind CSS</p>
               </motion.div>
@@ -1010,7 +1393,7 @@ const LandingPage = () => {
                 transition={{ duration: 0.2 }}
               >
                 <div className="w-24 h-24 md:w-32 md:h-32 bg-white rounded-2xl shadow-lg flex items-center justify-center p-4 border-2 border-blue-100">
-                  <img src={ViteLogo} alt="Vite" className="max-w-full max-h-full" />
+                  <img src={ViteLogo || "/placeholder.svg"} alt="Vite" className="max-w-full max-h-full" />
                 </div>
                 <p className="mt-4 text-sm font-medium text-gray-700"> Vite Build</p>
               </motion.div>
@@ -1178,4 +1561,3 @@ const LandingPage = () => {
 }
 
 export default LandingPage
-
