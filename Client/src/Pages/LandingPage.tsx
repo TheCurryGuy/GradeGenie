@@ -937,7 +937,7 @@ const LandingPage = () => {
                     </div>
                     <h3 className="text-xl font-semibold text-gray-800 ml-4">Educators</h3>
                   </div>
-                  <p className="text-3xl sm:text-4xl font-bold text-purple-600 mb-2">10,000+</p>
+                  <p className="text-3xl sm:text-4xl font-bold text-purple-600 mb-2">100+</p>
                   <p className="text-gray-600">Teachers actively using GradeGenie to enhance their grading process</p>
                 </div>
               </motion.div>
@@ -955,8 +955,8 @@ const LandingPage = () => {
                     </div>
                     <h3 className="text-xl font-semibold text-gray-800 ml-4">Accuracy</h3>
                   </div>
-                  <p className="text-3xl sm:text-4xl font-bold text-green-600 mb-2">99.8%</p>
-                  <p className="text-gray-600">Precision rate of our AI-powered grading assistance</p>
+                  <p className="text-3xl sm:text-4xl font-bold text-green-600 mb-2">99%</p>
+                  <p className="text-gray-600">Precision rate of our AI-powered grading assistance, thanks to Gemini</p>
                 </div>
               </motion.div>
             </div>
@@ -1096,16 +1096,16 @@ const LandingPage = () => {
                       <span className="text-green-600 ml-2">gradegenie create</span>
                     </div>
 
-                    <div className="text-gray-600 pl-4">Creating new assignment...</div>
+                    <div className="text-gray-600 pl-4">Creating New Assignment...</div>
 
                     <div className="bg-white p-3 rounded-md border border-gray-300">
                       <p className="text-gray-700 mb-2">
-                        Design interactive assignments with rich text, file uploads, and automatic deadline tracking
+                        Design your assignments as parsable document, set parameters and deadlines
                       </p>
                       <div className="flex flex-wrap gap-2 mt-3">
-                        <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs">Rich Text</span>
-                        <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs">File Uploads</span>
-                        <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs">Auto-Deadlines</span>
+                        <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs">Text Format</span>
+                        <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs">File Management</span>
+                        <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs">Auto-Deadline Tracking</span>
                       </div>
                     </div>
 
@@ -1143,14 +1143,15 @@ const LandingPage = () => {
                       <span className="text-green-600 ml-2">gradegenie share --class="Math101"</span>
                     </div>
 
-                    <div className="text-gray-600 pl-4">Generating secure links...</div>
+                    <div className="text-gray-600 pl-4">Generating Secure Links...</div>
 
                     <div className="bg-white p-3 rounded-md border border-gray-300">
-                      <p className="text-gray-700 mb-2">Distribute unique submission links through your LMS or email</p>
+                      <p className="text-gray-700 mb-2">Distribute unique secure submission links through your desired platform</p>
                       <div className="flex flex-wrap gap-2 mt-3">
                         <span className="px-2 py-1 bg-purple-100 text-purple-700 rounded text-xs">One-click Share</span>
                         <span className="px-2 py-1 bg-purple-100 text-purple-700 rounded text-xs">Auto Reminders</span>
                         <span className="px-2 py-1 bg-purple-100 text-purple-700 rounded text-xs">LMS Integration</span>
+                        <span className="px-2 py-1 bg-purple-100 text-purple-700 rounded text-xs">Unique Secure Links</span>
                       </div>
                     </div>
 
@@ -1188,20 +1189,21 @@ const LandingPage = () => {
                       <span className="text-green-600 ml-2">gradegenie grade --auto</span>
                     </div>
 
-                    <div className="text-gray-600 pl-4">AI grading in progress...</div>
+                    <div className="text-gray-600 pl-4">AI Grading in Seconds...</div>
 
                     <div className="bg-white p-3 rounded-md border border-gray-300">
                       <p className="text-gray-700 mb-2">
-                        Review submissions with AI assistance and automated grading tools
+                        Review submissions with Gemini and get instant grading with feedback
                       </p>
                       <div className="flex flex-wrap gap-2 mt-3">
-                        <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs">85% Time Savings</span>
+                        <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs">Time Saving</span>
                         <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs">Plagiarism Check</span>
                         <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs">AI Feedback</span>
+                        <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs">Instant AI Evaluation</span>
                       </div>
                     </div>
 
-                    <div className="text-green-600">✓ Grading complete! 24 assignments processed.</div>
+                    <div className="text-green-600">✓ Grading complete! Thanks Gemini!</div>
                   </div>
                 </div>
               </div>
@@ -1214,7 +1216,7 @@ const LandingPage = () => {
               href="#"
               className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium rounded-full transition duration-200 shadow-lg shadow-blue-500/30"
             >
-              Try GradeGenie Free
+              Try GradeGenie Today
               <svg
                 className="ml-2 w-5 h-5"
                 fill="none"
