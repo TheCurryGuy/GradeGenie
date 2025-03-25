@@ -1421,6 +1421,9 @@ const LandingPage = () => {
                   className="bg-white text-blue-600 font-semibold px-8 py-4 rounded-full hover:bg-blue-50 transition duration-200 shadow-md"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={() => {
+                    navigate("/signup")
+                  }}
                 >
                   Start Today
                 </motion.button>

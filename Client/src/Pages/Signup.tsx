@@ -82,7 +82,7 @@ const Signup: React.FC = () => {
             <div className="mt-auto">
               <div className="inline-flex items-center space-x-2 bg-white/10 px-4 py-2 rounded-lg">
                 <Info className="h-5 w-5 text-purple-200" />
-                <span className="text-purple-100 text-sm">Join thousands of teachers already using GradeGenie</span>
+                <span className="text-purple-100 text-sm">Join the Change. Join GradeGenie Today.</span>
               </div>
             </div>
           </div>
@@ -105,8 +105,8 @@ const Signup: React.FC = () => {
             className="space-y-5"
           >
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <Input label="FirstName" type="text" placeholder="Your first name" inputRef={firstnameRef} />
-              <Input label="LastName" type="text" placeholder="Your last name" inputRef={lastnameRef} />
+              <Input label="First Name" type="text" placeholder="Your first name" inputRef={firstnameRef} />
+              <Input label="Last Name" type="text" placeholder="Your last name" inputRef={lastnameRef} />
             </div>
 
             <Input label="Username" type="email" placeholder="you@example.com" inputRef={usernameRef} />
