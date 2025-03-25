@@ -128,8 +128,8 @@ const GeneratorModal = () => {
         .then(response => {
           const hash = response.data.hash;
           localStorage.setItem('assignmentHash', hash);
-          const assignmentUrl = `https://grade-genie.vercel.app/share/${hash}`;
-          alert(`Assignment link generated: ${assignmentUrl}`);
+          navigator.clipboard.writeText(`https://grade-genie.vercel.app/share/${hash}`);
+          alert("Link copied to clipboard");
           setModal((e:boolean)=> !e)
         })
         .catch(error => {

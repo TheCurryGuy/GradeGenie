@@ -13,7 +13,7 @@ import SolutionsChallenge from "../assets/SolutionsChallenge.png"
 import GeminiLogo from "../assets/GeminiLogo.png"
 import AiStudioLogo from "../assets/AIStudioLogo.png"
 import VercelLogo from "../assets/VercelLogo.png"
-import ViteLogo from "../assets/ViteLogo.png"
+import ReactLogo from "../assets/ReactLogo.png"
 
 const LandingPage = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -507,7 +507,7 @@ const LandingPage = () => {
                       {/* Button shine effect */}
                       <span className="absolute inset-0 w-0 h-full bg-white opacity-20 transform -skew-x-12 group-hover:animate-shine"></span>
                       
-                      <span className="relative z-10 flex items-center">
+                      <span className="relative z-10 flex items-center" onClick={() => {navigate("/signup")}}>
                         <motion.span
                           className="mr-2 inline-block"
                           animate={{ 
@@ -1215,6 +1215,7 @@ const LandingPage = () => {
             <a
               href="#"
               className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium rounded-full transition duration-200 shadow-lg shadow-blue-500/30"
+              onClick={() => {navigate("/signup")}}
             >
               Try GradeGenie Today
               <svg
@@ -1364,6 +1365,18 @@ const LandingPage = () => {
                 <p className="mt-4 text-sm font-medium text-gray-700">Vercel</p>
               </motion.div>
 
+              {/* Tailwind CSS */}
+              <motion.div
+                className="flex flex-col items-center"
+                whileHover={{ y: -8, scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className="w-24 h-24 md:w-32 md:h-32 bg-white rounded-2xl shadow-lg flex items-center justify-center p-4 border-2 border-blue-100">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 54 33"><g clipPath="url(#prefix__clip0)"><path fill="#38bdf8" fillRule="evenodd" d="M27 0c-7.2 0-11.7 3.6-13.5 10.8 2.7-3.6 5.85-4.95 9.45-4.05 2.054.513 3.522 2.004 5.147 3.653C30.744 13.09 33.808 16.2 40.5 16.2c7.2 0 11.7-3.6 13.5-10.8-2.7 3.6-5.85 4.95-9.45 4.05-2.054-.513-3.522-2.004-5.147-3.653C36.756 3.11 33.692 0 27 0zM13.5 16.2C6.3 16.2 1.8 19.8 0 27c2.7-3.6 5.85-4.95 9.45-4.05 2.054.514 3.522 2.004 5.147 3.653C17.244 29.29 20.308 32.4 27 32.4c7.2 0 11.7-3.6 13.5-10.8-2.7 3.6-5.85 4.95-9.45 4.05-2.054-.513-3.522-2.004-5.147-3.653C23.256 19.31 20.192 16.2 13.5 16.2z" clipRule="evenodd"/></g><defs><clipPath id="prefix__clip0"><path fill="#fff" d="M0 0h54v32.4H0z"/></clipPath></defs></svg>
+                </div>
+                <p className="mt-4 text-sm font-medium text-gray-700">Tailwind CSS</p>
+              </motion.div>
+              
               {/* TypeScript */}
               <motion.div
                 className="flex flex-col items-center"
@@ -1376,29 +1389,21 @@ const LandingPage = () => {
                 <p className="mt-4 text-sm font-medium text-gray-700">TypeScript</p>
               </motion.div>
 
-              {/* Tailwind CSS */}
+              
+
+              {/* React */}
               <motion.div
                 className="flex flex-col items-center"
                 whileHover={{ y: -8, scale: 1.05 }}
                 transition={{ duration: 0.2 }}
               >
                 <div className="w-24 h-24 md:w-32 md:h-32 bg-white rounded-2xl shadow-lg flex items-center justify-center p-4 border-2 border-blue-100">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 54 33"><g clipPath="url(#prefix__clip0)"><path fill="#38bdf8" fillRule="evenodd" d="M27 0c-7.2 0-11.7 3.6-13.5 10.8 2.7-3.6 5.85-4.95 9.45-4.05 2.054.513 3.522 2.004 5.147 3.653C30.744 13.09 33.808 16.2 40.5 16.2c7.2 0 11.7-3.6 13.5-10.8-2.7 3.6-5.85 4.95-9.45 4.05-2.054-.513-3.522-2.004-5.147-3.653C36.756 3.11 33.692 0 27 0zM13.5 16.2C6.3 16.2 1.8 19.8 0 27c2.7-3.6 5.85-4.95 9.45-4.05 2.054.514 3.522 2.004 5.147 3.653C17.244 29.29 20.308 32.4 27 32.4c7.2 0 11.7-3.6 13.5-10.8-2.7 3.6-5.85 4.95-9.45 4.05-2.054-.513-3.522-2.004-5.147-3.653C23.256 19.31 20.192 16.2 13.5 16.2z" clipRule="evenodd"/></g><defs><clipPath id="prefix__clip0"><path fill="#fff" d="M0 0h54v32.4H0z"/></clipPath></defs></svg>
+                  <img src={ReactLogo || "/placeholder.svg"} alt="Vite" className="max-w-full max-h-full" />
                 </div>
-                <p className="mt-4 text-sm font-medium text-gray-700">Tailwind CSS</p>
+                <p className="mt-4 text-sm font-medium text-gray-700"> React</p>
               </motion.div>
 
-              {/* Vite */}
-              <motion.div
-                className="flex flex-col items-center"
-                whileHover={{ y: -8, scale: 1.05 }}
-                transition={{ duration: 0.2 }}
-              >
-                <div className="w-24 h-24 md:w-32 md:h-32 bg-white rounded-2xl shadow-lg flex items-center justify-center p-4 border-2 border-blue-100">
-                  <img src={ViteLogo || "/placeholder.svg"} alt="Vite" className="max-w-full max-h-full" />
-                </div>
-                <p className="mt-4 text-sm font-medium text-gray-700"> Vite Build</p>
-              </motion.div>
+              
             </div>
           </div>
         </section>
